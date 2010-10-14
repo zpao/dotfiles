@@ -1,0 +1,417 @@
+﻿/* Colors used:
+	(see http://www.somacon.com/p142.php)
+	#8B0000 - darkred; for title-ish text and links
+	#8B7765 - peachpuff4; for dimmed things like block quotes and navigation
+	#EEE6D4 - ??; for 1px lines
+	#FEF6E4 - warm shadow; for news background
+*/
+
+
+/* Main stuff */
+
+h1, h2, h3, h4, h5 {
+	color: #8B0000;
+	font-family: Sans-Serif;
+}
+
+ul {
+	list-style-type: square;
+	padding-left: 1.5em;
+	margin-left: 0;
+}
+
+ul.spaced > li {
+	margin-bottom: 1ex;
+}
+
+pre
+{
+	margin-left: 1.5em;
+	padding: .5em;
+	border: none;
+	background: #EEE6D4;
+	clear: right;
+}
+
+pre span.input {
+}
+
+pre span.output {
+	color: #7B6755;
+}
+
+tt {
+	font-style: italic;
+}
+
+a {
+	color: #8B0000;
+	font-style: normal;
+}
+
+a:visited {
+	text-decoration: none;
+}
+
+a:hover {
+	text-decoration: underline;
+}
+
+h2 > a:hover, h3 > a:hover, h4 > a:hover, h5 > a:hover {
+	text-decoration: none;
+}
+
+td {
+	vertical-align: top;
+}
+
+dt {
+	margin-top: 1ex;
+	font-style: italic;
+	color: #8B0000;
+}
+
+blockquote {
+	border-left: solid 1px #CDB7B5;
+	color: #8B7765;
+	font-style: italic;
+	padding-left: 1em;
+	margin-left: 0;
+	margin-right: 0;
+}
+
+
+/* Main flow */
+
+div.all {
+	margin-top: 1ex;
+	margin-left: 20%;
+	margin-right: 10%;
+	max-width: 40em;
+}
+
+
+/* Photo */
+
+div.photo {
+	float: right;
+}
+
+
+/* Breadcrumbs */
+
+div.nav {
+	height: 4ex;
+	font-size: x-small;
+	text-transform: lowercase;
+	color: #8B7765;
+	font-family: Sans-Serif;
+}
+
+div.nav a {
+	color: #8B7765;
+	text-decoration: none;
+}
+
+
+div.nav a:hover, div.nav a:active {
+	text-decoration: underline;
+}
+
+
+/* TOC */
+
+div.toc {
+	border-left: solid 1px #EEE6D4;
+	font-size: smaller;
+	font-family: Sans-Serif;
+	color: #8B7765;
+}
+
+div.toc > ul {
+	list-style-type: none;
+	padding-left: 1em;
+	margin-left: 0;
+}
+
+div.toc > ul > li {
+	margin-bottom: 0.3ex;
+}
+
+div.toc li.withitems {
+	margin-bottom: 0.5ex;
+}
+
+ul.toc ul {
+	font-size: x-small;
+	margin-left: 0;
+}
+
+ul.toc a {
+	color: #8B7765;
+	text-decoration: none;
+}
+
+ul.toc a:hover, ul.toc a:active {
+	text-decoration: underline;
+}
+
+
+/* Document title */
+
+h1 {
+	font-size: x-large;
+	font-weight: normal;
+	margin-bottom: 1.5ex;
+	padding-top: 0;
+	padding-bottom: 0;
+	border-bottom: solid 1px #EEE6D4
+}
+
+.nofirefox {
+	font-size: x-small;
+	color: red;
+	float: right;
+	width: 10em;
+}
+
+div > p.nofirefox {
+	display: none;
+}
+
+
+/* Strong headings */
+
+div.content h2, div.content h3 {
+	font-weight: normal;
+}
+
+div.content h2 {
+	margin-top: .3em;
+	margin-left: -10em;
+	width: 10em;
+	/*white-space: nowrap;
+	overflow: visible;*/
+	border-bottom: solid 1px #EEE6D4;
+	font-size: large;
+}
+
+div.content h3 {
+	margin-top: 1.5em;
+	font-style: italic;
+}
+
+p.startofcontent + h2, p.startofcontent + h3 {
+	display: none;
+}
+
+
+/* Margin headings */
+
+div.content h4, div.content h5 {
+	margin-left: -5em;
+	float: left;
+	width: 9em;
+	overflow: hidden;
+	margin-top: 0;
+	font-size: small;
+	font-weight: normal;
+	font-style: italic;
+	text-align: right;
+}
+
+div.content > h4, div.content > h5 {
+	margin-left: -9em;
+	width: 8em;
+}
+
+div.content h4 {
+	font-weight: bold;
+}
+
+
+/* Footer */
+
+div.footer {
+	margin-top: 3em;
+	border-top: solid 1px #EEE6D4;
+	color: #8B7765;
+	font-size: x-small;
+	font-family: Sans-Serif;
+}
+
+div.footer p {
+	margin-top: .5em;
+}
+
+
+/* News */
+
+div.news {
+	float: right;
+	width: 12em;
+	margin-left: 1em;
+	margin-bottom: 1em;
+	padding-left: 1em;
+	padding-right: 1em;
+	background: #FEF6E4;
+}
+
+div.news h2, div.news h3 {
+	margin-left: auto;
+	float: none;
+	width: auto;
+	margin-top: auto;
+	font-size: medium;
+	text-align: left;
+}
+
+div.news h2 {
+	margin-top: 0;
+	font-size: medium;
+	font-weight: normal;
+	display: none;
+}
+
+div.news h3 {
+}
+
+
+/* General */
+
+.when {
+	font-size: x-small;
+	font-style: italic;
+}
+
+.printonly {
+	display: none;
+}
+
+
+/* Java */
+
+span.j-bkg /* background */ {
+}
+
+span.j-lin /* line numbers */ {
+}
+
+span.j-blk /* block comment */ {
+	color: green;
+	font-style: italic;
+}
+
+span.j-cmt /* line comment */ {
+	color: green;
+	font-style: italic;
+}
+
+span.j-key /* keyword */ {
+	/* font-weight:bold; */
+	color: maroon;
+}
+
+span.j-str /* string constants */ {
+	color: blue;
+}
+
+span.j-chr /* char constants */ {
+	color: blue;
+}
+
+span.j-num /* number constants */ {
+}
+
+span.j-sym /* symbols, punctuation */ {
+}
+
+span.j-typ /* primitive types */ {
+	color: maroon;
+}
+
+span.j-def /* default; all the rest */ {
+}
+
+span.j-jdoc /* javadoc */ {
+	color: steelblue;
+}
+
+span.j-jdoc-key /* javadoc keyword */ {
+	color: steelblue;
+	font-weight: bold;
+}
+
+span.j-jdoc-html /* javadoc html tag */ {
+	color: steelblue;
+	font-style: italic;
+}
+
+span.j-jdoc-link /* javadoc link */ {
+	color: steelblue;
+	font-style: italic;
+}
+
+span.j-undef /* undefined */ {
+}
+
+span.j-hl /* highlight */ {
+	text-decoration: none;
+	background-color: #FFFFB0;
+}
+
+/******************** Excel */
+
+table.xl {
+	border-collapse:collapse;
+}
+
+table.xl td 	{
+	border: solid 1px lightgray;
+	text-align: left;
+	vertical-align: top;
+}
+
+table.xl td.xl-row, table.xl thead td {
+	background-color: #ECECEC;
+	border-color: gray;
+	text-align: center;
+	padding-left: 2px;
+	padding-right: 2px;
+}
+
+table.xl td.xl-num, table.xl td.xl-date {
+	text-align: right;
+}
+	
+span.xl-exp {
+	font-size: x-small;
+	font-family: monospace;
+	color: maroon;
+}
+
+span.xl-name {
+	font-size: x-small;
+	font-style: italic;
+	color: #6495ED;
+}
+
+td.xl-r1, span.xl-r1 {
+	background-color: #E0FFFF;
+}
+
+td.xl-r2, span.xl-r2 {
+	background-color: #FFE0FF;
+}
+	
+td.xl-r3, span.xl-r3 {
+	background-color: #FFFFE0;
+}
+
+td.xl-r4, span.xl-r4 {
+	background-color: #E0FFE0;
+}
+
+td.xl-r5, span.xl-r5 {
+	background-color: #E0E0FF;
+}

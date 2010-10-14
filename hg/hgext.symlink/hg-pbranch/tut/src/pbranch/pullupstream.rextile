@@ -1,0 +1,173 @@
+
+h1. Pulling And Merging From Upstream
+
+<%= toc %>
+
+
+This continues the example from "multiple graphs":graph.htm.
+
+
+h2. Pulling And Merging
+
+Work continues upstream:
+
+	$ cd graph-upstream
+	$ echo a >def-1
+	$ hg commit --add --message "def-1"
+	adding def-1
+	$ cd ..
+
+We want to pull and merge this work so as to base our patches on latest upstream:
+
+	$ cd graph-forkjoin
+	$ hg pgraph --status
+	created graph description from current tips
+	o    p-join
+	|\
+	o |  p-fork1
+	| |
+	| o  p-fork2
+	|/
+	o  p-root
+	|
+	@  default
+
+So we pull:
+
+	$ hg pull ../graph-upstream
+	pulling from ../graph-upstream
+	searching for changes
+	adding changesets
+	adding manifests
+	adding file changes
+	added 1 changesets with 1 changes to 1 files (+1 heads)
+	(run 'hg heads' to see heads, 'hg merge' to merge)
+
+and the situation in the repository is as follows:
+
+	$ hg glog
+	o  8	: def-1 - john
+	|
+	| o    7	p-join: merge of .p-join - john
+	| |\
+	| | o    6	.p-join: merge of p-fork2 - john
+	| | |\
+	| | | o  5	.p-join: update patch dependencies - john
+	| | | |
+	| | o |  4	p-fork2: start new patch on p-root - john
+	| | | |
+	| o---+  3	p-join: start new patch on p-fork1 - john
+	|  / /
+	| | o  2	p-fork1: start new patch on p-root - john
+	| |/
+	| o  1	p-root: start new patch on default - john
+	|/
+	@  0	: def-0 - john
+
+To ripple the change in _dev-1_ through to all our patch branches, we need a lot of merges:
+
+	$ hg pgraph --status
+	o    p-join
+	|\    * needs merge with default (through .p-join, p-fork1, p-root)
+	| |   * needs merge with default (through .p-join, p-fork2, p-root)
+	o |  p-fork1
+	| |   * needs merge with default (through p-root)
+	| o  p-fork2
+	|/    * needs merge with default (through p-root)
+	o  p-root
+	|   * needs merge with default
+	|   * needs update of diff base to tip of default
+	@  default
+
+We can do this in a single sweep by merging all pending heads:
+
+	$ hg pmerge --all
+	updating to default
+	1 files updated, 0 files merged, 0 files removed, 0 files unresolved
+	p-root: merging from default
+	marked working directory as branch p-root
+	2 files updated, 0 files merged, 0 files removed, 0 files unresolved
+	p-fork2: merging from p-root
+	marked working directory as branch p-fork2
+	2 files updated, 0 files merged, 0 files removed, 0 files unresolved
+	updating to p-root
+	0 files updated, 0 files merged, 2 files removed, 0 files unresolved
+	p-fork1: merging from p-root
+	marked working directory as branch p-fork1
+	2 files updated, 0 files merged, 0 files removed, 0 files unresolved
+	created new head
+	.p-join: merging from p-fork1
+	marked working directory as branch .p-join
+	3 files updated, 0 files merged, 0 files removed, 0 files unresolved
+	updating to p-fork2
+	1 files updated, 0 files merged, 3 files removed, 0 files unresolved
+	.p-join: merging from p-fork2
+	marked working directory as branch .p-join
+	merging .hgpatchinfo/p-fork2.dep
+	3 files updated, 1 files merged, 0 files removed, 0 files unresolved
+	p-join: merging from .p-join
+	marked working directory as branch p-join
+	2 files updated, 0 files merged, 0 files removed, 0 files unresolved
+
+
+h2. Reviewing Merges
+
+This merge orgy resulted in a fairly complicated graph:
+
+	$ hg glog
+	@    14	p-join: merge of .p-join - john
+	|\
+	| o    13	.p-join: merge of p-fork2 - john
+	| |\
+	| | o    12	.p-join: merge of p-fork1 - john
+	| | |\
+	| | | o    11	p-fork1: merge of p-root - john
+	| | | |\
+	| o-----+  10	p-fork2: merge of p-root - john
+	| | | | |
+	| | | | o    9	p-root: merge of default - john
+	| | | | |\
+	| | | | | o  8	: def-1 - john
+	| | | | | |
+	o---+ | | |  7	p-join: merge of .p-join - john
+	| | | | | |
+	| | o | | |  6	.p-join: merge of p-fork2 - john
+	| |/| | | |
+	| | o | | |  5	.p-join: update patch dependencies - john
+	| | |/ / /
+	| o---+ /  4	p-fork2: start new patch on p-root - john
+	|  / / /
+	o / / /  3	p-join: start new patch on p-fork1 - john
+	|/ / /
+	o / /  2	p-fork1: start new patch on p-root - john
+	|/ /
+	o /  1	p-root: start new patch on default - john
+	|/
+	o  0	: def-0 - john
+
+To review a merge, we can diff it and check that it didn't do anything except what the patch is supposed to do. So we look at the patch:
+
+	$ hg pdiff p-root
+	# HG changeset patch
+	# User john
+	# Date 0 0
+	_
+	diff --git a/p-root b/p-root
+	new file mode 100644
+	--- /dev/null
+	+++ b/p-root
+	@@ -0,0 +1,1 @@
+	+a
+
+and compare with the merge diff:
+
+	$ hg diff --change 9 -X .hgpatchinfo
+	diff --git a/p-root b/p-root
+	new file mode 100644
+	--- /dev/null
+	+++ b/p-root
+	@@ -0,0 +1,1 @@
+	+a
+
+This works because pbranch always uses the base branch as the first parent of the merge.
+

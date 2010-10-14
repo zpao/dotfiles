@@ -1,0 +1,44 @@
+[defaults]
+export = -g
+branches = -a
+heads = -a
+qseries = -v
+qnew = -U
+
+[ui]
+username = Paul O’Shannessy <paul@oshannessy.com>
+ignore = ~/.hgignore
+
+[diff]
+git = 1
+unified = 8
+showfunc = True
+
+[extdiff]
+cmd.opendiff = opendiff-w
+cmd.ksdiff = /usr/local/bin/ksdiff-wrapper
+opts.ksdiff = hg
+
+[merge-tools]
+filemerge.executable = opendiff-w
+filemerge.args = $local $other -ancestor $base -merge $output
+
+[extensions]
+hgext.mq =
+hgext.rebase =
+hgext.purge =
+hgext.extdiff =
+hgext.convert =
+hgext.graphlog =
+hgext.bookmarks =
+color =
+qimportbz = /Users/pao/.hgext/qimportbz
+crecord = /Users/pao/.hgext/crecord/crecord
+#hggit = /Users/pao/.hgext/hg-git/hggit
+hgext.pbranch = /Users/pao/.hgext/hg-pbranch/hgext/pbranch.py
+transplant =
+
+[transplant]
+# hg-transplant points to an executable in $PATH
+filter = hg-transplant
+

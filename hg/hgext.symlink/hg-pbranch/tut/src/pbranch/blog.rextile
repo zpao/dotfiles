@@ -1,0 +1,176 @@
+
+h1. Blog
+
+<%= toc %>
+
+
+h2. Nov 8, 2008
+
+h3. Separate Patch Metadata From Patches
+
+I'm going to move the info in @.hgpatchinfo@ into its own, dedicated branch, probably also named @.hgpatchinfo@. This will address two issues:
+
+	* Meta-data updates currently cause pending pmerges and, consequently, needless merges in the main log. They are needless because the metadata never contributes to pdiff anyway.
+	* The patch dependency info is scattered, both across files and across branches. This makes it hard to view and update it in one convenient place, and slows reading it.
+
+In the new approach, the patch dependency info will be recorded in an equivalent to mq's @series@ file. So we'll have @.hgpatchinfo/deps@ looking like this:
+
+	@default
+	pbranch: graphlog, patchbomb
+	graphlog*:
+		-nodegrapher > -shuffle
+		-assert > -drop-comment
+	patchbomb*: -ext-patches, -opts
+
+Written in less abbreviated style, this is:
+
+	pbranch: graphlog-nodegrapher, graphlog-assert, patchbomb-ext-patches, patchbomb-opts
+	graphlog-nodegrapher: graphlog-shuffle
+	graphlog-shuffle: default
+	graphlog-assert: graphlog-drop-comment
+	graphlog-drop-comment: default
+	patchbomb-ext-patches: default
+	patchbomb-opts: default
+
+The file is supposed to be toposorted and drives the order in which @hg pgraph@ works, etc.
+
+A file with multiple roots and feeds might look like:
+
+	dev-pbranch: @rel-pbranch, dev-foo
+	dev-foo: default
+	rel-pbranch: release
+
+The @.hgpatchinfo/patchname.desc@ files will all reside in the @.hgpatchinfo@ branch, too.
+
+Adding a new patch is going to be very simple:
+
+	* Start a new branch based in the patch's main dependency.
+	* Optionally merge in other dependencies if you already need them.
+	* Do your stuff.
+	* Commit.
+	* Do @hg pgraph --edit@ to fire up @.hgpatchinfo/deps@ in your @HGEDITOR@.
+	* Add your new branch with the correct dependencies.
+	* This commits a new rev to the @.hgpatchinfo@ branch.
+	* Do @hg pmerge@, if necessary.
+	* This will, if >1 deps, create the base @.patchname@ branch.
+	* Do @hg pmessage --edit@ to edit @.hgpatchinfo/patchname.desc@ in your @HGEDITOR@.
+
+Removing a patch or rewiring them is equally simple: just do @hg pgraph --edit@.
+
+Consequences:
+
+	* Merging pbranch repos is likely going to entail a manual merge of @.hgpatchinfo/deps@.
+	* You'll always have an extra head caused by @.hgpatchinfo@.
+	* But unlinking patches no longer causes extra heads.
+	* @pdiff@ et al no longer need to filter out @.hgpatchinfo/@. This makes it far easier to use external differs, too.
+
+
+h3. Applying pbranch Patches Upstream
+
+With the recommendation to start with wide patch graphs (not introduce unnecessary linearization), there's the question of how upstream committers should apply the patches. To have no fuzz or - worse - rejects, they would have to apply in parallel too, and then merge in the main repo. So they'd basically have to redo the patch graph in the final commits. As an indication of this, it might be good to send a @pgraph@ in the initial message. But it's sure to be going to cause some pain.
+
+Maybe one should linearize wide graphs before submitting to make it easier on committers.
+
+
+h2. Sep 15, 2008
+
+bq. How is finishing a patch managed in distributed envs?
+
+The idea is that only people interested in the development of a patch series clone the pbranched repo. These repos are basically thrown away once a patch is accepted upstream.
+
+Alternatives include bundling the pbranch changesets and archiving the bundle somewhere (for instance as a binary file in the main repo when the patches are accepted).
+
+Or else one can generate a changeset series from the patches in the pbranched repo in the default branch, then merge all the patch branches into tip to deactivate them. This basically amounts to merging the patch branches into default, but with separate changesets representing a patch in full, rather than an incremental series. This last bit is not implemented yet.
+
+Same as with versioned mq repos. They are usually thrown away once patches are accepted upstream as well.
+
+
+h2. Sep 9, 2008
+
+	* Teach @patchgraph@ a toposort of the patches.
+	* @plog@ like @log@, but listing patch info in toposort order
+	* @pglog@ like @glog@
+	* @pstatus --all@
+	* Export patch series to default (or any other branch) in a single session to allow for rollback. Good for pushing or as a pull source. Updates would be destructive, though.
+	* Allow merging original patch branches into committed patches to linearize history in the default branch, keeping incremental history in topic branches.
+	* Use rebase to get rid of a patch (delete vs fold). Find out how rebase behaves when the dependent patch has mutiple merges from the deleted base.
+	* Implement multiple bases by introducing an explicit branch holding a merge of all the bases, then merging that into the patch as such (like "topgit":-topgit does).
+	* Think about a text format describing the patch graph. Then one could edit this to a target graph and have pbranch figure out how to do it.
+
+Update:
+
+	* Rebase does not help to delete a patch. I have to first revert it back to its base, propagate this change, then fold it.
+
+
+h2. Before Sep 2008
+
+h3. Collected Snippets
+
+<pre>
+(09:31:11) parren: I can sympathize. I'm trying to port the ideas from bzr's loom extensions to hg. This is about building patches in a more directly versioned way than by versioning the patch archive (fairly simple use of logically stacked branches, really). And either way, I think it could be helpful to include bundles of the evolution of patches in the main repo for reference, even if only the final patches are included in the main repo directly at the end.
+(09:33:11) ronny: parren: isnt that what mq already does?
+(09:34:18) parren: ronny: http://lists.alioth.debian.org/pipermail/vcs-pkg-discuss/2008-March/000184.html
+(09:34:19) keramida: I couldn't find "loom" at http://bazaar-vcs.org/BzrPlugins
+(09:34:30) hgbot: <http://ln-s.net/27Q9> (at lists.alioth.debian.org)
+(09:35:48) parren: And, no, it's not exactly like mq. mq is destructive on the main repo. With loom you use a dedicated repo to develop patches in stacked branches. You do normal non-destructive commits, so reviewing changes is easy (while reviewing diffs of diffs is not, I think).
+(09:37:10) ronny: how long did you use mq?
+(09:37:15) parren: It's also far easier to collaborate on patches this way, I think. But I haven't really tried it in a real life situation yet. It's just an idea that kept nagging at me and then I saw the bzr people had already done it with loom. So I'm going to give it a try now.
+(09:38:03) ronny: so loom is basically editing sets of patches
+(09:38:07) parren: For maybe two years now. With collaboration of up to 3 people on some versioned queues.
+(09:38:16) ronny: thats what mq implicitly results in
+(09:38:45) ronny: however the ui for mq coul use MUCH improvement
+(09:39:29) ronny: bitbucket has a nice way of viewing combined patches of mq queues
+(09:39:30) keramida: The qsave/pull/update -C tip/qpush -am/qpop -a/qpop -a -n patches.X/ dance could be a bit simpler, I guess :)
+(09:39:45) ronny: the ui for mq massively sucks
+(09:40:16) parren: The result is obviously the same. The process is different and - I believe - better for collaboration and tracking changes to individual patches over time. It's the normal commit/pull model, structured into branches, one per patch.
+(09:40:26) ***keramida heads out of home a bit, to get some fresh bread & vegetables
+(09:41:11) parren: But never mind now. I'm going to play with it anyway and show something when it's done.
+(09:42:20) parren: In fact, developing the partial cloning patches is what finally made me want loom-style patch development badly.
+(09:45:34) piranha: parren: you're trying to upgrade mq or developing it from scratch?
+(09:48:22) parren: piranha: From scratch. It's only very loosely related to mq. It does share the concept of a series, but that's about it I think. And I can see how people could want the two to coexist but not overlap. So I'm going to keep my series separate and use a separate set of commands.
+(09:48:46) piranha: ok
+(09:50:05) parren: It's really fairly simple as long as you don't rearrange patches in the series and can, in principle, be done by hand already. Rearranging will likely require astratto's rebasing support.
+(09:55:40) piranha: ;-)
+(09:55:58) piranha: it's interesting to see results of your work on this
+(10:01:13) flojistik is now known as Phlogistique
+(10:26:46) keramida: loom it sounds interesting, indeed
+(10:27:25) keramida: I don't know how well it handles patch reordering, because that would probably break the nice 'matrix-like view' of patch history
+(10:27:56) keramida: but it does seem an intriguing idea
+(10:59:38) lifeless: reordering is a special case of cherrypicking
+(11:01:35) keramida: good point :)
+(11:04:31) lifeless: so the way loom will fix this properly is some deep thinking on cherrypicking in bzr's core
+(11:05:09) lifeless: which I've yet to do
+(11:06:02) lifeless: but the shape of the solution is clear
+(11:54:58) parren: lifeless: Did you write loom?
+(12:04:40) lifeless: parren: yup
+(12:05:06) lifeless: need to get some more time on it; its current state is about a 3-day hack
+(12:05:18) lifeless: with-patches from users :)
+
+
+One could add the detailed history as a bundle file to the main repo,
+along with the actual Athena-style patches. Then people wanting to dig
+in can unbundle into a spare clone to inspect the patch's evolution.
+
+
+> However, I'm wondering couldn't you use branches in Mercurial for the same
+> thing: develop, commit and push your changes to a separate branch until they are
+> stable enough and pass the test suite before merging into the mainline. Anyone
+> care to comment does this work in practice?
+
+Cannot say for sure yet, but I am experimenting with using
+conceptually stacked branches as a replacement for mq when developing
+patches. This is inspired by bzr's loom extension [1] and daggy fixes
+[2]. The basic idea is to develop each patch in a separate branch. So
+you can keep track of changes to patches (after reviews, for instance)
+in a simple and easy-to-review fashion. And it's likely going to be
+far easier to collaborate on patches than using versioned
+.hg/patches/.
+
+However, to submit the work I currently think I would just generate a
+diff from a patch branch's base to its tip and submit that. So the
+intermediate history would get lost on submission. Grouped csets could
+avoid this loss, if one wants to keep the info.
+
+Shall announce again when I have more concrete experience and code to show.
+</pre>
+

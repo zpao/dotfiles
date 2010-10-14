@@ -1,0 +1,5 @@
+.mode column
+.explain ON
+.timer ON
+.header ON
+

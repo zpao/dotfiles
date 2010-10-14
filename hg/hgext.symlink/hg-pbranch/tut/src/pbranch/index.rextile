@@ -1,0 +1,45 @@
+h1. Patch Branches for Mercurial (pbranch)
+
+<div class="news">
+
+Needs Mercurial 1.5 now.
+<br/>%(when)April 7, 2010%
+
+Supports Mercurial 1.4 with "octopus merges":octopus.htm now.
+<br/>%(when)January 2, 2010%
+
+</div>
+
+
+_Patch branches_ (pbranch) is a way to develop a series of patches for submission into a main repo. It is based on topic branches, one per patch, and is thus highly suitable for collaborative and/or long-term patch development and maintenance.
+
+
+h2. Documentation
+
+	* "Introduction":intro.htm
+
+	* "Configuration":config.htm
+	* "Initialization and Simple Usage":simple.htm
+	* "Submitting Patches by Email":email.htm
+	* "Exporting Patches to Patch Queues (mq)":export.htm
+	* "Distributing Changes To Patches":dist.htm
+	* "Inserting and Deleting Patches":insert.htm
+	* "Patch Graphs (Multiple Dependencies)":graph.htm
+	* "Pulling And Merging From Upstream":pullupstream.htm
+	* "Collaboration":collab.htm
+	* "Octopus Merge Resolution":octopus.htm
+	* "Sanity Checks":sanity.htm
+
+	* "Blog":blog.htm
+
+
+h2. Getting The Code
+
+You can get the code from "this bitbucket.org repository":http://www.bitbucket.org/parren/hg-pbranch/. This is a clone of Mercurial with - tada! - patch branches. We also track issues there.
+
+To try it out, you need Mercurial 1.5 or later. Then, download the pbranch extension file and configure it as an extension in your @.hgrc@, like so:
+
+	[extensions]
+	pbranch = /path/to/pbranch.py
+
+
