@@ -39,5 +39,6 @@ hgext.pbranch = /Users/pao/.hgext/hg-pbranch/hgext/pbranch.py
 transplant =
 
 [transplant]
-filter = hgtransplant
+# hg-transplant points to an executable in $PATH
+filter = hg-transplant
 

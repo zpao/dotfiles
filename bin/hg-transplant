@@ -1,0 +1,14 @@
+#!/bin/sh
+# allows you to edit the commit message for the changeset you're transplanting
+# before it gets commited
+
+if test -n "$APPEND"; then
+ echo " $APPEND" >> "$1";
+else
+ if test -n "$EDITOR"; then
+ $EDITOR "$1";
+ else
+ editor "$1";
+ fi
+fi
+
