@@ -1,0 +1,127 @@
+
+h1. Sanity Checks
+
+<%= toc %>
+
+
+h2. Initialization
+
+	$ hg init sanity
+	$ cd sanity
+
+	$ cat >.hg/pgraph <<-eof
+		a: b
+		b: a
+	eof
+
+	$ hg pgraph
+	abort: patch dependency cycle detected involving b and a
+
+	$ cd ..
+
+
+h2. Empty Repos
+
+See "Issue 35":http://bitbucket.org/parren/hg-pbranch/issue/35/.
+
+	$ hg init empty
+	$ cd empty
+
+	$ hg pnew one
+	marked working directory as branch one
+	$ hg pgraph -tns
+	@  [one]
+	|
+	o  default
+
+	$ hg pnew two
+	marked working directory as branch two
+	$ hg up one
+	0 files updated, 0 files merged, 1 files removed, 0 files unresolved
+	$ echo a >a
+	$ hg ci -Ama
+	adding a
+	$ hg pgraph -tns
+	o  [two]
+	|   * needs merge with one
+	|   * needs update of diff base to tip of one
+	@  [one]
+	|
+	o  default
+
+	$ hg pmerge
+	$ hg pmerge two
+	two: merging from one
+	marked working directory as branch two
+	1 files updated, 0 files merged, 0 files removed, 0 files unresolved
+
+	$ cd ..
+
+
+h2. Editing Messages
+
+h3. Edit Non-Current Message
+
+	$ hg init peditmsg
+	$ cd peditmsg
+
+	$ hg pnew one
+	marked working directory as branch one
+	$ hg pnew two
+	marked working directory as branch two
+
+	$ hg peditmessage two -t "zwei"
+	$ hg peditmessage one -t "eins"
+	created new head
+
+	$ hg glog
+	o  3	one: update patch description - john
+	|
+	| @  2	two: update patch description - john
+	| |
+	| o  1	two: start new patch on one - john
+	|/
+	o  0	one: start new patch on default - john
+
+	$ hg pgraph -m
+	@  zwei
+	|
+	o  eins
+	|
+	o  default
+
+
+h3. Edit Already Modified Message
+
+See "Issue 31":http://bitbucket.org/parren/hg-pbranch/issue/31/.
+
+	$ echo More >>.hgpatchinfo/two.desc
+	$ cat .hgpatchinfo/two.desc
+	zweiMore
+
+	$ hg peditmessage # editor is set to "cat"
+	zweiMore
+
+	$ hg pmessage
+	zweiMore
+
+	$ cd ..
+
+
+h3. Use Custom Commit Message
+
+	$ hg init custommsg
+	$ cd custommsg
+
+	$ hg pnew one
+	marked working directory as branch one
+
+	$ hg peditmessage -t "eins" -m "updated desc"
+
+	$ hg log
+	1	one: updated desc - john
+	0	one: start new patch on default - john
+
+	$ cd ..
+
+

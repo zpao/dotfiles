@@ -1,0 +1,265 @@
+﻿
+/* Main stuff */
+
+body 
+{
+	font-family: Serif;
+}
+
+ul
+{
+	list-style-type: square;
+	padding-left: 1.5em;
+}
+
+ul.spaced > li
+{
+	margin-bottom: 1ex;
+}
+
+pre
+{
+	padding-top: 1ex;
+	padding-bottom: 1ex;
+	margin-left: 1.5em;
+}
+
+td
+{
+	vertical-align: top;
+}
+
+.when
+{
+	font-size: x-small;	
+}
+
+.nofirefox
+{
+	display: none;
+}
+
+
+/* No navigation */
+
+.nav
+{
+	display: none;
+}
+
+
+/* No TOC */
+
+.contents
+{
+	display: none;
+}
+
+div.toc
+{
+	display: none;
+}
+
+
+/* News */
+
+div.news
+{
+	float: right;
+	width: 12em;
+	margin-left: 1em;
+	margin-bottom: 1em;
+	padding-left: 1em;
+	padding-right: 1em;
+	border: solid 1px #EEE6D4;
+}
+
+div.news h2, div.news h3
+{
+	margin-left: auto;
+	float: none;
+	width: auto;
+	margin-top: auto;
+	font-size: medium;
+	text-align: left;
+}
+
+div.news h2
+{
+	margin-top: 0;
+	font-size: medium;
+	font-weight: normal;
+	display: none;
+}
+
+div.news h3
+{
+}
+
+
+/* Footer */
+
+div.footer
+{
+	margin-top: 4em;
+	font-size: x-small;
+}
+
+
+/* Java */
+
+span.j-bkg /* background */
+	{
+	}
+
+span.j-lin /* line numbers */
+	{
+	}
+
+span.j-blk /* block comment */
+	{
+	font-style: italic;
+	color: Gray;
+	}
+
+span.j-cmt /* line comment */
+	{
+	font-style: italic;
+	color: Gray;
+	}
+
+span.j-key /* keyword */
+	{
+	font-weight:bold;
+	color: maroon;
+	}
+
+span.j-str /* string constants */
+	{
+	font-style: italic;
+	color: navy;
+	}
+
+span.j-chr /* char constants */
+	{
+	font-style: italic;
+	color: navy;
+	}
+
+span.j-num /* number constants */
+	{
+	}
+
+span.j-sym /* symbols, punctuation */
+	{
+	}
+
+span.j-typ /* primitive types */
+	{
+	font-weight:bold;
+	color: maroon;
+	}
+
+span.j-def /* default; all the rest */
+	{
+	}
+
+span.j-jdoc /* javadoc */
+	{
+	font-style: italic;
+	color: gray;
+	}
+
+span.j-jdoc-key /* javadoc keyword */
+	{
+	font-style: italic;
+	font-weight: bold;
+	color: gray;
+	}
+
+span.j-jdoc-html /* javadoc html tag */
+	{
+	font-style: italic;
+	color: gray;
+	}
+
+span.j-jdoc-link /* javadoc link */
+	{
+	font-style: italic;
+	color: gray;
+	}
+
+span.j-undef /* undefined */
+	{
+	}
+
+span.j-hl /* highlight */
+	{
+	}
+
+/******************** Excel */
+
+table.xl
+	{
+	    border-collapse:collapse;
+	}
+
+table.xl td
+	{
+		border: solid 1px lightgray;
+		text-align: left;
+		vertical-align: top;
+	}
+
+table.xl td.xl-row, table.xl thead td
+	{
+		background-color: #ECECEC;
+		border-color: gray;
+		text-align: center;
+		padding-left: 2px;
+		padding-right: 2px;
+	}
+
+table.xl td.xl-num, table.xl td.xl-date
+	{
+		text-align: right;
+	}
+	
+span.xl-exp
+	{
+		font-size: x-small;
+		font-family: monospace;
+		color: maroon;
+	}
+
+span.xl-name
+	{
+		font-size: x-small;
+		font-style: italic;
+		color: #6495ED;
+	}
+
+td.xl-r1, span.xl-r1
+	{
+		background-color: #E0FFFF;
+	}
+
+td.xl-r2, span.xl-r2
+	{
+		background-color: #FFE0FF;
+	}
+	
+td.xl-r3, span.xl-r3
+	{
+		background-color: #FFFFE0;
+	}
+
+td.xl-r4, span.xl-r4
+	{
+		background-color: #E0FFE0;
+	}
+
+td.xl-r5, span.xl-r5
+	{
+		background-color: #E0E0FF;
+	}

@@ -1,0 +1,9 @@
+h1. Introduction
+
+_Patch branches_ (pbranch) is a way to develop a stack of patches for submission into a main repo. This is for when the main repo does not want to track the detailed evolution of the patches, so you cannot use plain branching and merging. But during the patches' development, you do want to track the detailed evolution and want to collaborate with team members as naturally as on a normal branch, including exchange and reviewing of changesets. So stacks allow to develop patches as basically normal Mercurial branches, which later get thrown away (or archived) when the patches have been accepted.
+
+pbranch is thus an alternative for "mq":-mq. While mq is very useful for fairly short-lived, single-person patches, I find it lacking for long-term and/or team efforts. Versioned mq patch queues are hard to review (diffs of diffs) and merge, and we lack the usual merging niceness in Mercurial when updating later patches to changes in earlier ones.
+
+pbranch is based on ideas similar as those found in "bzr-loom":-loom, and especially the more recent "topgit":-topgit.
+
+
