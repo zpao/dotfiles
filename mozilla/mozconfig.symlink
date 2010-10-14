@@ -1,0 +1,17 @@
+. $topsrcdir/browser/config/mozconfig
+
+mk_add_options MOZ_MAKE_FLAGS="-s -j4"
+mk_add_options AUTOCONF=autoconf213
+
+# DEBUG
+mk_add_options MOZ_OBJDIR=@TOPSRCDIR@/obj-ff-debug
+ac_add_options --enable-debug
+ac_add_options --disable-optimize
+ac_add_options --enable-shared
+ac_add_options --disable-static
+ac_add_options --disable-crashreporter
+
+# DTRACE
+# ac_add_options --enable-dtrace
+# mk_add_options MOZ_OBJDIR=@TOPSRCDIR@/obj-ff-dtrace
+
