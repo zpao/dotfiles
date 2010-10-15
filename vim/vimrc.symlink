@@ -73,6 +73,10 @@ set shortmess=filtIoOA     " shorten messages
 set report=0               " tell us about changes
 set nostartofline          " don't jump to the start of line when scrolling
 
+" ignore case sensitivity in searchs unless you use a capital letter
+set ignorecase
+set smartcase
+
 
 " ----------------------------------------------------------------------------
 " Visual Cues
