@@ -3,3 +3,9 @@
 .tissues
 *~
 *.swp
+*.pyc
+
+# Some Mozilla ignores
+obj-*/
+configure
+.mozconfig*
