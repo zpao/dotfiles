@@ -4,6 +4,8 @@
 *~
 *.sw*
 *.pyc
+*.rej
+*.orig
 
 # Some Mozilla ignores
 obj-*/
