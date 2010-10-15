@@ -1,7 +1,7 @@
 colorscheme Mustang
 set gfn=Menlo:h10.00
 set anti
-set lines=999 columns=84
+set lines=999 columns=120
 set guioptions=egmrt
 
 " C-TAB and C-SHIFT-TAB cycle tabs forward and backward
