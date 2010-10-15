@@ -77,6 +77,10 @@ set nostartofline          " don't jump to the start of line when scrolling
 set ignorecase
 set smartcase
 
+" backup files are more of a bother than anything else
+set nobackup
+set nowritebackup
+
 
 " ----------------------------------------------------------------------------
 " Visual Cues
