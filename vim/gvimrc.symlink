@@ -1,4 +1,5 @@
 colorscheme Mustang
+set gfn=Menlo:h10.00
 set anti
 set lines=999 columns=84
 set guioptions=egmrt
