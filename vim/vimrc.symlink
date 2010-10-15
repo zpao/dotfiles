@@ -93,4 +93,4 @@ set visualbell             " shut the fuck up
 function! StripWhitespace ()
     exec ':%s/ \+$//gc'
 endfunction
-map ,s :call StripWhitespace ()<CR>
+map <leader>s :call StripWhitespace ()<CR>
