@@ -3,8 +3,8 @@
 #   `brew install coreutils`
 if $(gls &>/dev/null)
 then
-  alias ls="gls -F --color"
+  alias ls="gls -AF --color"
   alias l="gls -lAh --color"
-  alias ll="gls -l --color"
+  alias ll="gls -lAh --color"
   alias la='gls -A --color'
 fi
