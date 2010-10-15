@@ -1,4 +1,7 @@
-export PATH=".:bin:/usr/local/bin:/usr/local/sbin:$ZSH/bin:$PATH"
+export PATH=".:bin:/usr/local/bin:/usr/local/sbin:$ZSH/bin:$HOME/bin:$PATH"
+
+# MacPorts
+export PATH="/opt/local/bin:$PATH"
 
 # Add ccache aliases to my path
 export PATH="/usr/local/Cellar/ccache/3.1/libexec:$PATH"
