@@ -1,7 +1,6 @@
 . $topsrcdir/browser/config/mozconfig
 
-mk_add_options MOZ_MAKE_FLAGS="-s -j4"
-mk_add_options AUTOCONF=autoconf213
+mk_add_options MOZ_MAKE_FLAGS="-s -j12"
 
 # DEBUG
 mk_add_options MOZ_OBJDIR=@TOPSRCDIR@/obj-ff-debug
