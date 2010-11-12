@@ -4,25 +4,25 @@ SHELL = /bin/sh
 #### Start of system configuration section. ####
 
 srcdir = .
-topdir = /System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/lib/ruby/1.8/universal-darwin10.0
+topdir = /usr/lib/ruby/1.8/i686-linux
 hdrdir = $(topdir)
 VPATH = $(srcdir):$(topdir):$(hdrdir)
 exec_prefix = $(prefix)
-prefix = $(DESTDIR)/System/Library/Frameworks/Ruby.framework/Versions/1.8/usr
+prefix = $(DESTDIR)/usr
 sharedstatedir = $(prefix)/com
-mandir = $(DESTDIR)/usr/share/man
+mandir = $(prefix)/share/man
 psdir = $(docdir)
 oldincludedir = $(DESTDIR)/usr/include
 localedir = $(datarootdir)/locale
 bindir = $(exec_prefix)/bin
-libexecdir = $(exec_prefix)/libexec
-sitedir = $(DESTDIR)/Library/Ruby/Site
+libexecdir = $(prefix)/lib/ruby1.8
+sitedir = $(DESTDIR)/usr/local/lib/site_ruby
 htmldir = $(docdir)
 vendorarchdir = $(vendorlibdir)/$(sitearch)
 includedir = $(prefix)/include
-infodir = $(DESTDIR)/usr/share/info
+infodir = $(prefix)/share/info
 vendorlibdir = $(vendordir)/$(ruby_version)
-sysconfdir = $(prefix)/etc
+sysconfdir = $(DESTDIR)/etc
 libdir = $(exec_prefix)/lib
 sbindir = $(exec_prefix)/sbin
 rubylibdir = $(libdir)/ruby/$(ruby_version)
@@ -34,35 +34,35 @@ pdfdir = $(docdir)
 archdir = $(rubylibdir)/$(arch)
 sitearchdir = $(sitelibdir)/$(sitearch)
 datadir = $(datarootdir)
-localstatedir = $(prefix)/var
+localstatedir = $(DESTDIR)/var
 sitelibdir = $(sitedir)/$(ruby_version)
 
 CC = gcc
 LIBRUBY = $(LIBRUBY_SO)
 LIBRUBY_A = lib$(RUBY_SO_NAME)-static.a
 LIBRUBYARG_SHARED = -l$(RUBY_SO_NAME)
-LIBRUBYARG_STATIC = -l$(RUBY_SO_NAME)
+LIBRUBYARG_STATIC = -l$(RUBY_SO_NAME)-static
 
 RUBY_EXTCONF_H = 
-CFLAGS   =  -fno-common -arch i386 -arch x86_64 -g -Os -pipe -fno-common -DENABLE_DTRACE  -fno-common  -pipe -fno-common $(cflags) 
+CFLAGS   =  -fPIC -fno-strict-aliasing -g -g -O2  -fPIC $(cflags) 
 INCFLAGS = -I. -I$(topdir) -I$(hdrdir) -I$(srcdir)
-DEFS     = 
-CPPFLAGS = -DHAVE_RUBY_H  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE $(DEFS) $(cppflags)
+DEFS     = -D_FILE_OFFSET_BITS=64
+CPPFLAGS = -DHAVE_RUBY_H  $(DEFS) $(cppflags)
 CXXFLAGS = $(CFLAGS) 
-ldflags  = -L. -arch i386 -arch x86_64 
+ldflags  = -L. -Wl,-Bsymbolic-functions -rdynamic -Wl,-export-dynamic
 dldflags = 
 archflag = 
 DLDFLAGS = $(ldflags) $(dldflags) $(archflag)
-LDSHARED = cc -arch i386 -arch x86_64 -pipe -bundle -undefined dynamic_lookup
+LDSHARED = $(CC) -shared
 AR = ar
 EXEEXT = 
 
-RUBY_INSTALL_NAME = ruby
-RUBY_SO_NAME = ruby
-arch = universal-darwin10.0
-sitearch = universal-darwin10.0
+RUBY_INSTALL_NAME = ruby1.8
+RUBY_SO_NAME = ruby1.8
+arch = i686-linux
+sitearch = i686-linux
 ruby_version = 1.8
-ruby = /System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/bin/ruby
+ruby = /usr/bin/ruby1.8
 RUBY = $(ruby)
 RM = rm -f
 MAKEDIRS = mkdir -p
@@ -86,11 +86,11 @@ extout =
 extout_prefix = 
 target_prefix = 
 LOCAL_LIBS = 
-LIBS = $(LIBRUBYARG_SHARED)  -lpthread -ldl  
-SRCS = ext.c match.c matcher.c
-OBJS = ext.o match.o matcher.o
+LIBS = $(LIBRUBYARG_SHARED)  -lpthread -lrt -ldl -lcrypt -lm   -lc
+SRCS = matcher.c ext.c match.c
+OBJS = matcher.o ext.o match.o
 TARGET = ext
-DLLIB = $(TARGET).bundle
+DLLIB = $(TARGET).so
 EXTSTATIC = 
 STATIC_LIB = 
 
@@ -100,7 +100,7 @@ RUBYLIBDIR    = $(sitelibdir)$(target_prefix)
 RUBYARCHDIR   = $(sitearchdir)$(target_prefix)
 
 TARGET_SO     = $(DLLIB)
-CLEANLIBS     = $(TARGET).bundle $(TARGET).il? $(TARGET).tds $(TARGET).map
+CLEANLIBS     = $(TARGET).so $(TARGET).il? $(TARGET).tds $(TARGET).map
 CLEANOBJS     = *.o *.a *.s[ol] *.pdb *.exp *.bak
 
 all:		$(DLLIB)
