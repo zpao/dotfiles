@@ -28,14 +28,15 @@ else:
     # I have no idea if wcurses works with crecord...
     import wcurses as curses
 
-#from curses import textpad 
+#from curses import textpad
 import textpad # customized textpad
 
 try:
     curses
 except NameError:
-    raise util.Abort(_('the python curses/wcurses module is not available/installed'))
-    
+    raise util.Abort(
+        _('the python curses/wcurses module is not available/installed'))
+
 
 orig_stdout = sys.__stdout__ # used by gethw()
 
@@ -44,7 +45,7 @@ def gethw():
     Magically get the current height and width of the window (without initscr)
 
     This is a rip-off of a rip-off - taken from the bpython code.  It is
-    useful / necessary because otherwise curses.initscr() must be called, 
+    useful / necessary because otherwise curses.initscr() must be called,
     which can leave the terminal in a nasty state after exiting.
 
     """
@@ -122,7 +123,7 @@ class CursesChunkSelector(object):
         the first HunkLine of a hunk is currently selected, then select the
         hunk itself.
 
-        If the currently selected item is already at the top of the screen, 
+        If the currently selected item is already at the top of the screen,
         scroll the screen down to show the new-selected item.
 
         """
@@ -139,11 +140,11 @@ class CursesChunkSelector(object):
 
     def upArrowShiftEvent(self):
         """
-        Select (if possible) the previous item on the same level as the currently
-        selected item.  Otherwise, select (if possible) the parent-item of the
-        currently selected item.
+        Select (if possible) the previous item on the same level as the
+        currently selected item.  Otherwise, select (if possible) the
+        parent-item of the currently selected item.
 
-        If the currently selected item is already at the top of the screen, 
+        If the currently selected item is already at the top of the screen,
         scroll the screen down to show the new-selected item.
 
         """
@@ -167,7 +168,7 @@ class CursesChunkSelector(object):
         a hunk is currently selected, then select the next hunk, if one exists,
         or if not, the next header if one exists.
 
-        If the currently selected item is already at the bottom of the screen, 
+        If the currently selected item is already at the bottom of the screen,
         scroll the screen up to show the new-selected item.
 
         """
@@ -183,8 +184,9 @@ class CursesChunkSelector(object):
 
     def downArrowShiftEvent(self):
         """
-        If the cursor is already at the bottom chunk, scroll the screen up and move the cursor-position
-        to the subsequent chunk.  Otherwise, only move the cursor position down one chunk.
+        If the cursor is already at the bottom chunk, scroll the screen up and
+        move the cursor-position to the subsequent chunk.  Otherwise, only move
+        the cursor position down one chunk.
 
         """
         # TODO: update docstring
@@ -231,16 +233,16 @@ class CursesChunkSelector(object):
 
         """
         currentItem = self.currentSelectedItem
-        
+
         # try to fold the item
         if not isinstance(currentItem, HunkLine):
             if not currentItem.folded:
                 self.toggleFolded(item=currentItem)
                 return
-        
+
         # if it can't be folded, try to select the parent item
         nextItem = currentItem.parentItem()
-        
+
         if nextItem is None:
             # if no item on parent-level, then no change...
             nextItem = currentItem
@@ -250,13 +252,12 @@ class CursesChunkSelector(object):
         self.currentSelectedItem = nextItem
 
     def updateScroll(self):
-        "Scroll the screen in such a way to fully show the currently-selected item."
+        "Scroll the screen to fully show the currently-selected"
         selStart = self.selectedItemStartLine
         selEnd = self.selectedItemEndLine
         #selNumLines = selEnd - selStart
         padStart = self.firstLineOfPadToPrint
         padEnd = padStart + self.yScreenSize - self.numStatusLines - 1
-        screenMiddleLine = self.yScreenSize / 2
         # 'buffered' pad start/end values which scroll with a certain
         # top/bottom context margin
         padStartBuffered = padStart + 3
@@ -317,7 +318,7 @@ class CursesChunkSelector(object):
                 hunkLine.applied = item.applied
 
             siblingAppliedStatus = [hnk.applied for hnk in item.header.hunks]
-            allSiblingsApplied = not (False in siblingAppliedStatus) 
+            allSiblingsApplied = not (False in siblingAppliedStatus)
             noSiblingsApplied = not (True in siblingAppliedStatus)
 
             siblingsPartialStatus = [hnk.partial for hnk in item.header.hunks]
@@ -332,12 +333,12 @@ class CursesChunkSelector(object):
                     item.header.partial = False
             else: # some/all parent siblings are applied
                 item.header.applied = True
-                item.header.partial = (someSiblingsPartial or \
+                item.header.partial = (someSiblingsPartial or
                                         not allSiblingsApplied)
 
         elif isinstance(item, HunkLine):
-            siblingAppliedStatus = [hnkln.applied for hnkln in item.hunk.changedLines]
-            allSiblingsApplied = not (False in siblingAppliedStatus) 
+            siblingAppliedStatus = [ln.applied for ln in item.hunk.changedLines]
+            allSiblingsApplied = not (False in siblingAppliedStatus)
             noSiblingsApplied = not (True in siblingAppliedStatus)
 
             # if no 'sibling' lines are applied
@@ -351,12 +352,14 @@ class CursesChunkSelector(object):
                 item.hunk.applied = True
                 item.hunk.partial = True
 
-            parentSiblingsAppliedStatus = [hnk.applied for hnk in item.hunk.header.hunks]
-            noParentSiblingsApplied = not (True in parentSiblingsAppliedStatus)
-            allParentSiblingsApplied = not (False in parentSiblingsAppliedStatus)
+            parentSiblingsApplied = [hnk.applied for hnk
+                                     in item.hunk.header.hunks]
+            noParentSiblingsApplied = not (True in parentSiblingsApplied)
+            allParentSiblingsApplied = not (False in parentSiblingsApplied)
 
-            parentSiblingsPartialStatus = [hnk.partial for hnk in item.hunk.header.hunks]
-            someParentSiblingsPartial = (True in parentSiblingsPartialStatus)
+            parentSiblingsPartial = [hnk.partial for hnk
+                                     in item.hunk.header.hunks]
+            someParentSiblingsPartial = (True in parentSiblingsPartial)
 
             # if all parent hunks are not applied, un-apply header
             if noParentSiblingsApplied:
@@ -366,7 +369,7 @@ class CursesChunkSelector(object):
             # set the applied and partial status of the header if needed
             else: # some/all parent siblings are applied
                 item.hunk.header.applied = True
-                item.hunk.header.partial = (someParentSiblingsPartial or \
+                item.hunk.header.partial = (someParentSiblingsPartial or
                                             not allParentSiblingsApplied)
 
     def toggleAll(self):
@@ -391,7 +394,7 @@ class CursesChunkSelector(object):
                 self.currentSelectedItem = item = item.parentItem()
             elif item.neverUnfolded:
                 item.neverUnfolded = False
-            
+
             # also fold any foldable children of the parent/current item
             if isinstance(item, header): # the original OR 'new' item
                 for child in item.allChildren():
@@ -433,13 +436,13 @@ class CursesChunkSelector(object):
         MAGENTA, RED, WHITE, YELLOW].  If pairName is provided, a color
         pair will be looked up in the self.colorPairNames dictionary.
 
-        attrList is a list containing text attributes in the form of 
+        attrList is a list containing text attributes in the form of
         curses.A_XXXX, where XXXX can be: [BOLD, DIM, NORMAL, STANDOUT,
         UNDERLINE].
-        
+
         If align == True, whitespace is added to the printed string such that
         the string stretches to the right border of the window.
-        
+
         If showWhtSpc == True, trailing whitespace of a string is highlighted.
 
         """
@@ -483,7 +486,7 @@ class CursesChunkSelector(object):
             text = text.rstrip(' \n') # tabs have already been expanded
             strippedLen = len(text)
             numTrailingSpaces = origLen - strippedLen
-        
+
         if toWin:
             window.addstr(text, colorPair)
         t += text
@@ -494,7 +497,7 @@ class CursesChunkSelector(object):
                     for i in range(numTrailingSpaces):
                         window.addch(curses.ACS_CKBOARD, wsColorPair)
                 t += " " * numTrailingSpaces
-        
+
         if align:
             if toWin:
                 extraWhiteSpace = self.alignString("", window)
@@ -503,9 +506,9 @@ class CursesChunkSelector(object):
                 # need to use t, since the x position hasn't incremented
                 extraWhiteSpace = self.alignString(t, window)
             t += extraWhiteSpace
-        
+
         # is reset to 0 at the beginning of printItem()
-        
+
         linesPrinted = (xStart + len(t)) / self.xScreenSize
         self.linesPrintedToPadSoFar += linesPrinted
         return t
@@ -514,14 +517,18 @@ class CursesChunkSelector(object):
         self.statuswin.erase()
         self.chunkpad.erase()
 
-        width = self.xScreenSize
-        alignString = self.alignString
         printString = self.printString
 
         # print out the status lines at the top
         try:
-            printString(self.statuswin, "SELECT CHUNKS: (j/k/up/dn/pgup/pgdn) move cursor; (space/A) toggle hunk/all", pairName="legend")
-            printString(self.statuswin, " (f)old/unfold; (c)ommit applied; (q)uit; (?) help | [X]=hunk applied **=folded", pairName="legend")
+            printString(self.statuswin,
+                        "SELECT CHUNKS: (j/k/up/dn/pgup/pgdn) move cursor; "
+                        "(space/A) toggle hunk/all",
+                        pairName="legend")
+            printString(self.statuswin,
+                        " (f)old/unfold; (c)ommit applied; (q)uit; (?) help "
+                        "| [X]=hunk applied **=folded",
+                        pairName="legend")
         except curses.error:
             pass
 
@@ -529,7 +536,10 @@ class CursesChunkSelector(object):
         try:
             self.printItem()
             self.updateScroll()
-            self.chunkpad.refresh(self.firstLineOfPadToPrint,0,self.numStatusLines,0,self.yScreenSize+1-self.numStatusLines,self.xScreenSize)
+            self.chunkpad.refresh(self.firstLineOfPadToPrint, 0,
+                                  self.numStatusLines, 0,
+                                  self.yScreenSize+1-self.numStatusLines,
+                                  self.xScreenSize)
         except curses.error:
             pass
 
@@ -557,7 +567,7 @@ class CursesChunkSelector(object):
                 if isinstance(item, header):
                     # one of "M", "A", or "D" (modified, added, deleted)
                     fileStatus = item.changetype
-                 
+
                     checkBox += fileStatus + " "
             else:
                 checkBox += "  "
@@ -569,7 +579,8 @@ class CursesChunkSelector(object):
 
         return checkBox
 
-    def printHeader(self, header, selected=False, toWin=True, ignoreFolding=False):
+    def printHeader(self, header, selected=False, toWin=True,
+                    ignoreFolding=False):
         """
         Print the header to the pad.  If countLines is True, don't print
         anything, but just count the number of lines which would be printed.
@@ -581,12 +592,11 @@ class CursesChunkSelector(object):
 
         if chunkIndex != 0 and not header.folded:
             # add separating line before headers
-            outStr += self.printString(self.chunkpad, '_'*self.xScreenSize, toWin=toWin, align=False)
+            outStr += self.printString(self.chunkpad, '_' * self.xScreenSize,
+                                       toWin=toWin, align=False)
         # select color-pair based on if the header is selected
-        if selected:
-            colorPair = self.getColorPair(name="selected", attrList=[curses.A_BOLD])
-        else:
-            colorPair = self.getColorPair(name="normal", attrList=[curses.A_BOLD])
+        colorPair = self.getColorPair(name=selected and "selected" or "normal",
+                                      attrList=[curses.A_BOLD])
 
         # print out each line of the chunk, expanding it to screen width
 
@@ -598,16 +608,19 @@ class CursesChunkSelector(object):
             lineStr = checkBox + textList[0]
         else:
             lineStr = checkBox + header.filename()
-        outStr += self.printString(self.chunkpad, lineStr, pair=colorPair, toWin=toWin)
+        outStr += self.printString(self.chunkpad, lineStr, pair=colorPair,
+                                   toWin=toWin)
         if not header.folded or ignoreFolding:
             if len(textList) > 1:
                 for line in textList[1:]:
                     lineStr = " "*(indentNumChars + len(checkBox)) + line
-                    outStr += self.printString(self.chunkpad, lineStr, pair=colorPair, toWin=toWin)
+                    outStr += self.printString(self.chunkpad, lineStr,
+                                               pair=colorPair, toWin=toWin)
 
         return outStr
 
-    def printHunkLinesBefore(self, hunk, selected=False, toWin=True, ignoreFolding=False):
+    def printHunkLinesBefore(self, hunk, selected=False, toWin=True,
+                             ignoreFolding=False):
         "includes start/end line indicator"
         outStr = ""
         # where hunk is in list of siblings
@@ -615,12 +628,11 @@ class CursesChunkSelector(object):
 
         if hunkIndex != 0:
             # add separating line before headers
-            outStr += self.printString(self.chunkpad, ' '*self.xScreenSize, toWin=toWin, align=False)
+            outStr += self.printString(self.chunkpad, ' '*self.xScreenSize,
+                                       toWin=toWin, align=False)
 
-        if selected:
-            colorPair = self.getColorPair(name="selected", attrList=[curses.A_BOLD])
-        else:
-            colorPair = self.getColorPair(name="normal", attrList=[curses.A_BOLD])
+        colorPair = self.getColorPair(name=selected and "selected" or "normal",
+                                      attrList=[curses.A_BOLD])
 
         # print out from-to line with checkbox
         checkBox = self.getStatusPrefixString(hunk)
@@ -629,8 +641,10 @@ class CursesChunkSelector(object):
         frToLine = "   " + hunk.getFromToLine().strip("\n")
 
 
-        outStr += self.printString(self.chunkpad, linePrefix, toWin=toWin, align=False) # add uncolored checkbox/indent
-        outStr += self.printString(self.chunkpad, frToLine, pair=colorPair, toWin=toWin)
+        outStr += self.printString(self.chunkpad, linePrefix, toWin=toWin,
+                                   align=False) # add uncolored checkbox/indent
+        outStr += self.printString(self.chunkpad, frToLine, pair=colorPair,
+                                   toWin=toWin)
 
         if hunk.folded and not ignoreFolding:
             # skip remainder of output
@@ -675,11 +689,14 @@ class CursesChunkSelector(object):
             colorPair = self.getColorPair(name="normal")
 
         linePrefix = " "*indentNumChars + checkBox
-        outStr += self.printString(self.chunkpad, linePrefix, toWin=toWin, align=False) # add uncolored checkbox/indent
-        outStr += self.printString(self.chunkpad, lineStr, pair=colorPair, toWin=toWin, showWhtSpc=True)
+        outStr += self.printString(self.chunkpad, linePrefix, toWin=toWin,
+                                   align=False) # add uncolored checkbox/indent
+        outStr += self.printString(self.chunkpad, lineStr, pair=colorPair,
+                                   toWin=toWin, showWhtSpc=True)
         return outStr
 
-    def printItem(self, item=None, ignoreFolding=False, recurseChildren=True, toWin=True):
+    def printItem(self, item=None, ignoreFolding=False, recurseChildren=True,
+                  toWin=True):
         """
         Use __printItem() to print the the specified item.applied.
         If item is not specified, then print the entire patch.
@@ -690,7 +707,8 @@ class CursesChunkSelector(object):
         if recurseChildren:
             self.linesPrintedToPadSoFar = 0
             global outStr
-        retStr = self.__printItem(item, ignoreFolding, recurseChildren, toWin=toWin)
+        retStr = self.__printItem(item, ignoreFolding, recurseChildren,
+                                  toWin=toWin)
         if recurseChildren:
             # remove the string when finished, so it doesn't accumulate
             del outStr
@@ -723,8 +741,10 @@ class CursesChunkSelector(object):
         if selected and recurseChildren:
             # assumes line numbering starting from line 0
             self.selectedItemStartLine = self.linesPrintedToPadSoFar
-            selectedItemLines = self.getNumLinesDisplayed(item, recurseChildren=False)
-            self.selectedItemEndLine = self.selectedItemStartLine + selectedItemLines - 1
+            selectedItemLines = self.getNumLinesDisplayed(item,
+                                                          recurseChildren=False)
+            self.selectedItemEndLine = (self.selectedItemStartLine +
+                                        selectedItemLines - 1)
 
         # Patch object is a list of headers
         if isinstance(item, Patch):
@@ -733,24 +753,29 @@ class CursesChunkSelector(object):
                     self.__printItem(hdr, ignoreFolding, recurseChildren, toWin)
         # TODO: eliminate all isinstance() calls
         if isinstance(item, header):
-            outStr += self.printHeader(item, selected, toWin=toWin, ignoreFolding=ignoreFolding)
+            outStr += self.printHeader(item, selected, toWin=toWin,
+                                       ignoreFolding=ignoreFolding)
             if recurseChildren:
                 for hnk in item.hunks:
                     self.__printItem(hnk, ignoreFolding, recurseChildren, toWin)
-        elif isinstance(item, hunk) and \
-        ((not item.header.folded) or ignoreFolding):
+        elif (isinstance(item, hunk) and
+              ((not item.header.folded) or ignoreFolding)):
             # print the hunk data which comes before the changed-lines
-            outStr += self.printHunkLinesBefore(item, selected, toWin=toWin, ignoreFolding=ignoreFolding)
+            outStr += self.printHunkLinesBefore(item, selected, toWin=toWin,
+                                                ignoreFolding=ignoreFolding)
             if recurseChildren:
-                for line in item.changedLines:
-                    self.__printItem(line, ignoreFolding, recurseChildren, toWin)
-                outStr += self.printHunkLinesAfter(item, toWin=toWin, ignoreFolding=ignoreFolding)
-        elif isinstance(item, HunkLine) and ((not item.hunk.folded) or ignoreFolding):
+                for l in item.changedLines:
+                    self.__printItem(l, ignoreFolding, recurseChildren, toWin)
+                outStr += self.printHunkLinesAfter(item, toWin=toWin,
+                                                   ignoreFolding=ignoreFolding)
+        elif (isinstance(item, HunkLine) and
+              ((not item.hunk.folded) or ignoreFolding)):
             outStr += self.printHunkChangedLine(item, selected, toWin=toWin)
 
         return outStr
 
-    def getNumLinesDisplayed(self, item=None, ignoreFolding=False, recurseChildren=True):
+    def getNumLinesDisplayed(self, item=None, ignoreFolding=False,
+                             recurseChildren=True):
         """
         Return the number of lines which would be displayed if the item were
         to be printed to the display.  The item will NOT be printed to the
@@ -761,7 +786,8 @@ class CursesChunkSelector(object):
 
         """
         # temporarily disable printing to windows by printString
-        patchDisplayString = self.printItem(item, ignoreFolding, recurseChildren, toWin=False)
+        patchDisplayString = self.printItem(item, ignoreFolding,
+                                            recurseChildren, toWin=False)
         numLines = len(patchDisplayString)/self.xScreenSize
         return numLines
 
@@ -777,15 +803,17 @@ class CursesChunkSelector(object):
         except curses.error:
             pass
 
-    def getColorPair(self, fgColor=None, bgColor=None, name=None, attrList=None):
+    def getColorPair(self, fgColor=None, bgColor=None, name=None,
+                     attrList=None):
         """
-        Get a curses color pair, adding it to self.colorPairs if it is not already
-        defined.  An optional string, name, can be passed as a shortcut for
-        referring to the color-pair.  By default, if no arguments are specified,
-        the white foreground / black background color-pair is returned.
+        Get a curses color pair, adding it to self.colorPairs if it is not
+        already defined.  An optional string, name, can be passed as a shortcut
+        for referring to the color-pair.  By default, if no arguments are
+        specified, the white foreground / black background color-pair is
+        returned.
 
-        It is expected that this function will be used exclusively for initializing
-        color pairs, and NOT curses.init_pair().
+        It is expected that this function will be used exclusively for
+        initializing color pairs, and NOT curses.init_pair().
 
         attrList is used to 'flavor' the returned color-pair.  This information
         is not stored in self.colorPairs.  It contains attribute values like
@@ -805,7 +833,8 @@ class CursesChunkSelector(object):
             else:
                 pairIndex = len(self.colorPairs) + 1
                 curses.init_pair(pairIndex, fgColor, bgColor)
-                colorPair = self.colorPairs[(fgColor, bgColor)] = curses.color_pair(pairIndex)
+                colorPair = self.colorPairs[(fgColor, bgColor)] = (
+                    curses.color_pair(pairIndex))
                 if name is not None:
                     self.colorPairNames[name] = curses.color_pair(pairIndex)
 
@@ -825,7 +854,7 @@ class CursesChunkSelector(object):
 
     def initColorPair(self, *args, **kwargs):
         "Same as getColorPair."
-        self.getColorPair(*args, **kwargs)    
+        self.getColorPair(*args, **kwargs)
 
     def helpWindow(self):
         "Print a help window to the screen.  Exit after any keypress."
@@ -850,9 +879,10 @@ The following are valid keystrokes:
                       q : quit without committing (no changes will be made)
                       ? : help (what you're currently reading)"""
 
-        helpwin = curses.newwin(self.yScreenSize,0,0,0)
+        helpwin = curses.newwin(self.yScreenSize, 0, 0, 0)
         helpLines = helpText.split("\n")
-        helpLines = helpLines + [" "]*(self.yScreenSize-self.numStatusLines-len(helpLines)-1)
+        helpLines = helpLines + [" "]*(
+            self.yScreenSize - self.numStatusLines - len(helpLines) - 1)
         try:
             for line in helpLines:
                 self.printString(helpwin, line, pairName="legend")
@@ -877,8 +907,8 @@ The following are valid keystrokes:
             else:
                 return key
         statusline = curses.newwin(2,0,0,0)
-        statusLineText = \
-        " Begin/resume editing commit message. CTRL-C/-X returns to patch view."
+        statusLineText = (" Begin/resume editing commit message."
+                          " CTRL-C/-X returns to patch view.")
         self.printString(statusline, statusLineText, pairName="legend")
         statusline.refresh()
         helpwin = curses.newwin(self.yScreenSize-1,0,1,0)
@@ -890,7 +920,7 @@ The following are valid keystrokes:
     def confirmCommit(self, review=False):
         "Ask for 'Y' to be pressed to confirm commit. Return True if confirmed."
         if review:
-            confirmText = \
+            confirmText = (
 """If you answer yes to the following, the your currently chosen patch chunks
 will be loaded into an editor.  You may modify the patch from the editor, and
 save the changes if you wish to change the patch.  Otherwise, you can just
@@ -899,11 +929,12 @@ close the editor without saving to accept the current patch as-is.
 NOTE: don't add/remove lines unless you also modify the range information.
       Failing to follow this rule will result in the commit aborting.
 
-Are you sure you want to review/edit and commit the selected changes [yN]? """
+Are you sure you want to review/edit and commit the selected changes [yN]? """)
         else:
-            confirmText = "Are you sure you want to commit the selected changes [yN]? "
+            confirmText = (
+                "Are you sure you want to commit the selected changes [yN]? ")
 
-        confirmWin = curses.newwin(self.yScreenSize,0,0,0)
+        confirmWin = curses.newwin(self.yScreenSize, 0, 0, 0)
         try:
             lines = confirmText.split("\n")
             for line in lines:
@@ -936,7 +967,8 @@ Are you sure you want to review/edit and commit the selected changes [yN]? """
         # available colors: black, blue, cyan, green, magenta, white, yellow
         # init_pair(color_id, foreground_color, background_color)
         self.initColorPair(None, None, name="normal")
-        self.initColorPair(curses.COLOR_WHITE, curses.COLOR_MAGENTA, name="selected")
+        self.initColorPair(curses.COLOR_WHITE, curses.COLOR_MAGENTA,
+                           name="selected")
         self.initColorPair(curses.COLOR_RED, None, name="deletion")
         self.initColorPair(curses.COLOR_GREEN, None, name="addition")
         self.initColorPair(curses.COLOR_WHITE, curses.COLOR_BLUE, name="legend")
@@ -955,10 +987,11 @@ Are you sure you want to review/edit and commit the selected changes [yN]? """
         self.chunkpad = curses.newpad(self.numPadLines, self.xScreenSize)
 
         # initialize selecteItemEndLine (initial start-line is 0)
-        self.selectedItemEndLine = self.getNumLinesDisplayed(self.currentSelectedItem, recurseChildren=False)
-        
+        self.selectedItemEndLine = self.getNumLinesDisplayed(
+            self.currentSelectedItem, recurseChildren=False)
+
         # option which enables/disables patch-review (in editor) step
-        opts['crecord_reviewpatch'] = False 
+        opts['crecord_reviewpatch'] = False
 
         try:
             self.commentText = opts['message']
