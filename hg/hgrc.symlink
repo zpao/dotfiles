@@ -32,6 +32,7 @@ hgext.convert =
 hgext.graphlog =
 hgext.bookmarks =
 color =
+hgext.pager =
 qimportbz = /Users/pao/.hgext/qimportbz
 crecord = /Users/pao/.hgext/crecord/crecord
 #hggit = /Users/pao/.hgext/hg-git/hggit
@@ -42,3 +43,5 @@ transplant =
 # hg-transplant points to an executable in $PATH
 filter = hg-transplant
 
+[pager]
+pager = LESS='FSRX' less
