@@ -33,11 +33,11 @@ hgext.graphlog =
 hgext.bookmarks =
 color =
 hgext.pager =
-qimportbz = /Users/pao/.hgext/qimportbz
-crecord = /Users/pao/.hgext/crecord/crecord
+qimportbz = ~/.hgext/qimportbz
+crecord = ~/.hgext/crecord/crecord
 #hggit = /Users/pao/.hgext/hg-git/hggit
-hgext.pbranch = /Users/pao/.hgext/hg-pbranch/hgext/pbranch.py
-prompt = /Users/pao/.hgext/hg-prompt/prompt.py
+hgext.pbranch = ~/.hgext/hg-pbranch/hgext/pbranch.py
+prompt = ~/.hgext/hg-prompt/prompt.py
 transplant =
 
 [transplant]
