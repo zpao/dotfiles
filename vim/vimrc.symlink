@@ -11,6 +11,9 @@ set nocompatible
 call pathogen#helptags()
 call pathogen#runtime_append_all_bundles()
 
+" Swapfiles mostly just get in the way for me.
+set noswapfile
+
 " ----------------------------------------------------------------------------
 "  Text Formatting
 " ----------------------------------------------------------------------------
