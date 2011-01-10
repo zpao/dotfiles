@@ -41,7 +41,7 @@ To check the setup, run:
 	branches of temporary clones of the main repository.
 	_
 	For more information:
-	http://www.selenic.com/mercurial/wiki/index.cgi/PatchBranches
+	http://www.selenic.com/mercurial/wiki/index.cgi/PatchBranchExtension
 	_
 	list of commands:
 	_

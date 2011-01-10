@@ -9,7 +9,7 @@
 
 '''text-gui based change selection during commit or qrefresh'''
 from mercurial.i18n import _
-from mercurial import cmdutil, commands, extensions, hg, mdiff, patch
+from mercurial import cmdutil, hg, mdiff, patch
 from mercurial import util
 import cStringIO
 import errno
@@ -126,7 +126,10 @@ def dorecord(ui, repo, commitfunc, *pats, **opts):
                                             eolmode=None)
                     except TypeError:  # backwards compatilibity with hg 1.1
                         patch.internalpatch(fp, ui, 1, repo.root, files=pfiles)
-                    patch.updatedir(ui, repo, pfiles)
+                    try:
+                        cmdutil.updatedir(ui, repo, pfiles)
+                    except AttributeError:
+                        patch.updatedir(ui, repo, pfiles)
                 except patch.PatchError, err:
                     s = str(err)
                     if s:

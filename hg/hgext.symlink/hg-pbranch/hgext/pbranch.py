@@ -208,7 +208,8 @@ def revertclean(repo, mergestate, filepath, filectx):
     repo.wwrite(filepath, filectx.data(), filectx.flags())
     # remove it from the merge state (hack!)
     del mergestate._state[filepath]
-    mergestate._write()
+    mergestate._dirty = True
+    mergestate.commit()
     # flag as clean in the dirstate
     repo.dirstate.normal(filepath)
 
@@ -682,7 +683,9 @@ class desiredgraph(patchgraph):
                 if unresolved == [depspath]:
                     ui.status(_("%s: resolving %s\n" % (targetctx.branch(), depspath)))
                     writedeps()
+                    ms = merge.mergestate(repo)
                     ms.mark(depspath, 'r')
+                    ms.commit()
                     unresolved = []
                 if unresolved:
                     raise util.Abort(_("use 'hg resolve' to retry unresolved file merges, then do 'hg pmerge' again\n"))
@@ -859,8 +862,9 @@ def writeinfo(repo, path, text):
     if text:
         f.write(text)
     f.close()
+    path = util.pconvert(path)
     if repo.dirstate[path] not in 'amn':
-        repo[None].add([util.pconvert(path)])
+        repo[None].add([path])
 
 # FIXME memoize some things later
 class patchmanager:
@@ -1335,7 +1339,7 @@ def cmdbackout(ui, repo, *pats, **opts):
         m = cmdutil.match(repo, pats, diffopts)
         diff = _patch.diff(repo, thisctx.node(), basectx.node(), match=m,
                            opts=_patch.diffopts(ui, diffopts))
-        temp = file(tempname, 'w')
+        temp = file(tempname, 'wb')
         try:
             for l in diff: temp.write(l)
         finally:
@@ -1344,7 +1348,7 @@ def cmdbackout(ui, repo, *pats, **opts):
         # patch
         files = {}
         _patch.patch(tempname, ui, strip=1, cwd=repo.root, files=files)
-        files = _patch.updatedir(ui, repo, files)
+        files = cmdutil.updatedir(ui, repo, files)
 
     finally:
         try: os.unlink(tempname)

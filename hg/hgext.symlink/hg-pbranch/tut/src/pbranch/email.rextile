@@ -15,6 +15,7 @@ h5. hg pemail
 	$ hg pemail --test --from john@example.com --to jane@example.com patch-A
 	This patch series consists of 1 patches.
 	_
+	Cc:
 	_
 	Displaying [PATCH] a nifty patch ...
 	Content-Type: text/plain; charset="us-ascii"
@@ -68,6 +69,7 @@ h5. hg pemail --with-deps
 	$ hg pemail $(cat mailopts) --with-deps patch-B
 	This patch series consists of 2 patches.
 	_
+	Cc:
 	_
 	Displaying [PATCH 0 of 2] "Intro" ...
 	Content-Type: text/plain; charset="us-ascii"
@@ -153,6 +155,7 @@ Finally, we can send multiple patches in arbitrary order by naming them all expl
 	$ hg pemail $(cat mailopts) patch-A patch-B patch-C
 	This patch series consists of 3 patches.
 	_
+	Cc:
 	_
 	Displaying [PATCH 0 of 3] "Intro" ...
 	Content-Type: text/plain; charset="us-ascii"
