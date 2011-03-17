@@ -1,0 +1,7 @@
+#!/bin/sh
+
+# This creates a diff of a branch that is safe to post on bugzilla and can be
+# imported by mercurial.
+# In the future this might open $EDITOR to allow a patch message and add the
+# author field.
+git branch-diff -U8 | sed "/^index.*$/d"
