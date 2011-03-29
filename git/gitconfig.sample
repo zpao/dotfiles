@@ -5,26 +5,36 @@
 # etc/gitconfig and it seems other clients don't always respect it (not to
 # mention dealing with it in homebrew sucks). Don't let that stop you; you
 # can symlink ~/.gitconfig to this file and go rock out with your git out!
+#
+# I'm not Zach, but I don't want to share my private info either. But I also
+# want to make it easy to set up a new computer, so this is my .gitconfig minus
+# secret things. I copy it to gitconfig.symlink (which is ignored by git), add
+# my info, and then rake just does the right thing.
 
 [user]
-        name = Zach Holman
-        email = your@example.com
+  name = Paul O’Shannessy
+  email = you@example.com
 [alias]
-        co = checkout
-        promote = !$ZSH/bin/git-promote
-        wtf     = !$ZSH/bin/git-wtf
-        rank-contributers = !$ZSH/bin/git-rank-contributers
-        count   = !git shortlog -sn
+  amend = commit --amend
+  co = checkout
+  st = status
+  brlog = log master..
+  brdiff = branch-diff
+  count = !git shortlog -sn
+
 [color]
-        diff = auto
-        status = auto
-        branch = auto
+  diff = auto
+  status = auto
+  branch = auto
 [core]
-        excludesfile = ~/.gitignore
-        editor = mate -w
+  excludesfile = ~/.gitignore
+  editor = mate -w
 [apply]
-        whitespace = nowarn
+  whitespace = nowarn
 [github]
-        user = holman
-[mergetool]
-        keepBackup = false
+  user = zpao
+  token = nonsense
+# I don't actually like ff merges into my master branch, so I turn that off
+[branch "master"]
+  mergeoptions = --no-ff
+
