@@ -21,7 +21,6 @@
   brlog = log master..
   brdiff = branch-diff
   count = !git shortlog -sn
-
 [color]
   diff = auto
   status = auto
