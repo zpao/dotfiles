@@ -2,6 +2,8 @@
 
 mk_add_options MOZ_MAKE_FLAGS="-s -j12"
 
+ac_add_options --with-ccache
+
 # DEBUG
 mk_add_options MOZ_OBJDIR=@TOPSRCDIR@/obj-ff-debug
 ac_add_options --enable-debug

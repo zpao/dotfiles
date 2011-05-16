@@ -8,3 +8,6 @@ then
   alias ll="gls -lAh --color"
   alias la='gls -A --color'
 fi
+
+# I'll never remember this in python form, so alias it!
+alias ppjson="python -mjson.tool myfile.json"

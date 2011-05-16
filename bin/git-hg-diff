@@ -1,0 +1,8 @@
+#!/bin/sh
+
+# This creates a diff of that is safe to post on bugzilla and can be imported
+# by mercurial. This is different from hg-branch-diff in that it will just
+# perform a normal diff.
+# In the future this might open $EDITOR to allow a patch message and add the
+# author field.
+git diff -U8 | sed "/^index.*$/d"
