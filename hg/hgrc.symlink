@@ -47,3 +47,4 @@ filter = hg-transplant
 
 [pager]
 pager = LESS='FSRX' less
+attend = annotate, cat, diff, export, glog, log, qdiff, outgoing, incoming
