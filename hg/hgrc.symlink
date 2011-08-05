@@ -8,6 +8,7 @@ qnew = -U
 [ui]
 username = Paul O’Shannessy <paul@oshannessy.com>
 ignore = ~/.hgignore
+editor = hgeditor
 
 [diff]
 git = 1
