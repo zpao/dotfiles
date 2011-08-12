@@ -2,7 +2,7 @@
 export = -g
 branches = -a
 heads = -a
-qseries = -v
+qseries = -vs
 qnew = -U
 
 [ui]
