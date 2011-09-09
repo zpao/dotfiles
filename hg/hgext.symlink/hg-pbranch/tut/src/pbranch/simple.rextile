@@ -61,13 +61,13 @@ To commit it as a new patch branch, we do:
 
 h5. hg pnew
 
-	$ hg pnew patch-A
-	marked working directory as branch patch-A
+	$ hg pnew patchA
+	marked working directory as branch patchA
 
-This commits the patch to a new patch branch called @patch-A@:
+This commits the patch to a new patch branch called @patchA@:
 
 	$ hg branches
-	patch-A                        1:cdf5d3a110f6
+	patchA                         1:17a5f12cd1a7
 	default                        0:527edfea671a (inactive)
 
 So the dirstate is clean now:
@@ -101,7 +101,7 @@ The new patch is based on the branch we were on when we created it, so @default@
 h5. hg pgraph
 
 	$ hg pgraph
-	@  patch-A
+	@  patchA
 	|
 	o  default
 
@@ -110,12 +110,12 @@ The summary also informs us that we are on a patch branch:
 h5. hg summary
 
 	$ hg summary
-	parent: 1:cdf5d3a110f6 tip
+	parent: 1:17a5f12cd1a7 tip
 	 start new patch on default
-	branch: patch-A
+	branch: patchA
 	commit: (clean)
 	update: (current)
-	pbranch: patch-A (default)
+	pbranch: patchA (default)
 
 
 h3. Behind The Scenes
@@ -123,24 +123,24 @@ h3. Behind The Scenes
 The @pnew@ command does a number of things:
 
 	* Add patch dependency info to @.hg/pgraph@.
-	* Add the current patch base to @.hgpatchinfo/patch-A.dep@.
-	* Commit to a new branch called "patch-A".
+	* Add the current patch base to @.hgpatchinfo/patchA.dep@.
+	* Commit to a new branch called "patchA".
 
 h5. .hg/pgraph
 
 The @.hg/pgraph@ file lists the patch dependencies as we want them. You can edit it however you wish. Later, we shall do this. Right now, @pnew@ added the new patch like this:
 
 	$ cat .hg/pgraph
-	patch-A: default
+	patchA: default
 
-This means we want patch-A to be based on the default branch. The patch is now defined as the diff between default and patch-A.
+This means we want patchA to be based on the default branch. The patch is now defined as the diff between default and patchA.
 
 h5. .hgpatchinfo/*.dep
 
 The patch graph description defines the graph as we want it. However, in order to be able to revert to older patches (branch diffs) consistently, pbranch also embeds the current base revision in the patch branch itself, and commits this information:
 
 	$ hg manifest | grep hgpatch
-	.hgpatchinfo/patch-A.dep
+	.hgpatchinfo/patchA.dep
 
 This is so we can later revert to a specific revision of the patch and get the exact diff back that was current then.
 
@@ -154,7 +154,7 @@ Let's add a commit message to the patch, to be used when we finally submit the p
 This is also committed to our patch branch:
 
 	$ hg log --rev tip
-	2	patch-A: update patch description - john
+	2	patchA: update patch description - john
 
 We can get it back like this:
 
@@ -166,21 +166,21 @@ h5. hg pmessage
 The first line is also shown by the summary:
 
 	$ hg summary
-	parent: 2:f74eb14d1d12 tip
+	parent: 2:4cac083bb95c tip
 	 update patch description
-	branch: patch-A
+	branch: patchA
 	commit: (clean)
 	update: (current)
-	pbranch: patch-A (default)
+	pbranch: patchA (default)
 	 a nifty patch
 
-The patch message info is written to @.hgpatchinfo/patch-A.desc@:
+The patch message info is written to @.hgpatchinfo/patchA.desc@:
 
 	$ hg diff --rev -2:-1
-	diff --git a/.hgpatchinfo/patch-A.desc b/.hgpatchinfo/patch-A.desc
+	diff --git a/.hgpatchinfo/patchA.desc b/.hgpatchinfo/patchA.desc
 	new file mode 100644
 	--- /dev/null
-	+++ b/.hgpatchinfo/patch-A.desc
+	+++ b/.hgpatchinfo/patchA.desc
 	@@ -0,0 +1,1 @@
 	+a nifty patch
 	\ No newline at end of file
@@ -198,8 +198,8 @@ Let's do this again for the second patch, this time adding the patch description
 
 h5. hg pnew --text
 
-	$ hg pnew --text "another patch" patch-B
-	marked working directory as branch patch-B
+	$ hg pnew --text "another patch" patchB
+	marked working directory as branch patchB
 
 
 h3. Fix The Second Patch
@@ -228,48 +228,48 @@ For the third patch, we are going to do @pnew@'s work by hand, so you can get a 
 	$ sed -i main-file-1 -e s/Three/Drei/
 	$ hg add file-from-C
 
-and commit them to a new branch @patch-C@:
+and commit them to a new branch @patchC@:
 
-	$ hg branch patch-C
-	marked working directory as branch patch-C
+	$ hg branch patchC
+	marked working directory as branch patchC
 	$ hg commit --message "changes for C"
 
 If we try to get the patch now, we get an error:
 
 	$ hg pdiff
-	abort: branch patch-C is not in the patch graph (missing pmerge? edit .hg/pgraph?)
+	abort: branch patchC is not in the patch graph (missing pmerge? edit .hg/pgraph?)
 
 So we add the branch to the patch graph:
 
-	$ echo "patch-C: patch-B" >>.hg/pgraph
+	$ echo "patchC: patchB" >>.hg/pgraph
 
 Now, @pgraph --status@ tells we still need to update the embedded base revision info:
 
 	$ hg pgraph --status
-	@  patch-C
-	|   * needs update of diff base to tip of patch-B
-	o  patch-B
+	@  patchC
+	|   * needs update of diff base to tip of patchB
+	o  patchB
 	|
-	o  patch-A
+	o  patchA
 	|
 	o  default
 
 as is also indicated by the summary:
 
 	$ hg summary
-	parent: 5:68bf29f4e1a6 tip
+	parent: 5:54d7e24775b2 tip
 	 changes for C
-	branch: patch-C
+	branch: patchC
 	commit: (clean)
 	update: (current)
-	pbranch: patch-C (patch-B)
+	pbranch: patchC (patchB)
 	pmerge: 1 pending
 	pgraph: desired != tips
 
 So we do this:
 
 	$ hg pmerge
-	patch-C: updating dependencies
+	patchC: updating dependencies
 
 and finally update the commit message:
 
@@ -280,9 +280,9 @@ h2. Viewing Patches
 
 h5. hg pdiff
 
-As mentioned above, we use @pdiff@ to view the current state of a patch. The user and date are taken from the last commit to the patch branch (unless overridden in the patch description). Here's patch-A:
+As mentioned above, we use @pdiff@ to view the current state of a patch. The user and date are taken from the last commit to the patch branch (unless overridden in the patch description). Here's patchA:
 
-	$ hg pdiff patch-A
+	$ hg pdiff patchA
 	# HG changeset patch
 	# User john
 	# Date 0 0
@@ -301,9 +301,9 @@ As mentioned above, we use @pdiff@ to view the current state of a patch. The use
 	-One
 	+Eins
 
-then patch-B:
+then patchB:
 
-	$ hg pdiff patch-B
+	$ hg pdiff patchB
 	# HG changeset patch
 	# User john
 	# Date 0 0
@@ -322,7 +322,7 @@ then patch-B:
 	-Two
 	+Zwei
 
-and for patch-C we can omit the patch name as its our current patch:
+and for patchC we can omit the patch name as its our current patch:
 
 	$ hg pdiff
 	# HG changeset patch
@@ -348,11 +348,11 @@ h5. hg pgraph
 To get an overview of the currently active patches, we do:
 
 	$ hg pgraph
-	@  patch-C
+	@  patchC
 	|
-	o  patch-B
+	o  patchB
 	|
-	o  patch-A
+	o  patchA
 	|
 	o  default
 
@@ -371,7 +371,7 @@ h5. hg update
 
 We can go back to an earlier patch to amend it. Since each patch is a branch, we just update to the desired branch:
 
-	$ hg update patch-A
+	$ hg update patchA
 	1 files updated, 0 files merged, 6 files removed, 0 files unresolved
 
 and make our modifications there:
@@ -381,30 +381,30 @@ and make our modifications there:
 
 h5. hg pstatus
 
-This creates a new head as we have not yet merged the new change into patch-B and patch-C:
+This creates a new head as we have not yet merged the new change into patchB and patchC:
 
-	$ hg pstatus patch-B
-	needs merge with patch-A
-	needs update of diff base to tip of patch-A
+	$ hg pstatus patchB
+	needs merge with patchA
+	needs update of diff base to tip of patchA
 
-	$ hg pstatus patch-C
-	needs merge with patch-A (through patch-B)
+	$ hg pstatus patchC
+	needs merge with patchA (through patchB)
 
 Or to see all at a glance:
 
 	$ hg pgraph --status
-	o  patch-C
-	|   * needs merge with patch-A (through patch-B)
-	o  patch-B
-	|   * needs merge with patch-A
-	|   * needs update of diff base to tip of patch-A
-	@  patch-A
+	o  patchC
+	|   * needs merge with patchA (through patchB)
+	o  patchB
+	|   * needs merge with patchA
+	|   * needs update of diff base to tip of patchA
+	@  patchA
 	|
 	o  default
 
 The the dependent patches are, however, still shown as they were when we last committed to their patch branches (this is what the "needs update of diff base" is all about):
 
-	$ hg pdiff --tips patch-B
+	$ hg pdiff --tips patchB
 	# HG changeset patch
 	# User john
 	# Date 0 0
@@ -423,22 +423,22 @@ The the dependent patches are, however, still shown as they were when we last co
 	-Two
 	+Zwei
 
-We are also notified of the pending merge when we go back to patch-C:
+We are also notified of the pending merge when we go back to patchC:
 
-	$ hg update patch-C
+	$ hg update patchC
 	8 files updated, 0 files merged, 0 files removed, 0 files unresolved
-	needs merge with patch-A (through patch-B)
+	needs merge with patchA (through patchB)
 	use 'hg pmerge'
 
-and again by the summary (while we're at patch-C):
+and again by the summary (while we're at patchC):
 
 	$ hg summary
-	parent: 7:10526cbf6ae4
+	parent: 7:5761f57be712
 	 update patch description
-	branch: patch-C
+	branch: patchC
 	commit: (clean)
 	update: (current)
-	pbranch: patch-C (patch-B)
+	pbranch: patchC (patchB)
 	 yet another patch
 	pmerge: 1 pending
 
@@ -447,42 +447,42 @@ h3. Merge Into Later Patches
 
 h5. hg pmerge
 
-@hg pmerge@ merges the new head from patch-A first into patch-B, and then into patch-C:
+@hg pmerge@ merges the new head from patchA first into patchB, and then into patchC:
 
 	$ hg pmerge
-	updating to patch-A
+	updating to patchA
 	2 files updated, 0 files merged, 6 files removed, 0 files unresolved
-	patch-B: merging from patch-A
-	marked working directory as branch patch-B
+	patchB: merging from patchA
+	marked working directory as branch patchB
 	4 files updated, 0 files merged, 0 files removed, 0 files unresolved
-	patch-C: merging from patch-B
-	marked working directory as branch patch-C
+	patchC: merging from patchB
+	marked working directory as branch patchC
 	4 files updated, 0 files merged, 0 files removed, 0 files unresolved
 
 	$ hg glog
-	@    10	patch-C: merge of patch-B - john
+	@    10	patchC: merge of patchB - john
 	|\
-	| o    9	patch-B: merge of patch-A - john
+	| o    9	patchB: merge of patchA - john
 	| |\
-	| | o  8	patch-A: second try in A - john
+	| | o  8	patchA: second try in A - john
 	| | |
-	o | |  7	patch-C: update patch description - john
+	o | |  7	patchC: update patch description - john
 	| | |
-	o | |  6	patch-C: update patch dependencies - john
+	o | |  6	patchC: update patch dependencies - john
 	| | |
-	o | |  5	patch-C: changes for C - john
+	o | |  5	patchC: changes for C - john
 	|/ /
-	o |  4	patch-B: second try in B - john
+	o |  4	patchB: second try in B - john
 	| |
-	o |  3	patch-B: start new patch on patch-A - john
+	o |  3	patchB: start new patch on patchA - john
 	|/
-	o  2	patch-A: update patch description - john
+	o  2	patchA: update patch description - john
 	|
-	o  1	patch-A: start new patch on default - john
+	o  1	patchA: start new patch on default - john
 	|
 	o  0	: base - john
 
-We can now make a change in patch-C that depends on the change in patch-A:
+We can now make a change in patchC that depends on the change in patchA:
 
 	$ cat file-from-A
 	One
@@ -496,20 +496,20 @@ We can now make a change in patch-C that depends on the change in patch-A:
 So:
 
 	$ hg glog --limit 5
-	@  11	patch-C: dependent change in C - john
+	@  11	patchC: dependent change in C - john
 	|
-	o    10	patch-C: merge of patch-B - john
+	o    10	patchC: merge of patchB - john
 	|\
-	| o    9	patch-B: merge of patch-A - john
+	| o    9	patchB: merge of patchA - john
 	| |\
-	| | o  8	patch-A: second try in A - john
+	| o |  8	patchA: second try in A - john
 	| | |
-	o | |  7	patch-C: update patch description - john
+	o | |  7	patchC: update patch description - john
 	| | |
 
 which results in the following final diffs:
 
-	$ hg pdiff patch-A
+	$ hg pdiff patchA
 	# HG changeset patch
 	# User john
 	# Date 0 0
@@ -529,7 +529,7 @@ which results in the following final diffs:
 	-One
 	+Eins
 
-	$ hg pdiff patch-C
+	$ hg pdiff patchC
 	# HG changeset patch
 	# User john
 	# Date 0 0

@@ -57,5 +57,5 @@ To check the setup, run:
 	 pstatus        print status of current (or given) patch branch
 	 reapply        reverts the working copy of all files touched by REV to REV
 	_
-	use "hg -v help pbranch" to show aliases and global options
+	use "hg -v help pbranch" to show builtin aliases and global options
 

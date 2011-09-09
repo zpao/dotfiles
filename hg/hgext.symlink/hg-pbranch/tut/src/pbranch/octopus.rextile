@@ -570,7 +570,7 @@ Again, we pmerge:
 	M b
 	? a.orig
 	$ hg ci -m M1
-	abort: unresolved merge conflicts (see hg resolve)
+	abort: unresolved merge conflicts (see hg help resolve)
 
 Current pbranch fails to detect octopus resolutions at the hunk level.
 

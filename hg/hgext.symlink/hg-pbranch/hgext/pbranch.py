@@ -16,10 +16,10 @@ http://www.selenic.com/mercurial/wiki/index.cgi/PatchBranchExtension
 '''
 
 from mercurial.i18n import _
-from mercurial.revlog import nullrev, nullid, short
-from mercurial.node import hex
+from mercurial.revlog import nullrev, nullid
+from mercurial.node import hex, short
 from mercurial.error import RepoError
-from mercurial import util, commands, cmdutil, merge, hg, extensions, match
+from mercurial import util, commands, scmutil, merge, hg, extensions, match
 from mercurial import context, node, error
 from mercurial import patch as _patch
 from hgext import graphlog, patchbomb
@@ -230,7 +230,7 @@ def resolvepatchinfo(ui, repo, unresolved):
             fcx = repo[pname][fpath]
             ui.status(_("resolving %s to head of %s (%i)\n") % (fpath, pname, fcx.rev()))
             revertclean(repo, ms, fpath, fcx)
-            util.unlink(repo.wjoin(fpath + '.orig'))
+            util.unlinkpath(repo.wjoin(fpath + '.orig'))
         else:
             still.append(fpath)
     return still
@@ -291,7 +291,7 @@ def octopusresolve(ui, repo, pending):
                     if candfn == parfn:
                         ui.status(_("deferring %s; pending resolution in rev %i\n") % (f, cx.rev()))
                         revertclean(repo, ms, f, parfcx[0])
-                        util.unlink(repo.wjoin(f + '.orig'))
+                        util.unlinkpath(repo.wjoin(f + '.orig'))
                         return True
             return False
 
@@ -334,7 +334,7 @@ def reresolve(ui, repo):
 
             ui.status(_("resolving %s; already merged in rev %i\n") % (f, usefcx.rev()))
             revertclean(repo, ms, f, usefcx)
-            util.unlink(repo.wjoin(f + '.orig'))
+            util.unlinkpath(repo.wjoin(f + '.orig'))
             return True
 
         still = []
@@ -474,11 +474,11 @@ class patchgraph(object):
         predctx, thisctx = self.diffctx(patch)
 
         # hide dates and state
+        exclude = opts.get("exclude", []) + ["glob:%s/" % repo.wjoin(INFOPATH)]
+        matcher = match.match(repo.root, '', pats, exclude=exclude)
         diffopts = opts.copy()
         diffopts["nodates"] = True
-        diffopts["exclude"] = diffopts.get("exclude", []) + ["%s/" % repo.wjoin(INFOPATH)]
-
-        matcher = cmdutil.match(repo, pats, diffopts)
+        diffopts["exclude"] = exclude
         diffopts = _patch.diffopts(mgr.ui, diffopts)
         return predctx, thisctx, diffopts, matcher
 
@@ -1203,7 +1203,7 @@ def cmdexport(ui, repo, *patches, **opts):
         if not os.path.exists(tgt):
             os.mkdir(tgt)
             ui.note("%s created\n" % tgt)
-        opener = util.opener(tgt)
+        opener = scmutil.opener(tgt)
         ext = opts.get("ext") or ""
         if not opts.get('no_series'):
             series = opener('series', 'w')
@@ -1332,11 +1332,13 @@ def cmdbackout(ui, repo, *pats, **opts):
     try:
 
         # diff
-        diffopts = {'exclude': (opts.get('exclude') or []) + ["%s/" % INFOPATH],
-                    'include': opts.get('include') or [],
-                    'git':True,
-                    'nodates':True}
-        m = cmdutil.match(repo, pats, diffopts)
+        matchopts = \
+            {'exclude': (opts.get('exclude') or []) + ["glob:%s/" % INFOPATH],
+             'include': opts.get('include') or [],
+            }
+        m = match.match(repo.root, '', pats, **matchopts)
+        diffopts = {'git':True, 'nodates':True}
+        diffopts.update(matchopts)
         diff = _patch.diff(repo, thisctx.node(), basectx.node(), match=m,
                            opts=_patch.diffopts(ui, diffopts))
         temp = file(tempname, 'wb')
@@ -1347,8 +1349,8 @@ def cmdbackout(ui, repo, *pats, **opts):
 
         # patch
         files = {}
-        _patch.patch(tempname, ui, strip=1, cwd=repo.root, files=files)
-        files = cmdutil.updatedir(ui, repo, files)
+        _patch.patch(ui, repo, tempname, strip=1, files=files)
+        files = scmutil.updatedir(ui, repo, files)
 
     finally:
         try: os.unlink(tempname)
@@ -1381,7 +1383,7 @@ def cmdreapply(ui, repo, rev, **opts):
             wf.close()
         else:
             ui.note("deleting %s\n" % f)
-            util.unlink(repo.wjoin(bf.path()))
+            util.unlinkpath(repo.wjoin(bf.path()))
 
 def cmdoctopusresolve(ui, repo, *pending):
     """custom conflict resolution for octopus merges
