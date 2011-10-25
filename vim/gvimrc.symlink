@@ -1,5 +1,5 @@
-colorscheme molokai
-set gfn=Menlo:h10.00
+colorscheme neon
+set gfn=MesloLGSDZ:h12.00
 set anti
 set lines=999 columns=120
 set guioptions=egmrt
