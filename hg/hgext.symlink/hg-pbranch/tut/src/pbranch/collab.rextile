@@ -195,7 +195,7 @@ When we pull this:
 	adding manifests
 	adding file changes
 	added 1 changesets with 2 changes to 2 files (+1 heads)
-	(run 'hg heads' to see heads, 'hg merge' to merge)
+	(run 'hg heads' to see heads)
 	inferred graph has changed; use 'hg pgraph --tips' to view
 
 we get a hint that the inferred patch graph changed. As we can verify:
@@ -319,7 +319,7 @@ We pull this:
 	adding manifests
 	adding file changes
 	added 3 changesets with 3 changes to 3 files (+2 heads)
-	(run 'hg heads' to see heads, 'hg merge' to merge)
+	(run 'hg heads .' to see heads, 'hg merge' to merge)
 
 and look at the patch status:
 

@@ -56,7 +56,7 @@ def dorecord(ui, repo, commitfunc, *pats, **opts):
         # 1. filter patch, so we have intending-to apply subset of it
         chunks = crpatch.filterpatch(opts,
                                      crpatch.parsepatch(changes, fp),
-                                     chunk_selector.chunkselector)
+                                     chunk_selector.chunkselector, ui)
         del fp
 
         contenders = set()
@@ -120,16 +120,31 @@ def dorecord(ui, repo, commitfunc, *pats, **opts):
                 try:
                     ui.debug('applying patch\n')
                     ui.debug(fp.getvalue())
-                    pfiles = {}
-                    try:
-                        patch.internalpatch(fp, ui, 1, repo.root, files=pfiles,
-                                            eolmode=None)
-                    except TypeError:  # backwards compatilibity with hg 1.1
-                        patch.internalpatch(fp, ui, 1, repo.root, files=pfiles)
-                    try:
-                        cmdutil.updatedir(ui, repo, pfiles)
-                    except AttributeError:
-                        patch.updatedir(ui, repo, pfiles)
+                    if hasattr(patch, 'workingbackend'): # detect 1.9
+                        patch.internalpatch(ui, repo, fp, strip=1, eolmode=None)
+                    else:
+                        pfiles = {}
+                        try:
+                            patch.internalpatch(ui, repo, fp, 1, eolmode=None)
+                        except (TypeError, AttributeError): # pre 17cea10c343e
+                            try:
+                                patch.internalpatch(ui, repo, fp, 1, repo.root,
+                                                    eolmode=None)
+                            except (TypeError, AttributeError): # pre 00a881581400
+                                try:
+                                    patch.internalpatch(fp, ui, 1, repo.root,
+                                                        files=pfiles, eolmode=None)
+                                except TypeError: # backwards compatible with hg 1.1
+                                    patch.internalpatch(fp, ui, 1,
+                                                        repo.root, files=pfiles)
+                        try:
+                            cmdutil.updatedir(ui, repo, pfiles)
+                        except AttributeError:
+                            try:
+                                patch.updatedir(ui, repo, pfiles)
+                            except AttributeError:
+                                # from 00a881581400 onwards
+                                pass
                 except patch.PatchError, err:
                     s = str(err)
                     if s:

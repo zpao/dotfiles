@@ -1,13 +1,13 @@
 
 h2. Deleting a Patch
 
-	$ hg update patch-C
+	$ hg update patchC
 	0 files updated, 0 files merged, 0 files removed, 0 files unresolved
 
-	$ hg prebase patch-B
-	new bases are patch-B
+	$ hg prebase patchB
+	new bases are patchB
 
-	$ hg pdiff patch-C
+	$ hg pdiff patchC
 	# HG changeset patch
 	# User john
 	# Date 1220906823 -7200
@@ -33,8 +33,8 @@ h2. Deleting a Patch
 	-Three
 	+Drei
 
-	$ hg pdelete patch-B1
-	$ hg pdiff patch-B1
+	$ hg pdelete patchB1
+	$ hg pdiff patchB1
 	$ hg plist
 
 
@@ -43,17 +43,17 @@ h2. Distributing
 	$ cd ../hunksfixed
 	 
 	$ sed -i main-file-1 -e s/Une/Un/
-	$ hg commit --message "backported large change to patch-A"
+	$ hg commit --message "backported large change to patchA"
 	created new head
 
-	$ hg sgo patch-C
-	updating to patch-B
+	$ hg sgo patchC
+	updating to patchB
 	4 files updated, 0 files merged, 0 files removed, 0 files unresolved
 	merging main-file-1
 	warning: conflicts during merge.
 	merging main-file-1 failed!
 	0 files updated, 0 files merged, 0 files removed, 1 files unresolved
-	merging patch-A
+	merging patchA
 	use 'hg resolve' to retry unresolved file merges
 
 	$ cat main-file-1
@@ -77,16 +77,16 @@ h2. Distributing
 	Three
 
 	$ hg resolve --mark main-file-1
-	$ hg commit --message "merge of patch-A"
+	$ hg commit --message "merge of patchA"
 
-	$ hg sgo patch-C
-	updating to patch-C
+	$ hg sgo patchC
+	updating to patchC
 	5 files updated, 0 files merged, 0 files removed, 0 files unresolved
 	merging main-file-1
 	warning: conflicts during merge.
 	merging main-file-1 failed!
 	0 files updated, 0 files merged, 0 files removed, 1 files unresolved
-	merging patch-B
+	merging patchB
 	use 'hg resolve' to retry unresolved file merges
 
 	$ cat main-file-1
@@ -103,46 +103,46 @@ h2. Distributing
 	$ sed -i main-file-1 -e /^\<\<.*/,+4cUn
 
 	$ hg resolve --mark main-file-1
-	$ hg commit --message "merge of patch-B"
+	$ hg commit --message "merge of patchB"
 
 	$ hg glog
-	@    17	patch-C: merge of patch-B - john
+	@    17	patchC: merge of patchB - john
 	|\
-	| o    16	patch-B: merge of patch-A - john
+	| o    16	patchB: merge of patchA - john
 	| |\
-	| | o  15	patch-A: backported large change to patch-A - john
+	| | o  15	patchA: backported large change to patchA - john
 	| | |
-	| o |  14	patch-B: backported large change to patch-B - john
+	| o |  14	patchB: backported large change to patchB - john
 	| | |
-	o | |  13	patch-C: large change in patch-C - john
+	o | |  13	patchC: large change in patchC - john
 	| | |
-	o | |  12	patch-C: dependent change in C - john
+	o | |  12	patchC: dependent change in C - john
 	| | |
-	o | |  11	patch-C: merge of patch-B - john
+	o | |  11	patchC: merge of patchB - john
 	|\| |
-	| o |  10	patch-B: merge of patch-A - john
+	| o |  10	patchB: merge of patchA - john
 	| |\|
-	| | o  9	patch-A: second try in A - john
+	| | o  9	patchA: second try in A - john
 	| | |
-	o | |  8	patch-C: first try in C - john
+	o | |  8	patchC: first try in C - john
 	| | |
-	o | |  7	patch-C: start patch branch patch-C - john
+	o | |  7	patchC: start patch branch patchC - john
 	|/ /
-	o |  6	patch-B: second try in B - john
+	o |  6	patchB: second try in B - john
 	| |
-	o |  5	patch-B: first try in B - john
+	o |  5	patchB: first try in B - john
 	| |
-	o |  4	patch-B: start patch branch patch-B - john
+	o |  4	patchB: start patch branch patchB - john
 	|/
-	o  3	patch-A: first try in A - john
+	o  3	patchA: first try in A - john
 	|
-	o  2	patch-A: start patch branch patch-A - john
+	o  2	patchA: start patch branch patchA - john
 	|
 	o  1	sparent: initialize stack - john
 	|
 	o  0	: base - john
 
-	$ hg sdiff patch-A
+	$ hg sdiff patchA
 	# HG changeset patch
 	# User john
 	# Date 1220010040 -7200
@@ -165,7 +165,7 @@ h2. Distributing
 	 Two
 	 
 
-	$ hg sdiff patch-B
+	$ hg sdiff patchB
 	# HG changeset patch
 	# User john
 	# Date 1220010041 -7200
@@ -188,7 +188,7 @@ h2. Distributing
 	 
 	 Three
 
-	$ hg sdiff patch-C
+	$ hg sdiff patchC
 	# HG changeset patch
 	# User john
 	# Date 1220010041 -7200
@@ -232,13 +232,13 @@ We happily hack away:
 	.$ echo B >>file-from-B
 	.$ echo C >>file-from-C
 
-But these changes should really go into the separate patches. So we switch back to patch-A:
+But these changes should really go into the separate patches. So we switch back to patchA:
 
-	.$ hg sgo patch-A
+	.$ hg sgo patchA
 	saving changes
-	updating to patch-A
+	updating to patchA
 	2 files updated, 0 files merged, 2 files removed, 0 files unresolved
-	at patch patch-A
+	at patch patchA
 	restoring changes
 
 This first saved our pending changes by copying them away. Then, after the switch to the target patch, they were restored. So:
@@ -247,17 +247,17 @@ This first saved our pending changes by copying them away. Then, after the switc
 
 	.$ hg diff
 
-Now we commit the first change to patch-A:
+Now we commit the first change to patchA:
 
 	.$ hg commit --message "distributed to A" file-from-A
 
 and just move up to patches B and C and repeat:
 
-	.$ hg sgo patch-B
+	.$ hg sgo patchB
 	.$ hg stat
 	.$ hg commit --message "distributed to B" file-from-B
 
-	.$ hg sgo patch-C
+	.$ hg sgo patchC
 	.$ hg stat
 	.$ hg commit --message "distributed to C"
 
@@ -267,11 +267,11 @@ resulting in:
 
 and:
 
-	.$ hg sdiff --unified 0 patch-A
+	.$ hg sdiff --unified 0 patchA
 
-	.$ hg sdiff --unified 0 patch-B
+	.$ hg sdiff --unified 0 patchB
 
-	.$ hg sdiff --unified 0 patch-C
+	.$ hg sdiff --unified 0 patchC
 
 
 h3. Distributing Hunks To Patches
@@ -295,34 +295,34 @@ h5. hg ssave
 We do this by saving our work and then incrementally removing things not belonging to a given patch. Let's save our work, then:
 
 	.$ hg ssave
-	saved 1 file in patch-C
+	saved 1 file in patchC
 
-Now we drop down to patch-B:
+Now we drop down to patchB:
 
-	.$ hg sgo patch-B
+	.$ hg sgo patchB
 	.$ hg diff
 
-and remove everything that does not belong to patch-B _and below_. I would normally use a visual differ to compare my working copy against its base revision to do this (@hg meld@ or some such). In the tutorial script, we simulate it by manual reverts:
+and remove everything that does not belong to patchB _and below_. I would normally use a visual differ to compare my working copy against its base revision to do this (@hg meld@ or some such). In the tutorial script, we simulate it by manual reverts:
 
 	.$ sed -i main-file-1 -e/Trois/Three/
 	.$ hg diff
 
-Part of the change should even go into patch-A. So we repeat:
+Part of the change should even go into patchA. So we repeat:
 
 	.$ hg ssave
-	saved 1 files in patch-B (hiding 1 earlier saves)
+	saved 1 files in patchB (hiding 1 earlier saves)
 
 The saves form a stack of their own, which we can view:
 
 	.$ hg saves
-	saved 1 files in patch-B
-	saved 1 files in patch-C
+	saved 1 files in patchB
+	saved 1 files in patchC
 
 TODO: @hg saves -p@ which shows the patches against their respective base revisions
 
-Now we strip the changes down again for patch-A:
+Now we strip the changes down again for patchA:
 
-	.$ hg sgo patch-A
+	.$ hg sgo patchA
 	.$ hg diff
 	.$ sed -i main-file-1 -e/Deux/Two/
 	.$ hg diff
@@ -334,24 +334,24 @@ Before committing, we verify (run tests, etc.) and realize there's a typo. After
 
 h5. hg srestore
 
-Now we move back to patch-B and restore the saved changes:
+Now we move back to patchB and restore the saved changes:
 
-	.$ hg sgo patch-B
+	.$ hg sgo patchB
 	.$ hg srestore
-	restored 1 files from patch-B (revealing 1 earlier saves)
+	restored 1 files from patchB (revealing 1 earlier saves)
 
-Since we had to fix the typo in the original version before committing to patch-A, we need to get this fix back into our restored changes. Normally I would again use the visual differ to port them over. We simulate this here by edits again:
+Since we had to fix the typo in the original version before committing to patchA, we need to get this fix back into our restored changes. Normally I would again use the visual differ to port them over. We simulate this here by edits again:
 
 	.$ sed -i main-file-1 -e/Une/Un/
 	.$ hg diff
 
-Now we're ready to commit in patch-B, move up to patch-C, port over the typo fix again (sadly, this is repetitive), and commit the remainder of the change:
+Now we're ready to commit in patchB, move up to patchC, port over the typo fix again (sadly, this is repetitive), and commit the remainder of the change:
 
 	.$ hg commit --message "split into B"
 
-	.$ hg sgo patch-C
+	.$ hg sgo patchC
 	.$ hg restore
-	restored 1 files from patch-C
+	restored 1 files from patchC
 	.$ hg diff
 	.$ sed -i main-file-1 -e/Une/Un/
 	.$ hg diff
@@ -361,26 +361,26 @@ Now we're ready to commit in patch-B, move up to patch-C, port over the typo fix
 h3. Alternative
 
 	.$ hg spop
-	saved 1 files in patch-C
+	saved 1 files in patchC
 	.$ sed -i main-file-1 -e/Trois/Three/
 	.$ hg ssave
 
-	.$ hg sgo patch-A
-	saved 1 files in patch-B (hiding 1 earlier saves)
+	.$ hg sgo patchA
+	saved 1 files in patchB (hiding 1 earlier saves)
 	.$ sed -i main-file-1 -e/Deux/Two/
 	.$ hg diff
 	.$ sed -i main-file-1 -e/Une/Un/
 	.$ hg commit --message "split into A"
 
-	.$ hg sgo patch-B
-	restored 1 files from patch-B (revealing 1 earlier saves)
+	.$ hg sgo patchB
+	restored 1 files from patchB (revealing 1 earlier saves)
 	.$ hg diff
 	.$ sed -i main-file-1 -e/Une/Un/
 	.$ hg diff
 	.$ hg commit --message "split into B"
 
-	.$ hg sgo patch-C
-	restored 1 files from patch-C
+	.$ hg sgo patchC
+	restored 1 files from patchC
 	.$ hg diff
 	.$ sed -i main-file-1 -e/Une/Un/
 	.$ hg diff
@@ -390,33 +390,33 @@ h3. Alternative
 h3. Alternative With Auto-Mergeback
 
 	.$ hg spop
-	saved 1 files in patch-C
+	saved 1 files in patchC
 	.$ sed -i main-file-1 -e/Trois/Three/
 
 	.$ hg spop
-	saved 1 files in patch-B (hiding 1 earlier saves)
+	saved 1 files in patchB (hiding 1 earlier saves)
 	.$ sed -i main-file-1 -e/Deux/Two/
 	.$ hg diff
 	.$ hg sfix
-	saved 1 files as baseline for patch-A
+	saved 1 files as baseline for patchA
 	.$ sed -i main-file-1 -e/Une/Un/
 	.$ hg commit --message "split into A"
 
 	.$ hg spush
-	restored 1 files from patch-B (revealing 1 earlier saves)
+	restored 1 files from patchB (revealing 1 earlier saves)
 	.$ hg diff
 	.$ hg sfix
-	saved 1 files as baseline for patch-B (behind 1 earlier baseline)
-	applied fixes against baseline from patch-A (revealing 1 later baseline)
+	saved 1 files as baseline for patchB (behind 1 earlier baseline)
+	applied fixes against baseline from patchA (revealing 1 later baseline)
 	.$ hg diff
 	.$ hg commit --message "split into B"
 
 	.$ hg spush
-	restored 1 files from patch-C
+	restored 1 files from patchC
 	.$ hg diff
 	.$ hg sfix
 	(no new baseline for want of pending restores)
-	applied fixes against baseline from patch-B
+	applied fixes against baseline from patchB
 	.$ hg diff
 	.$ hg commit --message "split into C"
 

@@ -58,6 +58,10 @@ vnoremap <Up> gk
 inoremap <Down> <C-o>gj
 inoremap <Up> <C-o>gk
 
+" give my pinky a bit of a break
+noremap ; :
+noremap , ;
+
 " ----------------------------------------------------------------------------
 "  UI
 " ----------------------------------------------------------------------------
@@ -107,3 +111,9 @@ function! StripWhitespace ()
     exec ':%s/ \+$//gc'
 endfunction
 map <leader>s :call StripWhitespace ()<CR>
+
+
+" ---------------------------------------------------------------------------
+"  Show blame for the currently selected lines
+" ---------------------------------------------------------------------------
+map <leader>h :<C-U>!hg blame -fu <C-R>=expand("%:p") <CR> \| sed -n <C-R>=line("'<") <CR>,<C-R>=line("'>") <CR>p <CR>

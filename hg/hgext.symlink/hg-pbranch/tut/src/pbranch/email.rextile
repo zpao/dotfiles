@@ -12,7 +12,7 @@ When a patch is ready for submission, we can send it on by email with ease. This
 
 h5. hg pemail
 
-	$ hg pemail --test --from john@example.com --to jane@example.com patch-A
+	$ hg pemail --test --from john@example.com --to jane@example.com patchA
 	This patch series consists of 1 patches.
 	_
 	Cc:
@@ -66,7 +66,7 @@ To send a patch series, we can specify just the head patches in the patch graph.
 
 h5. hg pemail --with-deps
 
-	$ hg pemail $(cat mailopts) --with-deps patch-B
+	$ hg pemail $(cat mailopts) --with-deps patchB
 	This patch series consists of 2 patches.
 	_
 	Cc:
@@ -152,7 +152,7 @@ h3. Specified Patches In Specified Order
 
 Finally, we can send multiple patches in arbitrary order by naming them all explicitly:
 
-	$ hg pemail $(cat mailopts) patch-A patch-B patch-C
+	$ hg pemail $(cat mailopts) patchA patchB patchC
 	This patch series consists of 3 patches.
 	_
 	Cc:

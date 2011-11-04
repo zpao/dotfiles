@@ -80,7 +80,7 @@ h3. Partial Graph
 
 We can also export just patches plus their base patches:
 
-	$ hg pexport --with-deps patch-B
+	$ hg pexport --with-deps patchB
 	# HG changeset patch
 	# User john
 	# Date 0 0
@@ -122,7 +122,7 @@ h3. Individual Patches
 
 Finally, we can export individial patches in the order given:
 
-	$ hg pexport patch-C patch-A
+	$ hg pexport patchC patchA
 	# HG changeset patch
 	# User john
 	# Date 0 0
@@ -170,7 +170,7 @@ h3. Specifying the Patch Graph
 
 By default, @pdiff@, @pexport@, and @pemail@ use the tip graph (@--tips@) to construct patch diffs. This means that for each patch branch _foo_, its patch diff is defined as the diff between the tip of branch _foo_ and the revision identified by the node id recorded in @.hgpatchinfo/foo.dep@ in _foo_'s tip (the last @pmerge@ in _foo_ put it there).
 
-	$ hg pexport patch-C
+	$ hg pexport patchC
 	# HG changeset patch
 	# User john
 	# Date 0 0
@@ -197,8 +197,8 @@ By default, @pdiff@, @pexport@, and @pemail@ use the tip graph (@--tips@) to con
 
 To see a patch or series precisely as it was at the time of a specific revision, use the @--rev@ option. However, this may mean that a patch is not defined, because the given revision might not have any @.dep@ files at all:
 
-	$ hg pexport --rev default patch-C
-	abort: branch patch-C is not in the patch graph (wrong --rev?)
+	$ hg pexport --rev default patchC
+	abort: branch patchC is not in the patch graph (wrong --rev?)
 
 
 h2. Export to Patch Queues (mq)
@@ -210,15 +210,15 @@ h5. hg pexport --queue
 	$ hg pexport --queue --ext .diff
 
 	$ ls .hg/patches/
-	patch-A.diff
-	patch-B.diff
-	patch-C.diff
+	patchA.diff
+	patchB.diff
+	patchC.diff
 	series
 
 	$ cat .hg/patches/series
-	patch-A.diff
-	patch-B.diff
-	patch-C.diff
+	patchA.diff
+	patchB.diff
+	patchC.diff
 
 We can use this to reimport them using mq:
 
@@ -230,15 +230,15 @@ We can use this to reimport them using mq:
 	$ cp -r ../patches/.hg/patches .hg/
 
 	$ hg qseries
-	patch-A.diff
-	patch-B.diff
-	patch-C.diff
+	patchA.diff
+	patchB.diff
+	patchC.diff
 
 	$ hg qpush -a
-	applying patch-A.diff
-	applying patch-B.diff
-	applying patch-C.diff
-	now at: patch-C.diff
+	applying patchA.diff
+	applying patchB.diff
+	applying patchC.diff
+	now at: patchC.diff
 
 	$ hg log
 	3	: yet another patch - john
@@ -256,7 +256,7 @@ Sometimes we wish to transfer patches from one repo to another, something like:
 So let's quickly test out-of-repo exports:
 
 	$ cd ..
-	$ hg -R patches pexport patch-C
+	$ hg -R patches pexport patchC
 	# HG changeset patch
 	# User john
 	# Date 0 0

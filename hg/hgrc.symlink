@@ -2,12 +2,13 @@
 export = -g
 branches = -a
 heads = -a
-qseries = -v
+qseries = -vs
 qnew = -U
 
 [ui]
 username = Paul O’Shannessy <paul@oshannessy.com>
 ignore = ~/.hgignore
+editor = hgeditor
 
 [diff]
 git = 1
@@ -46,3 +47,7 @@ filter = hg-transplant
 
 [pager]
 pager = LESS='FSRX' less
+attend = annotate, cat, diff, export, glog, log, qdiff, outgoing, incoming
+
+[alias]
+qedit = !vim $(hg root)/.hg/patches/series
