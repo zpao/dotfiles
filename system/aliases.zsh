@@ -11,3 +11,5 @@ fi
 
 # I'll never remember this in python form, so alias it!
 alias ppjson="python -mjson.tool myfile.json"
+
+alias makejsc="make -j8 -s -C"
