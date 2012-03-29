@@ -99,7 +99,7 @@ set visualbell             " shut the fuck up
 
 " command-t-options
 let g:CommandTMaxFiles=100000
-set wildignore+=*.o,obj-ff-*/**
+set wildignore+=*.o,obj-ff-*/**,.git,.hg
 
 
 
