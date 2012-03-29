@@ -17,3 +17,6 @@ ac_add_options --disable-crashreporter
 # ac_add_options --enable-dtrace
 # mk_add_options MOZ_OBJDIR=@TOPSRCDIR@/obj-ff-dtrace
 
+# clang
+export CC=clang
+export CXX=clang++
