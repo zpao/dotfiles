@@ -24,6 +24,9 @@ opts.ksdiff = hg
 filemerge.executable = opendiff-w
 filemerge.args = $local $other -ancestor $base -merge $output
 
+[hooks]
+post-push = hg phase --force --draft "mq()"
+
 [extensions]
 hgext.mq =
 hgext.rebase =
