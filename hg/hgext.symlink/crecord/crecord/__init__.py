@@ -49,6 +49,52 @@ def qcrecord(ui, repo, patch, *pats, **opts):
     dorecord(ui, repo, committomq, *pats, **opts)
 
 
+def qcrefresh(ui, repo, *pats, **opts):
+    """interactively update the current patch
+
+    If any file patterns are provided, the refreshed patch will
+    contain only the modifications that match those patterns; the
+    remaining modifications will remain in the working directory.
+
+    If -s/--short is specified, files currently included in the patch
+    will be refreshed just like matched files and remain in the patch.
+
+    hg add/remove/copy/rename work as usual, though you might want to
+    use git-style patches (-g/--git or [diff] git=1) to track copies
+    and renames. See the diffs help topic for more information on the
+    git diff format.
+
+    See :hg:`help qrefresh` & :hg:`help crecord` for more information and
+    usage.
+    """
+
+    # Note: if the record operation (or subsequent refresh) fails partway
+    # through, the top applied patch will be emptied and the working directory
+    # will contain all of its changes.
+
+    try:
+        mq = extensions.find('mq')
+    except KeyError:
+        raise util.Abort(_("'mq' extension not loaded"))
+
+    def refreshmq(ui, repo, *pats, **opts):
+        mq.refresh(ui, repo, *pats, **opts)
+
+    # Cannot use the simple pattern '*' because it will resolve relative to the
+    # current working directory
+    clearopts = { 'exclude': ["re:."], 'message': "" }
+
+    mq.refresh(ui, repo, **clearopts)
+
+    # if message wasn't specified in commandline, initialize from existing patch header
+    if not opts.get('message',''):
+        patchname = repo.mq.applied[-1].name
+        patchmsg_lines = mq.patchheader(repo.mq.join(patchname), repo.mq.plainmode).message
+        opts['message'] = '\n'.join(patchmsg_lines)
+
+    dorecord(ui, repo, refreshmq, *pats, **opts)
+
+
 cmdtable = {
     "crecord":
         (crecord,
@@ -63,10 +109,10 @@ cmdtable = {
 def extsetup():
     try:
         keyword = extensions.find('keyword')
-        keyword.restricted += ' crecord qcrecord'
+        keyword.restricted += ' crecord qcrecord qcrefresh'
         try:
             keyword.recordextensions += ' crecord'
-            keyword.recordcommands += ' crecord qcrecord'
+            keyword.recordcommands += ' crecord qcrecord qcrefresh'
         except AttributeError:
             pass
     except KeyError:
@@ -82,6 +128,11 @@ def extsetup():
         # backwards compatible with pre 301633755dec
         qnew = 'qnew'
 
+    qrefresh = '^qrefresh'
+    if not qrefresh in mq.cmdtable:
+        # backwards compatible?
+        qrefresh = 'qrefresh'
+
     qcmdtable = {
     "qcrecord":
         (qcrecord,
@@ -90,6 +141,14 @@ def extsetup():
          [opt for opt in mq.cmdtable[qnew][1] if opt[1] != 'force'],
 
          _('hg qcrecord [OPTION]... PATCH [FILE]...')),
+
+    "qcrefresh":
+        (qcrefresh,
+
+         # same options as qrefresh
+         mq.cmdtable[qrefresh][1],
+
+         _('hg qcrefresh [-I] [-X] [-e] [-m TEXT] [-l FILE] [-s] [FILE]...')),
     }
 
     cmdtable.update(qcmdtable)

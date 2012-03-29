@@ -1,7 +1,5 @@
 #!/usr/bin/env python
 
-from __future__ import with_statement
-
 '''get repository information for use in a shell prompt
 
 Take a string, parse any special variables inside, and output the result.
@@ -10,6 +8,8 @@ Useful mostly for putting information about the current repository into
 a shell prompt.
 '''
 
+from __future__ import with_statement
+
 import re
 import os
 import subprocess
@@ -17,6 +17,13 @@ from datetime import datetime, timedelta
 from os import path
 from mercurial import extensions, commands, cmdutil, help
 from mercurial.node import hex, short
+
+# `revrange' has been moved into module `scmutil' since v1.9.
+try :
+    from mercurial import scmutil
+    revrange = scmutil.revrange
+except :
+    revrange = cmdutil.revrange
 
 CACHE_PATH = ".hg/prompt/cache"
 CACHE_TIMEOUT = timedelta(minutes=15)
@@ -132,7 +139,7 @@ def prompt(ui, repo, fs='', **opts):
     def _count(m):
         g = m.groups()
         query = [g[1][1:]] if g[1] else ['all()']
-        return _with_groups(g, str(len(cmdutil.revrange(repo, query))))
+        return _with_groups(g, str(len(revrange(repo, query))))
 
     def _node(m):
         g = m.groups()
@@ -304,8 +311,12 @@ def prompt(ui, repo, fs='', **opts):
     def _tags(m):
         g = m.groups()
 
-        sep = g[1][1:] if g[1] else ' '
+        sep = g[2][1:] if g[2] else ' '
         tags = repo[None].tags()
+
+        quiet = _get_filter('quiet', g)
+        if quiet:
+            tags = filter(lambda tag: tag != 'tip', tags)
 
         return _with_groups(g, sep.join(tags)) if tags else ''
 
@@ -380,7 +391,10 @@ def prompt(ui, repo, fs='', **opts):
             '(\|modified)'
             '|(\|unknown)'
             ')*': _status,
-        'tags(\|[^%s]*?)?' % brackets[-1]: _tags,
+        'tags(?:' +
+            '(\|quiet)' +
+            '|(\|[^%s]*?)' % brackets[-1] +
+            ')*': _tags,
         'task': _task,
         'tip(?:'
             '(\|node)'
@@ -592,6 +606,9 @@ status
 
 tags
      Display the tags of the current parent, separated by a space.
+
+     |quiet
+         Display the tags of the current parent, excluding the tag "tip".
 
      |SEP
          Display the tags of the current parent, separated by `SEP`.
