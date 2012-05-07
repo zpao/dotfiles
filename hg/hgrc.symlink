@@ -51,7 +51,7 @@ filter = hg-transplant
 
 [pager]
 pager = LESS='FSRX' less
-attend = annotate, cat, diff, export, glog, log, qdiff, outgoing, incoming
+attend = annotate, cat, diff, export, glog, log, qdiff, outgoing, incoming, qseries
 
 [alias]
 qedit = !vim $(hg root)/.hg/patches/series
