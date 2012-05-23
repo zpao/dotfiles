@@ -55,4 +55,5 @@ attend = annotate, cat, diff, export, glog, log, qdiff, outgoing, incoming, qser
 
 [alias]
 qedit = !vim $(hg root)/.hg/patches/series
+qstatus = status --rev qtip^:qtip
 amend = commit --amend
