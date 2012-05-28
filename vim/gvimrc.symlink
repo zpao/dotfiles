@@ -1,5 +1,5 @@
 colorscheme wombat
-set gfn=Inconsolata-dz:h13.00
+set gfn=Inconsolata-dz:h12.00
 set anti
 set lines=999 columns=90
 set guioptions=egmrt
