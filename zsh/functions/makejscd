@@ -1,0 +1,4 @@
+makejscd () {
+  for i
+    makejsc $i
+}
