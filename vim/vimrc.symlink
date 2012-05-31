@@ -26,7 +26,7 @@ set shiftwidth=2           " ..
 set tabstop=4
 set expandtab              " expand tabs to spaces
 set nosmarttab             " fuck tabs
-set formatoptions+=n       " support for numbered/bullet lists
+set formatoptions+=qrn1    " support for numbered/bullet lists
 "set textwidth=80           " wrap at 80 chars by default
 set virtualedit=block      " allow virtual edit in visual block ..
 set list listchars=tab:»»,trail:·
@@ -72,6 +72,7 @@ set nolazyredraw           " turn off lazy redraw
 set number                 " line numbers
 set wildmenu               " turn on wild menu
 set wildmode=list:longest,full
+set colorcolumn=80         " for long lines (yes, 80 is archaeic)
 set ch=2                   " command line height
 set backspace=2            " allow backspacing over everything in insert mode
 set whichwrap+=<,>,h,l,[,] " backspace and cursor keys wrap to
@@ -92,10 +93,18 @@ set showmatch              " brackets/braces that is
 set mat=5                  " duration to show matching brace (1/10 sec)
 set incsearch              " do incremental searching
 set laststatus=2           " always show the status line
+set visualbell             " shut the fuck up
+
+
+" ----------------------------------------------------------------------------
+" Searching
+" ----------------------------------------------------------------------------
+
+nnoremap / /\              " just use normal regexs
+vnoremap / /\v
 set ignorecase             " ignore case when searching
 set smartcase              " don't ignore case if using any uppercase
 set nohlsearch             " don't highlight searches
-set visualbell             " shut the fuck up
 
 
 " ----------------------------------------------------------------------------
@@ -120,3 +129,9 @@ map <leader>s :call StripWhitespace ()<CR>
 "  Show blame for the currently selected lines
 " ---------------------------------------------------------------------------
 map <leader>h :<C-U>!hg blame -fu <C-R>=expand("%:p") <CR> \| sed -n <C-R>=line("'<") <CR>,<C-R>=line("'>") <CR>p <CR>
+
+
+" ---------------------------------------------------------------------------
+" Split window veritcally & switch to the new window
+" ---------------------------------------------------------------------------
+map <leader>w :vs<CR><C-w>l
