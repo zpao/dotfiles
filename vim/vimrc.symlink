@@ -97,10 +97,13 @@ set smartcase              " don't ignore case if using any uppercase
 set nohlsearch             " don't highlight searches
 set visualbell             " shut the fuck up
 
-" command-t-options
+
+" ----------------------------------------------------------------------------
+" Command-T Options
+" ----------------------------------------------------------------------------
+
 let g:CommandTMaxFiles=100000
 set wildignore+=*.o,obj-ff-*/**,.git,.hg
-
 
 
 " ---------------------------------------------------------------------------
