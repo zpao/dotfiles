@@ -1,4 +1,4 @@
-colorscheme wombat
+colorscheme molokai-sjl
 set gfn=Inconsolata-dz:h12.00
 set anti
 set lines=999 columns=90
