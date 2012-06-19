@@ -101,7 +101,8 @@ set visualbell             " shut the fuck up
 " Searching
 " ----------------------------------------------------------------------------
 
-nnoremap / /\              " just use normal regexs
+" just use normal regexs
+nnoremap / /\v
 vnoremap / /\v
 set ignorecase             " ignore case when searching
 set smartcase              " don't ignore case if using any uppercase
