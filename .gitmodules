@@ -46,3 +46,6 @@
 [submodule "vim/vim.symlink/bundle/vim-pasta"]
 	path = vim/vim.symlink/bundle/vim-pasta
 	url = git://github.com/sickill/vim-pasta.git
+[submodule "vim/vim.symlink/bundle/vim-jade"]
+	path = vim/vim.symlink/bundle/vim-jade
+	url = git://github.com/digitaltoad/vim-jade.git
