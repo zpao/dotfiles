@@ -21,19 +21,20 @@
   brlog = log master..
   brdiff = branch-diff
   count = !git shortlog -sn
+  staged = diff --staged
+  unstage= reset HEAD
+  out = log --branches --not --remotes=origin
+  lg = log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --
 [color]
   diff = auto
   status = auto
   branch = auto
 [core]
   excludesfile = ~/.gitignore
-  editor = mate -w
+  editor = vim
 [apply]
   whitespace = nowarn
 [github]
   user = zpao
   token = nonsense
-# I don't actually like ff merges into my master branch, so I turn that off
-[branch "master"]
-  mergeoptions = --no-ff
 
