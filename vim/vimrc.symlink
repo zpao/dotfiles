@@ -15,6 +15,10 @@ filetype plugin indent on
 " Swapfiles mostly just get in the way for me.
 set noswapfile
 
+" ignore lots of files
+set wildignore+=*.jpg,*.jpeg,*.gif,*.png,*.mov,*.pdf,*.psd,*.ai
+set wildignore+=*.ppt,*.pptx,*.doc,*.docx,*.xls,*.xlsx
+
 " ----------------------------------------------------------------------------
 "  Text Formatting
 " ----------------------------------------------------------------------------
