@@ -15,6 +15,10 @@ filetype plugin indent on
 " Swapfiles mostly just get in the way for me.
 set noswapfile
 
+" ignore lots of files
+set wildignore+=*.jpg,*.jpeg,*.gif,*.png,*.mov,*.pdf,*.psd,*.ai
+set wildignore+=*.ppt,*.pptx,*.doc,*.docx,*.xls,*.xlsx
+
 " ----------------------------------------------------------------------------
 "  Text Formatting
 " ----------------------------------------------------------------------------
@@ -137,3 +141,35 @@ map <leader>h :<C-U>!hg blame -fu <C-R>=expand("%:p") <CR> \| sed -n <C-R>=line(
 " Split window veritcally & switch to the new window
 " ---------------------------------------------------------------------------
 map <leader>w :vs<CR><C-w>l
+
+" ---------------------------------------------------------------------------
+" Make my terminal experience better
+" ---------------------------------------------------------------------------
+if !has("gui_running")
+  set mouse=a              " use the mouse like a rookie
+  set t_Co=256             " make sure that colors look right in screen
+  colorscheme Tomorrow-Night-Bright
+endif
+
+
+" ---------------------------------------------------------------------------
+" CtrlP mapping
+" ---------------------------------------------------------------------------
+map <leader>t :CtrlP<CR>
+map <leader>T :CtrlPCurFile<CR>
+map <leader>b :CtrlPBuffer<CR>
+map <leader>g :CtrlPTag<CR>
+map <leader>G :CtrlPBufTag<CR>
+map <leader><leader> :CtrlPMixed<CR>
+
+
+" ---------------------------------------------------------------------------
+" Use ctrl+h/l to change tabs
+" ---------------------------------------------------------------------------
+nnoremap <C-h> :tabp<CR>
+nnoremap <C-l> :tabn<CR>
+inoremap <C-h> <C-o>:tabp<CR>
+inoremap <C-l> <C-o>:tabn<CR>
+vnoremap <C-h> :tabp<CR>
+vnoremap <C-l> :tabn<CR>
+

@@ -49,3 +49,6 @@
 [submodule "vim/vim.symlink/bundle/vim-jade"]
 	path = vim/vim.symlink/bundle/vim-jade
 	url = git://github.com/digitaltoad/vim-jade.git
+[submodule "vim/vim.symlink/bundle/ctrlp.vim"]
+	path = vim/vim.symlink/bundle/ctrlp.vim
+	url = git://github.com/kien/ctrlp.vim.git
