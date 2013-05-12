@@ -9,11 +9,16 @@
 [credential]
         helper = osxkeychain
 [alias]
+        amend = commit --amend
+        brlog = log master..
+        brdiff = branch-diff
         co = checkout
-        promote = !$ZSH/bin/git-promote
-        wtf     = !$ZSH/bin/git-wtf
-        rank-contributers = !$ZSH/bin/git-rank-contributers
         count   = !git shortlog -sn
+        lg = log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --all
+        out = log --branches --not --remotes=origin
+        st = status
+        staged = diff --staged
+        unstage = reset HEAD
 [color]
         diff = auto
         status = auto
