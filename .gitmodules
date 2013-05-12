@@ -64,3 +64,6 @@
 [submodule "vim/vim.symlink/bundle/html5.vim"]
 	path = vim/vim.symlink/bundle/html5.vim
 	url = git://github.com/othree/html5.vim.git
+[submodule "vim/vim.symlink/bundle/rust.vim"]
+	path = vim/vim.symlink/bundle/rust.vim
+	url = git://github.com/wting/rust.vim.git
