@@ -67,3 +67,6 @@
 [submodule "vim/vim.symlink/bundle/rust.vim"]
 	path = vim/vim.symlink/bundle/rust.vim
 	url = git://github.com/wting/rust.vim.git
+[submodule "vim/vim.symlink/bundle/editorconfig-vim"]
+	path = vim/vim.symlink/bundle/editorconfig-vim
+	url = git://github.com/editorconfig/editorconfig-vim.git
