@@ -19,9 +19,6 @@
 [submodule "vim/vim.symlink/bundle/vim-surround"]
 	path = vim/vim.symlink/bundle/vim-surround
 	url = git://github.com/tpope/vim-surround.git
-[submodule "vim/vim.symlink/bundle/snipmate"]
-	path = vim/vim.symlink/bundle/snipmate
-	url = git://github.com/msanders/snipmate.vim.git
 [submodule "vim/vim.symlink/bundle/vim-rails"]
 	path = vim/vim.symlink/bundle/vim-rails
 	url = git://github.com/tpope/vim-rails.git
@@ -67,3 +64,18 @@
 [submodule "vim/vim.symlink/bundle/rust.vim"]
 	path = vim/vim.symlink/bundle/rust.vim
 	url = git://github.com/wting/rust.vim.git
+[submodule "vim/vim.symlink/bundle/editorconfig-vim"]
+	path = vim/vim.symlink/bundle/editorconfig-vim
+	url = git://github.com/editorconfig/editorconfig-vim.git
+[submodule "vim/vim.symlink/bundle/vim-snipmate"]
+	path = vim/vim.symlink/bundle/vim-snipmate
+	url = git://github.com/garbas/vim-snipmate.git
+[submodule "vim/vim.symlink/bundle/tlib_vim"]
+	path = vim/vim.symlink/bundle/tlib_vim
+	url = https://github.com/tomtom/tlib_vim.git
+[submodule "vim/vim.symlink/bundle/vim-addon-mw-utils"]
+	path = vim/vim.symlink/bundle/vim-addon-mw-utils
+	url = https://github.com/MarcWeber/vim-addon-mw-utils.git
+[submodule "vim/vim.symlink/bundle/vim-snippets"]
+	path = vim/vim.symlink/bundle/vim-snippets
+	url = https://github.com/honza/vim-snippets.git
