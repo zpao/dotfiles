@@ -132,6 +132,12 @@ map <leader>s :call StripWhitespace ()<CR>
 
 
 " ---------------------------------------------------------------------------
+"  Alphabetize CSS like a boss
+" ---------------------------------------------------------------------------
+
+map <leader>c :g#\({\n\)\@<=#.,/}/sort<CR>)
+
+" ---------------------------------------------------------------------------
 "  Show blame for the currently selected lines
 " ---------------------------------------------------------------------------
 map <leader>h :<C-U>!hg blame -fu <C-R>=expand("%:p") <CR> \| sed -n <C-R>=line("'<") <CR>,<C-R>=line("'>") <CR>p <CR>
@@ -148,7 +154,7 @@ map <leader>w :vs<CR><C-w>l
 if !has("gui_running")
   set mouse=a              " use the mouse like a rookie
   set t_Co=256             " make sure that colors look right in screen
-  colorscheme Tomorrow-Night-Bright
+  colorscheme wombat256mod
 endif
 
 
@@ -162,6 +168,9 @@ map <leader>g :CtrlPTag<CR>
 map <leader>G :CtrlPBufTag<CR>
 map <leader><leader> :CtrlPMixed<CR>
 
+let g:ctrlp_max_files=200000
+let g:ctrlp_max_height=25
+
 
 " ---------------------------------------------------------------------------
 " Use ctrl+h/l to change tabs
@@ -173,3 +182,13 @@ inoremap <C-l> <C-o>:tabn<CR>
 vnoremap <C-h> :tabp<CR>
 vnoremap <C-l> :tabn<CR>
 
+
+" ---------------------------------------------------------------------------
+" Nerd Tree Tabs (because I use tabs wrong)
+" ---------------------------------------------------------------------------
+map <leader>q :NERDTreeTabsToggle<CR>
+
+" ---------------------------------------------------------------------------
+" Source some FB stuff
+" ---------------------------------------------------------------------------
+source ~engshare/admin/scripts/vim/biggrep.vim

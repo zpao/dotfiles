@@ -3,7 +3,7 @@
 
 autocmd BufRead * call <SID>hgpatch_check()
 
-function s:hgpatch_check()
+function! s:hgpatch_check()
   if getline(1) =~ "# HG changeset.*"
     set filetype=diff
   endif
