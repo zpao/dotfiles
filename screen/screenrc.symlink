@@ -1,0 +1,2 @@
+# detach screens if we lose a connection so -list doesn't lie
+autodetach on
