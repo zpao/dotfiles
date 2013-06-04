@@ -2,9 +2,7 @@
 
 ## dotfiles
 
-Your dotfiles are how you personalize your system. These are mine. The very
-prejudiced mix: OS X, zsh, Ruby, Rails, git, homebrew, rvm, vim. If you
-match up along most of those lines, you may dig my dotfiles.
+Your dotfiles are how you personalize your system. These are mine.
 
 I was a little tired of having long alias files and everything strewn about
 (which is extremely common on other dotfiles projects, too). That led to this
@@ -18,16 +16,24 @@ subject](http://zachholman.com/2010/08/dotfiles-are-meant-to-be-forked/).
 
 ## install
 
-- `git clone git://github.com/holman/dotfiles ~/.dotfiles`
-- `cd ~/.dotfiles`
-- `rake install`
+Run this:
 
-The install rake task will symlink the appropriate files in `.dotfiles` to your
-home directory. Everything is configured and tweaked within `~/.dotfiles`,
-though.
+```sh
+git clone https://github.com/holman/dotfiles.git ~/.dotfiles
+cd ~/.dotfiles
+script/bootstrap
+```
+
+This will symlink the appropriate files in `.dotfiles` to your home directory.
+Everything is configured and tweaked within `~/.dotfiles`.
 
 The main file you'll want to change right off the bat is `zsh/zshrc.symlink`,
 which sets up a few paths that'll be different on your particular machine.
+
+`dot` is a simple script that installs some dependencies, sets sane OS X
+defaults, and so on. Tweak this script, and occasionally run `dot` from
+time to time to keep your environment fresh and up-to-date. You can find
+this script in `bin/`.
 
 ## topical
 
@@ -35,44 +41,42 @@ Everything's built around topic areas. If you're adding a new area to your
 forked dotfiles — say, "Java" — you can simply add a `java` directory and put
 files in there. Anything with an extension of `.zsh` will get automatically
 included into your shell. Anything with an extension of `.symlink` will get
-symlinked without extension into `$HOME` when you run `rake install`.
+symlinked without extension into `$HOME` when you run `script/bootstrap`.
 
 ## what's inside
 
-A lot of what's inside is just aliases: `gs` for `git status`, `gl` for `git
-pull --rebase --prune`, for example. You can browse the `aliases.zsh` files in
-each topic directory. There's also a collection of scripts in `bin` you can
-browse. A few notable ones:
+A lot of stuff. Seriously, a lot of stuff. Check them out in the file browser
+above and see what components may mesh up with you.
+[Fork it](https://github.com/holman/dotfiles/fork), remove what you don't
+use, and build on what you do use.
 
-###rails
-- `s` pings your system for any running Rails apps, and `deathss` will then
-  kill all of them indiscriminately. `ss` starts up a new Rails server on the
-  next available port- if 3000 is taken, it'll spin up your server on 3001.
+## components
 
-###system
-- `c` is an autocomplete shortcut to your projects directory. For example, `c
-  git` and then hitting tab will autocomplete to `github`, and then it simply
-  changes to my `github` directory.
-- `check [filename]` is a quick script that tells you whether a domain is
-  available to register.
-- `smartextract [filename]` will extract about a billion different
-  compressed/uncompressed/whatever files and you'll never have to remember the
-  syntax.
-- `backup` is a quick hook into `rsync` to backup a selection of files. Check
-  out the comments for more details.
+There's a few special files in the hierarchy.
 
-###fun
-- `cloudapp` uploads any file to [CloudApp](http://getcloudapp.com).
-- `gifme` is a command-line animated GIF generator. It's also amazing.
+- **bin/**: Anything in `bin/` will get added to your `$PATH` and be made
+  available everywhere.
+- **topic/\*.zsh**: Any files ending in `.zsh` get loaded into your
+  environment.
+- **topic/path.zsh**: Any file named `path.zsh` is loaded first and is
+  expected to setup `$PATH` or similar.
+- **topic/completion.zsh**: Any file named `completion.zsh` is loaded
+  last and is expected to setup autocomplete.
+- **topic/\*.symlink**: Any files ending in `*.symlink` get symlinked into
+  your `$HOME`. This is so you can keep all of those versioned in your dotfiles
+  but still keep those autoloaded files in your home directory. These get
+  symlinked in when you run `script/bootstrap`.
 
-##moar custom
-There are a few things I use to make my life awesome. They're not a required
-dependency, but if you make it happen, THEY'LL MAKE **YOU** HAPPEN.
+## bugs
 
-- If you want some more colors for things like `ls`, install grc: `brew install
-  grc`.
-- If you install the excellent [rvm](http://rvm.beginrescueend.com) to manage
-  multiple rubies, your current branch will show up in the prompt. Bonus.
+I want this to work for everyone; that means when you clone it down it should
+work for you even though you may not have `rbenv` installed, for example. That
+said, I do use this as *my* dotfiles, so there's a good chance I may break
+something if I forget to make a check for a dependency.
+
+If you're brand-new to the project and run into any blockers, please
+[open an issue](https://github.com/holman/dotfiles/issues) on this repository
+and I'd love to get it fixed for you!
 
 ## thanks
 
