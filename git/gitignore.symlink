@@ -11,3 +11,6 @@
 obj-*/
 configure
 .mozconfig*
+
+# tags
+tags
