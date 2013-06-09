@@ -52,6 +52,9 @@
 [submodule "vim/vim.symlink/bundle/vim-javascript"]
 	path = vim/vim.symlink/bundle/vim-javascript
 	url = https://github.com/pangloss/vim-javascript.git
+[submodule "vim/vim.symlink/bundle/vim-nerdtree-tabs"]
+	path = vim/vim.symlink/bundle/vim-nerdtree-tabs
+	url = https://github.com/jistr/vim-nerdtree-tabs.git
 [submodule "vim/vim.symlink/bundle/vim-liquid"]
 	path = vim/vim.symlink/bundle/vim-liquid
 	url = git://github.com/tpope/vim-liquid.git

@@ -1,6 +1,9 @@
 # ~/bin
 export PATH="$HOME/bin:$PATH"
 
+# z (aka build myself into myhome dir)
+export PATH="$HOME/z/bin:$PATH"
+
 # dotfiles bin
 export PATH="$ZSH/bin:$PATH"
 
