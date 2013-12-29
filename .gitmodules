@@ -97,3 +97,6 @@
 [submodule "vim/vim.symlink/bundle/vim-zenroom"]
 	path = vim/vim.symlink/bundle/vim-zenroom
 	url = https://github.com/amix/vim-zenroom.git
+[submodule "vim/vim.symlink/bundle/lite-dfm"]
+	path = vim/vim.symlink/bundle/lite-dfm
+	url = https://github.com/bilalq/lite-dfm.git
