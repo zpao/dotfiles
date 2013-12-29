@@ -82,3 +82,18 @@
 [submodule "vim/vim.symlink/bundle/powerline"]
 	path = vim/vim.symlink/bundle/powerline
 	url = https://github.com/Lokaltog/powerline.git
+[submodule "vim/vim.symlink/bundle/vim-sml"]
+	path = vim/vim.symlink/bundle/vim-sml
+	url = https://github.com/nhanb/vim-sml.git
+[submodule "vim/vim.symlink/bundle/vim-jst"]
+	path = vim/vim.symlink/bundle/vim-jst
+	url = https://github.com/briancollins/vim-jst.git
+[submodule "vim/vim.symlink/bundle/vim-jinja"]
+	path = vim/vim.symlink/bundle/vim-jinja
+	url = https://github.com/lepture/vim-jinja.git
+[submodule "vim/vim.symlink/bundle/mustache-mode"]
+	path = vim/vim.symlink/bundle/mustache-mode
+	url = https://github.com/mustache/vim-mode.git
+[submodule "vim/vim.symlink/bundle/vim-zenroom"]
+	path = vim/vim.symlink/bundle/vim-zenroom
+	url = https://github.com/amix/vim-zenroom.git
