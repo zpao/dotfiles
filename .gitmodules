@@ -36,7 +36,7 @@
 	url = git://github.com/tpope/vim-fugitive.git
 [submodule "vim/vim.symlink/bundle/vim-less"]
 	path = vim/vim.symlink/bundle/vim-less
-	url = https://github.com/groenewege/vim-less.git
+	url = git://github.com/groenewege/vim-less.git
 [submodule "vim/vim.symlink/bundle/vim-pasta"]
 	path = vim/vim.symlink/bundle/vim-pasta
 	url = git://github.com/sickill/vim-pasta.git
@@ -48,10 +48,10 @@
 	url = git://github.com/kien/ctrlp.vim.git
 [submodule "vim/vim.symlink/bundle/vim-javascript"]
 	path = vim/vim.symlink/bundle/vim-javascript
-	url = https://github.com/pangloss/vim-javascript.git
+	url = git://github.com/pangloss/vim-javascript.git
 [submodule "vim/vim.symlink/bundle/vim-nerdtree-tabs"]
 	path = vim/vim.symlink/bundle/vim-nerdtree-tabs
-	url = https://github.com/jistr/vim-nerdtree-tabs.git
+	url = git://github.com/jistr/vim-nerdtree-tabs.git
 [submodule "vim/vim.symlink/bundle/vim-liquid"]
 	path = vim/vim.symlink/bundle/vim-liquid
 	url = git://github.com/tpope/vim-liquid.git
@@ -72,31 +72,31 @@
 	url = git://github.com/garbas/vim-snipmate.git
 [submodule "vim/vim.symlink/bundle/tlib_vim"]
 	path = vim/vim.symlink/bundle/tlib_vim
-	url = https://github.com/tomtom/tlib_vim.git
+	url = git://github.com/tomtom/tlib_vim.git
 [submodule "vim/vim.symlink/bundle/vim-addon-mw-utils"]
 	path = vim/vim.symlink/bundle/vim-addon-mw-utils
-	url = https://github.com/MarcWeber/vim-addon-mw-utils.git
+	url = git://github.com/MarcWeber/vim-addon-mw-utils.git
 [submodule "vim/vim.symlink/bundle/vim-snippets"]
 	path = vim/vim.symlink/bundle/vim-snippets
-	url = https://github.com/honza/vim-snippets.git
+	url = git://github.com/honza/vim-snippets.git
 [submodule "vim/vim.symlink/bundle/powerline"]
 	path = vim/vim.symlink/bundle/powerline
-	url = https://github.com/Lokaltog/powerline.git
+	url = git://github.com/Lokaltog/powerline.git
 [submodule "vim/vim.symlink/bundle/vim-sml"]
 	path = vim/vim.symlink/bundle/vim-sml
-	url = https://github.com/nhanb/vim-sml.git
+	url = git://github.com/nhanb/vim-sml.git
 [submodule "vim/vim.symlink/bundle/vim-jst"]
 	path = vim/vim.symlink/bundle/vim-jst
-	url = https://github.com/briancollins/vim-jst.git
+	url = git://github.com/briancollins/vim-jst.git
 [submodule "vim/vim.symlink/bundle/vim-jinja"]
 	path = vim/vim.symlink/bundle/vim-jinja
-	url = https://github.com/lepture/vim-jinja.git
+	url = git://github.com/lepture/vim-jinja.git
 [submodule "vim/vim.symlink/bundle/mustache-mode"]
 	path = vim/vim.symlink/bundle/mustache-mode
-	url = https://github.com/mustache/vim-mode.git
+	url = git://github.com/mustache/vim-mode.git
 [submodule "vim/vim.symlink/bundle/vim-zenroom"]
 	path = vim/vim.symlink/bundle/vim-zenroom
-	url = https://github.com/amix/vim-zenroom.git
+	url = git://github.com/amix/vim-zenroom.git
 [submodule "vim/vim.symlink/bundle/lite-dfm"]
 	path = vim/vim.symlink/bundle/lite-dfm
-	url = https://github.com/bilalq/lite-dfm.git
+	url = git://github.com/bilalq/lite-dfm.git
