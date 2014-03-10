@@ -100,3 +100,6 @@
 [submodule "vim/vim.symlink/bundle/lite-dfm"]
 	path = vim/vim.symlink/bundle/lite-dfm
 	url = git://github.com/bilalq/lite-dfm.git
+[submodule "vim/vim.symlink/bundle/vim-jsx"]
+	path = vim/vim.symlink/bundle/vim-jsx
+	url = git@github.com:mxw/vim-jsx.git
