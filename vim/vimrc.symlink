@@ -16,7 +16,6 @@ NeoBundle 'bling/vim-airline'
 NeoBundle 'jordwalke/flatlandia'
 NeoBundle 'MarcWeber/vim-addon-mw-utils'
 NeoBundle 'Raimondi/delimitMate'
-NeoBundle 'amix/vim-zenroom'
 NeoBundle 'bilalq/lite-dfm'
 NeoBundle 'briancollins/vim-jst'
 NeoBundle 'digitaltoad/vim-jade'
@@ -32,7 +31,6 @@ NeoBundle 'kien/ctrlp.vim'
 NeoBundle 'lepture/vim-jinja'
 NeoBundle 'mustache/vim-mode'
 NeoBundle 'mxw/vim-jsx'
-NeoBundle 'nhanb/vim-sml'
 NeoBundle 'othree/html5.vim'
 NeoBundle 'pangloss/vim-javascript'
 NeoBundle 'scrooloose/nerdtree'
@@ -48,6 +46,7 @@ NeoBundle 'tpope/vim-rails'
 NeoBundle 'tpope/vim-surround'
 NeoBundle 'vim-scripts/bufexplorer.zip'
 NeoBundle 'wting/rust.vim'
+NeoBundle 'junegunn/goyo.vim'
 NeoBundleCheck
 
 " ----------------------------------------------------------------------------
@@ -232,4 +231,11 @@ vnoremap <C-l> :tabn<CR>
 " Nerd Tree Tabs (because I use tabs wrong)
 " ---------------------------------------------------------------------------
 map <leader>q :NERDTreeTabsToggle<CR>
+" focus file on startup, even if opening a directory
+let g:nerdtree_tabs_smart_startup_focus = 2
 
+
+" ---------------------------------------------------------------------------
+" Goyo
+" ---------------------------------------------------------------------------
+map <leader><space> :Goyo<CR>

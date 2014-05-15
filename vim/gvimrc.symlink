@@ -22,3 +22,7 @@ nmap <d-6> 6gt
 nmap <d-7> 7gt
 nmap <d-8> 8gt
 nmap <d-9> 9gt
+
+" NERDTreeTabs
+" don't open on startupa (already defaults to 0 on console)
+let g:nerdtree_tabs_open_on_gui_startup = 0
