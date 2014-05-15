@@ -97,3 +97,7 @@ defaults write com.apple.NetworkBrowser BrowseAllInterfaces 1
 
 # Change default screenshot save location
 defaults write com.apple.screencapture location ~/Pictures/Screenshots
+
+# Change the wake delay timeout
+# http://www.ewal.net/2012/09/09/slow-wake-for-macbook-pro-retina/
+pmset -a standbydelay 86400
