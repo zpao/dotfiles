@@ -232,4 +232,6 @@ vnoremap <C-l> :tabn<CR>
 " Nerd Tree Tabs (because I use tabs wrong)
 " ---------------------------------------------------------------------------
 map <leader>q :NERDTreeTabsToggle<CR>
+" focus file on startup, even if opening a directory
+let g:nerdtree_tabs_smart_startup_focus = 2
 
