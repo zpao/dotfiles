@@ -1,0 +1,27 @@
+{
+  "name": "flatland-dark",
+  "theme": "syntax",
+  "version": "0.1.2",
+  "private": true,
+  "description": "A Flatland Dark theme",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/michaelhelmick/flatland-dark"
+  },
+  "license": "MIT",
+  "engines": {
+    "atom": ">0.50.0"
+  },
+  "readme": "# Flatland Dark theme\n\nOriginally converted from the [TextMate](https://github.com/thinkpixellab/flatland/blob/master/Flatland%20Dark.tmTheme) theme using the [TextMate bundle converter](http://atom.io/docs/latest/converting-a-text-mate-theme)..\n\n![screenshot](https://i.imgur.com/Wzw1WWv.png)\n",
+  "readmeFilename": "README.md",
+  "bugs": {
+    "url": "https://github.com/michaelhelmick/flatland-dark/issues"
+  },
+  "homepage": "https://github.com/michaelhelmick/flatland-dark",
+  "_id": "flatland-dark@0.1.2",
+  "dist": {
+    "shasum": "1a5f94e40d8ca6c7353e1fcc17a573989f220038"
+  },
+  "_resolved": "/var/folders/4l/2t33zgh95xq846kj00sqcssmkcb8cg/T/d-114420-69368-n7koa2/package.tgz",
+  "_from": "/var/folders/4l/2t33zgh95xq846kj00sqcssmkcb8cg/T/d-114420-69368-n7koa2/package.tgz"
+}
