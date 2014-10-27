@@ -9,19 +9,36 @@
 [credential]
         helper = GIT_CREDENTIAL_HELPER
 [alias]
-        amend = commit --amend
+        # shortcuts (literally just to type less)
+        st = status
+        co = checkout
+
+        # more functionality
+        # add all files
+        all = add -A
+        # amend last commit and use last commit message
+        amend = commit --amend -C HEAD
+        # amend but open editor
+        amende = commit --amend
+        # what has changed on this branch
         brlog = log master..
         brdiff = branch-diff
-        co = checkout
-        promote = !$ZSH/bin/git-promote
-        wtf     = !$ZSH/bin/git-wtf
-        rank-contributors = !$ZSH/bin/git-rank-contributors
-        count   = !git shortlog -sn
+        # not terribly useful but interesting - count commits per person
+        count = shortlog -sn
+        # echo the current branch
+        current-branch = rev-parse --abbrev-ref HEAD
+        # log in tree format
         lg = log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --all
+        # what hasn't been pushed to origin
         out = log --branches --not --remotes=origin
-        st = status
+        # diff staging area
         staged = diff --staged
+        # unstage changes but leave intact
         unstage = reset HEAD
+        # push the current branch to origin, setting up a new remote branch and setting up tracking
+        promote = !git push -u origin `git current-branch`
+        # promote to upstream (my personal pattern for forking upstreams)
+        promoteu = !git push -u upstream `git current-branch`
 [color]
         diff = auto
         status = auto

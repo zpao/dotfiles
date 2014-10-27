@@ -1,0 +1,6 @@
+#!/bin/sh
+#
+# Cleanup branches merged to master. Essentially the same as `delete-local-merged`
+# TODO: pick 1
+
+git branch --merged master | grep -v "\* master" | xargs -n 1 git branch -d
