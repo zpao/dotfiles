@@ -1,0 +1,20 @@
+'global':
+  'welcome':
+    'showOnStartup': false
+  'editor':
+    'showIndentGuide': true
+    'softWrap': true
+    'fontFamily': 'Inconsolata-dz'
+    'lineHeight': 1.5
+    'fontSize': 12
+    'useHardwareAcceleration': false
+    'showInvisibles': true
+  'core':
+    'themes': [
+      'yosemite-unity-ui'
+      'wombat'
+    ]
+    'useReactEditor': true
+  'tree-view':
+    'hideVcsIgnoredFiles': true
+

@@ -2,7 +2,12 @@ autojump
 coreutils
 gist
 git
-graphicmagick
+graphicsmagick
 grc
+hub
 mercurial
+nvm
+rbenv
 spark
+tree
+wget
