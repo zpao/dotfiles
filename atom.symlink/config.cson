@@ -1,34 +1,20 @@
-'editor':
-  'showIndentGuide': true
-  'fontFamily': 'Menlo'
-  'fontSize': 15
-  'invisibles': {}
-'core':
-  'ignoredNames': [
-    '.bundle'
-    '.git'
-    'log'
-    'repositories'
-    'tmp'
-    'vendor'
-  ]
-  'themes': [
-    'unity-ui'
-    'glacier-syntax'
-  ]
-  'hideGitIgnoredFiles': true
-  'disabledPackages': [
-    'background-tips'
-    'exception-reporting'
-    'metrics'
-  ]
-'spell-check':
-  'grammars': [
-    'text.plain'
-    'source.gfm'
-    'text.git-commit'
-  ]
-'welcome':
-  'showOnStartup': false
-'release-notes':
-  'viewedVersion': '0.89.0'
+'global':
+  'welcome':
+    'showOnStartup': false
+  'editor':
+    'showIndentGuide': true
+    'softWrap': true
+    'fontFamily': 'Inconsolata-dz'
+    'lineHeight': 1.5
+    'fontSize': 12
+    'useHardwareAcceleration': false
+    'showInvisibles': true
+  'core':
+    'themes': [
+      'yosemite-unity-ui'
+      'wombat'
+    ]
+    'useReactEditor': true
+  'tree-view':
+    'hideVcsIgnoredFiles': true
+
