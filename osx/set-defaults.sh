@@ -20,7 +20,7 @@ defaults write NSGlobalDomain AppleKeyboardUIMode -int 3
 defaults write NSGlobalDomain ApplePressAndHoldEnabled -bool false
 
 # Set a really fast key repeat.
-defaults write NSGlobalDomain KeyRepeat -int 0
+# defaults write NSGlobalDomain KeyRepeat -int 0
 
 # Show all filename extensions in Finder
 defaults write NSGlobalDomain AppleShowAllExtensions -bool true
