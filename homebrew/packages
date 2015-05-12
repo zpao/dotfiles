@@ -1,9 +1,11 @@
 autojump
 coreutils
+figlet
 gist
 git
 graphicsmagick
 grc
+highlight
 hub
 mercurial
 nvm
