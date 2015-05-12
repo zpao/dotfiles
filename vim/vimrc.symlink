@@ -6,7 +6,7 @@ set nocompatible
 "  NeoBundle
 " ----------------------------------------------------------------------------
 set runtimepath+=~/.vim/bundle/neobundle.vim/
-call neobundle#rc(expand('~/.vim/bundle/'))
+call neobundle#begin(expand('~/.vim/bundle/'))
 
 " Let NeoBundle manage NeoBundle
 NeoBundleFetch 'Shougo/neobundle.vim'
@@ -43,16 +43,21 @@ NeoBundle 'tpope/vim-liquid'
 NeoBundle 'tpope/vim-markdown'
 NeoBundle 'tpope/vim-rails'
 NeoBundle 'tpope/vim-surround'
+NeoBundle 'tpope/vim-git'
 NeoBundle 'vim-scripts/bufexplorer.zip'
 NeoBundle 'wting/rust.vim'
 NeoBundle 'junegunn/goyo.vim'
 NeoBundle 'jordwalke/VimSplitBalancer'
+NeoBundle 'fatih/vim-go'
+NeoBundle 'leafgarland/typescript-vim'
+NeoBundle 'MartinLafreniere/vim-PairTools'
+" NeoBundle 'Valloric/YouCompleteMe'
 
 " Color bundles
 NeoBundle 'jordwalke/flatlandia'
 NeoBundle 'larssmit/vim-getafe'
 
-NeoBundleCheck
+call neobundle#end()
 
 " ----------------------------------------------------------------------------
 "  General Kung Fu
@@ -167,7 +172,7 @@ set nohlsearch             " don't highlight searches
 " ----------------------------------------------------------------------------
 
 let g:CommandTMaxFiles=100000
-set wildignore+=*.o,obj-ff-*/**,.git,.hg,node_modules
+set wildignore+=*.o,obj-ff-*/**,.git,.hg,node_modules,build/**
 
 
 " ---------------------------------------------------------------------------
@@ -246,6 +251,11 @@ let g:nerdtree_tabs_smart_startup_focus = 2
 map <leader><space> :Goyo<CR>
 
 " ---------------------------------------------------------------------------
+" Syntastic
+" ---------------------------------------------------------------------------
+let g:syntastic_javascript_checkers = ['eslint', 'jshint']
+
+" ---------------------------------------------------------------------------
 " Writing Mode
 " ---------------------------------------------------------------------------
 function! WritingMode()
@@ -262,3 +272,8 @@ function! WritingModeOff()
 endfunction
 map <leader>j :call WritingMode()<CR>
 map <leader>J :call WritingModeOff()<CR>
+
+" ---------------------------------------------------------------------------
+" More Neobundle at the end of everything
+" ---------------------------------------------------------------------------
+NeoBundleCheck
