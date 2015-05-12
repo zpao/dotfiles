@@ -1,20 +1,38 @@
-'global':
-  'welcome':
-    'showOnStartup': false
-  'editor':
-    'showIndentGuide': true
-    'softWrap': true
-    'fontFamily': 'Inconsolata-dz'
-    'lineHeight': 1.5
-    'fontSize': 12
-    'useHardwareAcceleration': false
-    'showInvisibles': true
-  'core':
-    'themes': [
-      'yosemite-unity-ui'
-      'wombat'
+"*":
+  welcome:
+    showOnStartup: false
+  editor:
+    fontFamily: "Inconsolata-dz"
+    fontSize: 12
+    showInvisibles: true
+    showIndentGuide: true
+    softWrap: true
+    invisibles: {}
+    scrollPastEnd: true
+    lineHeight: 1.5
+  core:
+    followSymlinks: true
+    themes: [
+      "atom-light-ui"
+      "one-light-syntax"
     ]
-    'useReactEditor': true
-  'tree-view':
-    'hideVcsIgnoredFiles': true
-
+  "tree-view":
+    hideVcsIgnoredFiles: true
+  "exception-reporting":
+    userId: "d315e297-f711-939e-05c1-de4ac1a4191e"
+  metrics:
+    userId: "d6fae20d4202703470b81281bd9b4d7b4ef68859"
+  linter: {}
+  react:
+    jsxTagStartPattern: "(?x)((^|=|return)\\s*<([^!/?](?!.+?(</.+?>))))"
+    jsxComplexAttributePattern: "(?x)\\{ [^}\"']* $|\\( [^)\"']* $"
+    decreaseIndentForNextLinePattern: "(?x) />\\s*(,|;)?\\s*$ | ^\\s*\\S+.*</[-_\\.A-Za-z0-9]+>$"
+  "graphite-ui":
+    syntaxThemeColoring: true
+  "atom-beautify":
+    _analyticsUserId: "f48ccd8c-b82f-4fbf-bb61-4e29de7a3348"
+  "vim-mode":
+    startInInsertMode: true
+    useClipboardAsDefaultRegister: true
+    useSmartcaseForSearch: true
+  "autocomplete-plus": {}
