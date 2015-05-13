@@ -1,0 +1,6 @@
+#!/bin/sh
+# For when you're an idiot and git git something, then it assumes you meant
+# git init something.
+# Thanks @jamessocol. https://twitter.com/jamessocol/status/586916405058138113
+
+git $@
