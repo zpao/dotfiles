@@ -1,10 +1,13 @@
 autojump
 coreutils
 figlet
+flow
 gist
 git
+git-extras
 graphicsmagick
 grc
+heroku-toolbelt
 highlight
 hub
 mercurial
@@ -12,4 +15,6 @@ nvm
 rbenv
 spark
 tree
+tree
 wget
+z

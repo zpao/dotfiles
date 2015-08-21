@@ -15,4 +15,11 @@ fi
 # Install homebrew packages
 brew install $(tr '\n' ' ' < $ZSH/homebrew/packages)
 
+# Explicitly install caskroom, don't include it in homebrew packages
+brew install caskroom/cask/brew-cask
+
+# Install casks and fonts
+brew cask install $(tr '\n' ' ' < $ZSH/homebrew/casks)
+brew cask install $(tr '\n' ' ' < $ZSH/homebrew/fonts)
+
 exit 0
