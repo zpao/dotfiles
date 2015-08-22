@@ -1,14 +1,16 @@
 {
   "name": "sort-lines",
   "main": "./lib/sort-lines",
-  "version": "0.6.0",
+  "version": "0.11.0",
   "description": "Sorts your lines. Never gets tired.",
-  "activationEvents": [
-    "sort-lines:sort",
-    "sort-lines:reverse-sort",
-    "sort-lines:unique",
-    "sort-lines:case-insensitive-sort"
-  ],
+  "activationCommands": {
+    "atom-text-editor": [
+      "sort-lines:sort",
+      "sort-lines:reverse-sort",
+      "sort-lines:unique",
+      "sort-lines:case-insensitive-sort"
+    ]
+  },
   "repository": {
     "type": "git",
     "url": "https://github.com/atom/sort-lines"
@@ -24,10 +26,22 @@
     "url": "https://github.com/atom/sort-lines/issues"
   },
   "homepage": "https://github.com/atom/sort-lines",
-  "_id": "sort-lines@0.6.0",
-  "dist": {
-    "shasum": "9d647985a87270597230f5acd5f2ea276a6972cb"
-  },
-  "_resolved": "/var/folders/jf/4nx5d51j4c1_s3s_gln6kjc00000gn/T/d-114426-15063-17qlx9u/package.tgz",
-  "_from": "/var/folders/jf/4nx5d51j4c1_s3s_gln6kjc00000gn/T/d-114426-15063-17qlx9u/package.tgz"
+  "_id": "sort-lines@0.11.0",
+  "_shasum": "66c825b24ebecec457dcfbdc6c1ca3270a93b79a",
+  "_resolved": "file:../d-115722-9287-ot7ci4/package.tgz",
+  "_from": "../d-115722-9287-ot7ci4/package.tgz",
+  "_atomModuleCache": {
+    "version": 1,
+    "dependencies": [],
+    "extensions": {
+      ".coffee": [
+        "lib/range-finder.coffee",
+        "lib/sort-lines.coffee"
+      ],
+      ".json": [
+        "package.json"
+      ]
+    },
+    "folders": []
+  }
 }

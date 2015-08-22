@@ -1,7 +1,7 @@
 {
   "name": "spacegray-dark-ui",
   "theme": "ui",
-  "version": "0.5.0",
+  "version": "0.12.0",
   "description": "Port of the Spacegray Sublime Text theme http://kkga.github.io/spacegray to Atom",
   "license": "MIT",
   "repository": {
@@ -17,10 +17,18 @@
     "url": "https://github.com/cannikin/spacegray-dark-ui/issues"
   },
   "homepage": "https://github.com/cannikin/spacegray-dark-ui",
-  "_id": "spacegray-dark-ui@0.5.0",
-  "dist": {
-    "shasum": "4d7b47155e0bfde313c18d8f77bddba7dc4df2b5"
-  },
-  "_resolved": "/var/folders/4l/2t33zgh95xq846kj00sqcssmkcb8cg/T/d-114415-15192-tr5eod/package.tgz",
-  "_from": "/var/folders/4l/2t33zgh95xq846kj00sqcssmkcb8cg/T/d-114415-15192-tr5eod/package.tgz"
+  "_id": "spacegray-dark-ui@0.12.0",
+  "_shasum": "459d6d6efa594b40b2eac66ebcca41dd77b32af8",
+  "_resolved": "file:../d-115722-9290-1e8xhq4/package.tgz",
+  "_from": "../d-115722-9290-1e8xhq4/package.tgz",
+  "_atomModuleCache": {
+    "version": 1,
+    "dependencies": [],
+    "extensions": {
+      ".json": [
+        "package.json"
+      ]
+    },
+    "folders": []
+  }
 }

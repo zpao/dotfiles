@@ -1,36 +1,49 @@
-'use strict';
-var Subscriber = require('emissary').Subscriber;
-var editorconfig = require('editorconfig');
-var plugin = module.exports;
-
-Subscriber.extend(plugin);
+'use babel';
+import editorconfig from 'editorconfig';
+import generateConfig from './commands/generate';
 
 function init(editor) {
+	generateConfig();
+
 	if (!editor) {
 		return;
 	}
 
-	var file = editor.getUri();
+	const file = editor.getURI();
 
 	if (!file) {
 		return;
 	}
 
-	var config = editorconfig.parse(file);
+	editorconfig.parse(file).then(config => {
+		if (Object.keys(config).length === 0) {
+			return;
+		}
 
-	if (Object.keys(config).length === 0) {
-		return;
-	}
+		const indentStyle = config.indent_style || (editor.getSoftTabs() ? 'space' : 'tab');
 
-	if (config.indent_style === 'space') {
-		editor.setTabLength(config.indent_size);
-	}
+		if (indentStyle === 'tab') {
+			editor.setSoftTabs(false);
 
-	if (config.indent_style) {
-		editor.setSoftTabs(config.indent_style === 'space');
-	}
+			if (config.tab_width) {
+				editor.setTabLength(config.tab_width);
+			}
+		} else if (indentStyle === 'space') {
+			editor.setSoftTabs(true);
+
+			if (config.indent_size) {
+				editor.setTabLength(config.indent_size);
+			}
+		}
+
+		if (config.charset) {
+			// EditorConfig charset names matches iconv charset names.
+			// Which is used by Atom. So no charset name convertion is needed.
+			editor.setEncoding(config.charset);
+		}
+	});
 }
 
-plugin.activate = function () {
-	atom.workspace.eachEditor(init);
+export const activate = () => {
+	atom.workspace.observeTextEditors(init);
 };

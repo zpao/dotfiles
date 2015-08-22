@@ -23,10 +23,6 @@
   metrics:
     userId: "d6fae20d4202703470b81281bd9b4d7b4ef68859"
   linter: {}
-  react:
-    jsxTagStartPattern: "(?x)((^|=|return)\\s*<([^!/?](?!.+?(</.+?>))))"
-    jsxComplexAttributePattern: "(?x)\\{ [^}\"']* $|\\( [^)\"']* $"
-    decreaseIndentForNextLinePattern: "(?x) />\\s*(,|;)?\\s*$ | ^\\s*\\S+.*</[-_\\.A-Za-z0-9]+>$"
   "graphite-ui":
     syntaxThemeColoring: true
   "atom-beautify":
@@ -36,3 +32,9 @@
     useClipboardAsDefaultRegister: true
     useSmartcaseForSearch: true
   "autocomplete-plus": {}
+"exception-reporting":
+  userId: "76dc0f6f-c333-1fa0-920d-fabedcb660df"
+welcome:
+  showOnStartup: false
+metrics:
+  userId: "4585015aba70ab5c29850f634d91a23884649fb8"

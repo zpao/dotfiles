@@ -1,7 +1,7 @@
 {
   "name": "fizzy",
   "theme": "syntax",
-  "version": "0.15.0",
+  "version": "0.16.0",
   "private": true,
   "description": "A light-hearted, bright and bubbly syntax theme featuring bright colors, and inspired by the Espresso default highlighting, and the Soda Sublime Text 2 theme.",
   "repository": {
@@ -23,10 +23,18 @@
     "url": "https://github.com/jglovier/fizzy/issues"
   },
   "homepage": "https://github.com/jglovier/fizzy",
-  "_id": "fizzy@0.15.0",
-  "dist": {
-    "shasum": "ce7fa41c30a75993306f4094083dbfe15b06941d"
-  },
-  "_resolved": "/var/folders/4l/2t33zgh95xq846kj00sqcssmkcb8cg/T/d-114415-15170-qmd56i/package.tgz",
-  "_from": "/var/folders/4l/2t33zgh95xq846kj00sqcssmkcb8cg/T/d-114415-15170-qmd56i/package.tgz"
+  "_id": "fizzy@0.16.0",
+  "_shasum": "db4323a173e7ed1830c4fd8a1f2ff66cc8478052",
+  "_resolved": "file:../d-115722-9220-19lk6jv/package.tgz",
+  "_from": "../d-115722-9220-19lk6jv/package.tgz",
+  "_atomModuleCache": {
+    "version": 1,
+    "dependencies": [],
+    "extensions": {
+      ".json": [
+        "package.json"
+      ]
+    },
+    "folders": []
+  }
 }

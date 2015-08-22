@@ -1,36 +1,36 @@
-{WorkspaceView} = require 'atom'
 
 describe "sorting lines", ->
   [activationPromise, editor, editorView] = []
 
   sortLines = (callback) ->
-    editorView.trigger "sort-lines:sort"
+    atom.commands.dispatch editorView, "sort-lines:sort"
     waitsForPromise -> activationPromise
     runs(callback)
 
   sortLinesReversed = (callback) ->
-    editorView.trigger "sort-lines:reverse-sort"
+    atom.commands.dispatch editorView, "sort-lines:reverse-sort"
     waitsForPromise -> activationPromise
     runs(callback)
 
   uniqueLines = (callback) ->
-    editorView.trigger "sort-lines:unique"
+    atom.commands.dispatch editorView, "sort-lines:unique"
     waitsForPromise -> activationPromise
     runs(callback)
 
   sortLineCaseInsensitive = (callback) ->
-    editorView.trigger "sort-lines:case-insensitive-sort"
+    atom.commands.dispatch editorView, "sort-lines:case-insensitive-sort"
     waitsForPromise -> activationPromise
     runs(callback)
 
   beforeEach ->
-    atom.workspaceView = new WorkspaceView
-    atom.workspaceView.openSync()
+    waitsForPromise ->
+      atom.workspace.open()
 
-    editorView = atom.workspaceView.getActiveView()
-    editor = editorView.getEditor()
+    runs ->
+      editor = atom.workspace.getActiveTextEditor()
+      editorView = atom.views.getView(editor)
 
-    activationPromise = atom.packages.activatePackage('sort-lines')
+      activationPromise = atom.packages.activatePackage('sort-lines')
 
   describe "when no lines are selected", ->
     it "sorts all lines", ->

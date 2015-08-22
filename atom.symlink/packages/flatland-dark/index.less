@@ -1,17 +1,21 @@
-.editor, .editor .gutter {
+atom-text-editor, atom-text-editor .gutter,
+:host, :host .gutter {
   background-color: #26292C;
   color: #F8F8F8;
 }
 
-.editor.is-focused .cursor {
+atom-text-editor.is-focused .cursor,
+:host(.is-focused) .cursor {
   border-color: #BBBCBD;
 }
 
-.editor.is-focused .selection .region {
+atom-text-editor.is-focused .selection .region,
+:host(.is-focused) .selection .region {
   background-color: #515559;
 }
 
-.editor.is-focused .line-number.cursor-line-no-selection, .editor.is-focused .line.cursor-line {
+atom-text-editor.is-focused .line-number.cursor-line-no-selection, atom-text-editor.is-focused .line.cursor-line,
+:host(.is-focused) .line-number.cursor-line-no-selection, :host(.is-focused) .line.cursor-line {
   background-color: #202325;
 }
 
@@ -129,66 +133,21 @@
 }
 
 .markup.deleted {
-  color: #EB939A;
   background-color: #D03620;
 }
 
 .markup.changed {
-  color: #72AACA;
   background-color: #C4B14A;
 }
 
 .markup.inserted {
-  color: #B7D877;
   background-color: #41A83E;
 }
 
-.markup.deleted.git_gutter {
-  color: #EB939A;
-}
-
-.markup.changed.git_gutter {
-  color: #72AACA;
-}
-
-.markup.inserted.git_gutter {
-  color: #B7D877;
-}
-
-.markup.ignored.git_gutter {
-  color: #798188;
-}
-
-.markup.untracked.git_gutter {
-  color: #798188;
-}
-
-.sublimelinter.outline.notes {
-  background-color: rgba(255, 255, 170, 0.31);
-}
-
-.sublimelinter.outline.illegal {
-  background-color: rgba(255, 74, 82, 0.31);
-}
-
-.sublimelinter.underline.illegal {
-  background-color: rgba(255, 0, 0, 0.31);
-}
-
-.sublimelinter.outline.warning {
-  background-color: rgba(223, 148, 0, 0.31);
-}
-
-.sublimelinter.underline.warning {
-  background-color: rgba(255, 0, 0, 0.31);
-}
-
-.sublimelinter.outline.violation {
-  background-color: rgba(255, 255, 255, 0.2);
-}
-
-.sublimelinter.underline.violation {
-  background-color: rgba(255, 0, 0, 0.31);
+atom-text-editor::shadow {
+  .markup.deleted.diff, .markup.changed.diff, .markup.inserted.diff {
+    color: #FFF;
+  }
 }
 
 .entity.other.attribute-name.id.html {
@@ -343,6 +302,24 @@
   -webkit-font-smoothing: auto;
 }
 
-.editor .indent-guide {
+atom-text-editor .indent-guide,
+:host .indent-guide {
     color: lighten(#26292C, 10%);
+}
+
+.invisible-character {
+  color: lighten(#26292C, 10%);
+}
+
+.wrap-guide {
+  background-color: lighten(#26292C, 10%);
+}
+
+atom-text-editor::shadow .highlight.find-result .region {
+  border: 1px lighten(#798188, 20%) solid;
+}
+
+atom-text-editor::shadow .highlight.current-result .region {
+  border: 1px #fff solid;
+  background: fade(#72aaca, 50%);
 }
