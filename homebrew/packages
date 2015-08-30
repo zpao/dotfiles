@@ -10,6 +10,7 @@ grc
 heroku-toolbelt
 highlight
 hub
+liquidprompt
 mercurial
 nvm
 rbenv
