@@ -2,19 +2,26 @@
   welcome:
     showOnStartup: false
   editor:
-    fontFamily: "Inconsolata-dz"
-    fontSize: 12
     showInvisibles: true
     showIndentGuide: true
     softWrap: true
     invisibles: {}
     scrollPastEnd: true
-    lineHeight: 1.5
+    fontFamily: "Inconsolata-dz"
+    fontSize: 11
   core:
     followSymlinks: true
     themes: [
-      "atom-light-ui"
-      "one-light-syntax"
+      "one-light-ui"
+      "flatland-dark"
+    ]
+    disabledPackages: [
+      "deprecation-cop"
+      "incompatible-packages"
+      "metrics"
+      "styleguide"
+      "timecop"
+      "tree-view"
     ]
   "tree-view":
     hideVcsIgnoredFiles: true
@@ -22,7 +29,13 @@
     userId: "d315e297-f711-939e-05c1-de4ac1a4191e"
   metrics:
     userId: "d6fae20d4202703470b81281bd9b4d7b4ef68859"
-  linter: {}
+  linter:
+    showErrorTabLine: true
+    statusIconScope: "File"
+  react:
+    jsxTagStartPattern: "(?x)((^|=|return)\\s*<([^!/?](?!.+?(</.+?>))))"
+    jsxComplexAttributePattern: "(?x)\\{ [^}\"']* $|\\( [^)\"']* $"
+    decreaseIndentForNextLinePattern: "(?x) />\\s*(,|;)?\\s*$ | ^\\s*\\S+.*</[-_\\.A-Za-z0-9]+>$"
   "graphite-ui":
     syntaxThemeColoring: true
   "atom-beautify":
@@ -32,9 +45,30 @@
     useClipboardAsDefaultRegister: true
     useSmartcaseForSearch: true
   "autocomplete-plus": {}
-"exception-reporting":
-  userId: "76dc0f6f-c333-1fa0-920d-fabedcb660df"
-welcome:
-  showOnStartup: false
-metrics:
-  userId: "4585015aba70ab5c29850f634d91a23884649fb8"
+  "linter-eslint":
+    disableWhenNoEslintrcFileInPath: true
+    eslintPath: "/Users/poshannessy/.nvm/v0.10.40/bin/eslint"
+  nuclide:
+    lastConnectionDetails:
+      config:
+        host: "our.poshannessy.sb.facebook.com"
+        sshPort: "22"
+        username: "poshannessy"
+        pathToPrivateKey: "/Users/poshannessy/.ssh/fb_id_rsa"
+        authMethod: "PRIVATE_KEY"
+        cwd: "/data/users/poshannessy/www-hg"
+        remoteServerCommand: "/home/engshare/devtools/nuclide/61/nuclide-start-server"
+        password: ""
+      lastOfficialRemoteServerCommand: "/home/engshare/devtools/nuclide/61/nuclide-start-server"
+    remoteProjectsConfig: []
+  "atom-typescript": {}
+  "unity-ui": {}
+  "one-light-ui":
+    fontSize: 10
+    layoutMode: "Compact"
+  "file-watcher":
+    promptWhenFileHasChangedOnDisk: false
+  minimap: {}
+  "language-babel":
+    transpileOnSave: false
+  "fb-nuclide-installer": {}
