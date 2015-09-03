@@ -1,4 +1,4 @@
-if (( $+commands[figlet] ))
+if (( $+commands[archey] ))
 then
-  figlet -l -w 120 -f big "ACCESS      GRANTED"
+  archey -c
 fi

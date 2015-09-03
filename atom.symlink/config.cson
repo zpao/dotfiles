@@ -71,3 +71,4 @@
   minimap: {}
   "language-babel":
     transpileOnSave: false
+  "fb-nuclide-installer": {}
