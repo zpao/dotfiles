@@ -14,7 +14,7 @@
 
 # Maximal value under which the battery level is displayed
 # Recommended value is 75
-LP_BATTERY_THRESHOLD=75
+LP_BATTERY_THRESHOLD=50
 
 # Minimal value after which the load average is displayed
 # Recommended value is 60
@@ -40,7 +40,7 @@ LP_HOSTNAME_ALWAYS=0
 # Do you want to display the user, even if he is the same than the logged one?
 # Defaults to 1 (always display the user)
 # set to 0 if you want to hide the logged user (it will always display different users)
-LP_USER_ALWAYS=1
+LP_USER_ALWAYS=0
 
 # Do you want to display the percentages of load/batteries along with their
 # corresponding marks? Set to 0 to only print the colored marks.
