@@ -12,8 +12,8 @@
   core:
     followSymlinks: true
     themes: [
-      "one-light-ui"
-      "flatland-dark"
+      "unity-ui"
+      "one-dark-syntax"
     ]
     disabledPackages: [
       "deprecation-cop"
@@ -22,6 +22,7 @@
       "styleguide"
       "timecop"
       "tree-view"
+      "fuzzy-finder"
     ]
   "tree-view":
     hideVcsIgnoredFiles: true
@@ -40,6 +41,13 @@
     syntaxThemeColoring: true
   "atom-beautify":
     _analyticsUserId: "f48ccd8c-b82f-4fbf-bb61-4e29de7a3348"
+    css_preserve_newlines: true
+    css_selector_separator_newline: true
+    css_newline_between_rules: true
+    html_end_with_newline: true
+    js_break_chained_methods: true
+    js_end_with_comma: true
+    js_end_with_newline: true
   "vim-mode":
     startInInsertMode: true
     useClipboardAsDefaultRegister: true
@@ -47,7 +55,6 @@
   "autocomplete-plus": {}
   "linter-eslint":
     disableWhenNoEslintrcFileInPath: true
-    eslintPath: "/Users/poshannessy/.nvm/v0.10.40/bin/eslint"
   nuclide:
     lastConnectionDetails:
       config:
@@ -62,7 +69,8 @@
       lastOfficialRemoteServerCommand: "/home/engshare/devtools/nuclide/61/nuclide-start-server"
     remoteProjectsConfig: []
   "atom-typescript": {}
-  "unity-ui": {}
+  "unity-ui":
+    showIcons: true
   "one-light-ui":
     fontSize: 10
     layoutMode: "Compact"
@@ -71,4 +79,13 @@
   minimap: {}
   "language-babel":
     transpileOnSave: false
-  "fb-nuclide-installer": {}
+  "fb-nuclide-installer":
+    enableSelfUpdate: true
+  "fb-health":
+    showKeyLatency: true
+  Zen: {}
+  "highlight-selected": {}
+  "merge-conflicts": {}
+  "fb-rating":
+    rating: 4
+  "atom-material-ui": {}
