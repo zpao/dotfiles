@@ -10,14 +10,14 @@
         helper = GIT_CREDENTIAL_HELPER
 [alias]
         # shortcuts (literally just to type less)
-        st = status
+        st = status -sb
         co = checkout
 
         # more functionality
         # add all files
         all = add -A
         # amend last commit and use last commit message
-        amend = commit --amend -C HEAD
+        amend = commit --amend --no-edit
         # amend but open editor
         amende = commit --amend
         # what has changed on this branch
