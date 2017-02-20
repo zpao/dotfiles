@@ -1,23 +1,18 @@
-# Sample gitconfig
-#
-
+# Local/private config goes in the include
+[include]
+        path = ~/.gitconfig.local
 [hub]
         protocol = https
-[user]
-        name = AUTHORNAME
-        email = AUTHOREMAIL
-[credential]
-        helper = GIT_CREDENTIAL_HELPER
 [alias]
         # shortcuts (literally just to type less)
-        st = status
+        st = status -sb
         co = checkout
 
         # more functionality
         # add all files
         all = add -A
         # amend last commit and use last commit message
-        amend = commit --amend -C HEAD
+        amend = commit --amend --no-edit
         # amend but open editor
         amende = commit --amend
         # what has changed on this branch
@@ -61,3 +56,9 @@
         #
         # Setting to git 2.0 default to suppress warning message
         default = simple
+[diff]
+        tool = !opendiff "$2" "$5" -merge "$1"
+[filter "lfs"]
+        clean = git-lfs clean %f
+        smudge = git-lfs smudge %f
+        required = true

@@ -16,19 +16,9 @@ then
     ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
   elif test "$(expr substr $(uname -s) 1 5)" = "Linux"
   then
-    ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/linuxbrew/go/install)"
+    ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Linuxbrew/install/master/install)"
   fi
-  
+
 fi
-
-# Install homebrew packages
-brew install $(tr '\n' ' ' < $ZSH/homebrew/packages)
-
-# Explicitly install caskroom, don't include it in homebrew packages
-brew install caskroom/cask/brew-cask
-
-# Install casks and fonts
-brew cask install $(tr '\n' ' ' < $ZSH/homebrew/casks)
-brew cask install $(tr '\n' ' ' < $ZSH/homebrew/fonts)
 
 exit 0

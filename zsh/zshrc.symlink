@@ -1,3 +1,6 @@
+export LC_ALL=en_US.UTF-8
+export LANG=en_US.UTF-8
+
 # shortcut to this dotfiles path is $ZSH
 export ZSH=$HOME/.dotfiles
 
@@ -42,3 +45,9 @@ do
 done
 
 unset config_files
+
+# added by travis gem
+[ -f /Users/poshannessy/.travis/travis.sh ] && source /Users/poshannessy/.travis/travis.sh
+
+# OPAM configuration
+. /Users/poshannessy/.opam/opam-init/init.zsh > /dev/null 2> /dev/null || true
