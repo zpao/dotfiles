@@ -33,7 +33,7 @@ brew 'wget'
 brew 'z'
 
 cask 'alfred'
-cask 'antirsi'
+cask 'atom'
 cask 'bartender'
 cask 'capsee'
 cask 'cloudup'
@@ -57,11 +57,12 @@ cask 'imageoptim'
 cask 'istat-menus'
 cask 'karabiner-elements'
 cask 'limechat'
+cask 'macvim'
 cask 'mplayerx'
-cask 'noizio'
 cask 'pg-commander'
 cask 'postbox'
 cask 'postgres'
+cask 'rescuetime'
 cask 'rowanj-gitx'
 cask 'skype'
 cask 'spectacle'
@@ -84,3 +85,5 @@ mas 'Xcode', id: 497799835
 mas 'Amphetamine', id: 937984704
 mas 'Slack', id: 803453959
 mas 'iA Writer', id: 775737590
+mas 'AntiRSI', id: 442007571
+mas 'Noizio', id: 928871589
