@@ -1,0 +1,3 @@
+#!/bin/sh
+
+git cherry-pick -x $1 ||git cherry-pick -x -m1 $1
