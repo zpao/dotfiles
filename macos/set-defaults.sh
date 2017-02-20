@@ -1,9 +1,9 @@
-# Sets reasonable OS X defaults.
+# Sets reasonable macOS defaults.
 #
-# Or, in other words, set shit how I like in OS X.
+# Or, in other words, set shit how I like in macOS.
 #
 # The original idea (and a couple settings) were grabbed from:
-#   https://github.com/mathiasbynens/dotfiles/blob/master/.osx
+#   https://github.com/mathiasbynens/dotfiles/blob/master/.macos
 #
 # Run ./set-defaults.sh and you'll be good to go.
 
@@ -53,6 +53,7 @@ chflags nohidden ~/Library
 
 # Enable the 2D Dock
 defaults write com.apple.dock no-glass -bool true
+=======
 
 # Automatically hide and show the Dock
 defaults write com.apple.dock autohide -bool true

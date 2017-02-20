@@ -1,13 +1,8 @@
-# Sample gitconfig
-#
-
+# Local/private config goes in the include
+[include]
+        path = ~/.gitconfig.local
 [hub]
         protocol = https
-[user]
-        name = AUTHORNAME
-        email = AUTHOREMAIL
-[credential]
-        helper = GIT_CREDENTIAL_HELPER
 [alias]
         # shortcuts (literally just to type less)
         st = status -sb
@@ -61,3 +56,11 @@
         #
         # Setting to git 2.0 default to suppress warning message
         default = simple
+[credential]
+        helper = osxkeychain
+[diff]
+        tool = !opendiff "$2" "$5" -merge "$1"
+[filter "lfs"]
+        clean = git-lfs clean %f
+        smudge = git-lfs smudge %f
+        required = true
