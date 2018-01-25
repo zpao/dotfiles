@@ -5,6 +5,11 @@ set nocompatible
 " ----------------------------------------------------------------------------
 "  NeoBundle
 " ----------------------------------------------------------------------------
+
+if &shell =~# 'fish$'
+  set shell=sh
+endif
+
 set runtimepath+=~/.vim/bundle/neobundle.vim/
 call neobundle#begin(expand('~/.vim/bundle/'))
 
@@ -62,6 +67,7 @@ NeoBundle 'fatih/vim-go'
 NeoBundle 'leafgarland/typescript-vim'
 NeoBundle 'MartinLafreniere/vim-PairTools'
 " NeoBundle 'Valloric/YouCompleteMe'
+NeoBundle 'dag/vim-fish'
 
 " Color bundles
 NeoBundle 'jordwalke/flatlandia'
