@@ -1,3 +1,3 @@
 # add homebrew installed functions
 
-fpath=('/usr/local/share/zsh/site-functions' $fpath)
+fpath=('$HOME/homebrew/share/zsh/site-functions' $fpath)

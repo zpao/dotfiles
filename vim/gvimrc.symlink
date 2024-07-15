@@ -1,6 +1,7 @@
 colorscheme flatlandia
 " set gfn=Inconsolata-dz:h10.00
-set guifont=Fira\ Code:h12
+" set guifont=Fira\ Code:h12
+set guifont=Ubuntu\ Mono:h14
 set linespace=1
 set anti
 set lines=999 columns=90
