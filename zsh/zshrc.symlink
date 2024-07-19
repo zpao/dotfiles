@@ -4,11 +4,10 @@ export LANG=en_US.UTF-8
 # shortcut to this dotfiles path is $ZSH
 export ZSH=$HOME/dotfiles
 
+export DOTFILES=$HOME/dotfiles
+
 # your project folder that we can `c [tab]` to
 export PROJECTS=~/Code
-
-# your mozilla folder that we can `m [tab]` to
-export MOZILLA=~/Mozilla
 
 # Stash your environment variables in ~/.localrc. This means they'll stay out
 # of your main dotfiles repository (which may be public, like this one), but
@@ -18,36 +17,43 @@ then
   source ~/.localrc
 fi
 
-# all of our zsh files
-typeset -U config_files
-config_files=($ZSH/**/*.zsh)
+if [[ ! -f ~/.zpm/zpm.zsh ]]; then
+  git clone --recursive https://github.com/zpm-zsh/zpm ~/.zpm
+fi
+source ~/.zpm/zpm.zsh
 
-# load the path files
-for file in ${(M)config_files:#*/path.zsh}
-do
-  source $file
-done
+### VSCode
+zpm if vscode load zpm-zsh/vscode
 
-# load everything but the path and completion files
-for file in ${${config_files:#*/path.zsh}:#*/completion.zsh}
-do
-  source $file
-done
+### iTerm2
+zpm if iterm load zpm-zsh/iterm
 
-# initialize autocomplete here, otherwise functions won't be loaded
-autoload -U compinit
-compinit
 
-# load every completion after autocomplete loads
-for file in ${(M)config_files:#*/completion.zsh}
-do
-  source $file
-done
+# Load homebrew first since it adds to $PATH for lots of other uses
+zpm load @dir/homebrew,origin:$DOTFILES/homebrew/plugin
 
-unset config_files
+# TODO fix ll alias. missing -a
+zpm load \
+    zpm-zsh/core-config \
+    @dir/core-config-local,origin:$DOTFILES/system/core-config-local-plugin \
+    @dir/colorize,origin:$DOTFILES/system/colorize-plugin \
+    zpm-zsh/ssh,async \
+    zpm-zsh/undollar,async
 
-# added by travis gem
-[ -f /Users/poshannessy/.travis/travis.sh ] && source /Users/poshannessy/.travis/travis.sh
-
-# OPAM configuration
-. /Users/poshannessy/.opam/opam-init/init.zsh > /dev/null 2> /dev/null || true
+### Plugins for local host
+zpm if-not ssh load \
+    @dir/conda,origin:$DOTFILES/conda/plugin \
+    @dir/fb,origin:$DOTFILES/fb/plugin \
+    @dir/gist,origin:$DOTFILES/gist/plugin \
+    @dir/git,origin:$DOTFILES/git/plugin \
+    @dir/go,origin:$DOTFILES/go/plugin \
+    @dir/ocaml,origin:$DOTFILES/ocaml/plugin \
+    @dir/pnpm,origin:$DOTFILES/pnpm/plugin \
+    @dir/rbenv,origin:$DOTFILES/rbenv/plugin \
+    @dir/starship,origin:$DOTFILES/starship/plugin \
+    @dir/banner,origin:$DOTFILES/system/banner-plugin \
+    zpm-zsh/colorize,async \
+    zpm-zsh/clipboard,async \
+    zpm-zsh/nvm,async \
+    zpm-zsh/rust,async \
+    zpm-zsh/zsh-history-substring-search,async
