@@ -17,3 +17,4 @@ git/gitconfig.local.symlink
 
 # compiled plugin files
 *.zwc
+vim/vim.symlink/plugged
