@@ -22,6 +22,7 @@
         count = shortlog -sn
         # echo the current branch
         current-branch = rev-parse --abbrev-ref HEAD
+        default-branch = !git remote show origin | sed -n '/HEAD branch/s/.*: //p'
         # log in tree format
         lg = log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --all
         # what hasn't been pushed to origin

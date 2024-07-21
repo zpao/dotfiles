@@ -3,4 +3,5 @@
 # This will create a diff from the last point that master was merged into the
 # currently checked out branch.
 # This is essentially equivalent to hg pdiff.
-git diff `git merge-base HEAD main` $1
+$base = git remote show origin | sed -n '/HEAD branch/s/.*: //p'
+git diff `git merge-base HEAD $base` $1
