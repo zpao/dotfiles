@@ -1,1 +1,0 @@
-hg prompt --angle-brackets "[<branch|quiet><patches|hide_unapplied|join( → )><status>]" 2>/dev/null

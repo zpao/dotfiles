@@ -29,21 +29,21 @@ filemerge.args = $local $other -ancestor $base -merge $output
 post-push = hg phase --force --draft "mq()"
 
 [extensions]
-hgext.mq =
-hgext.rebase =
-hgext.purge =
-hgext.extdiff =
-hgext.convert =
-hgext.graphlog =
-hgext.bookmarks =
+mq =
+rebase =
+purge =
+extdiff =
+convert =
+graphlog =
+bookmarks =
 color =
-hgext.pager =
+# hgext.pager =
 #qimportbz = ~/.hgext/qimportbz
 #crecord = ~/.hgext/crecord/crecord
 #hggit = ~/.hgext/hg-git/hggit
 #hgext.pbranch = ~/.hgext/hg-pbranch/hgext/pbranch.py
 #prompt = ~/.hgext/hg-prompt/prompt.py
-transplant =
+# transplant =
 
 [transplant]
 # hg-transplant points to an executable in $PATH

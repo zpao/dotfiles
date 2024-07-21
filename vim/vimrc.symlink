@@ -72,6 +72,7 @@ NeoBundle 'dag/vim-fish'
 " Color bundles
 NeoBundle 'jordwalke/flatlandia'
 NeoBundle 'larssmit/vim-getafe'
+NeoBundle 'dracula/vim'
 
 call neobundle#end()
 
@@ -224,7 +225,8 @@ map <leader>w :vs<CR><C-w>l
 if !has("gui_running")
   set mouse=a              " use the mouse like a rookie
   set t_Co=256             " make sure that colors look right in screen
-  colorscheme wombat256mod
+  " colorscheme wombat256mod
+  colorscheme dracula
 endif
 
 

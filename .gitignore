@@ -14,3 +14,6 @@ atom.symlink/blob-store
 atom.symlink/recovery
 
 git/gitconfig.local.symlink
+
+# compiled plugin files
+*.zwc
