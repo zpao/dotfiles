@@ -55,7 +55,6 @@ zpm if-not ssh load \
     @dir/pnpm,origin:$DOTFILES/pnpm/plugin \
     @dir/rbenv,origin:$DOTFILES/rbenv/plugin \
     @dir/starship,origin:$DOTFILES/starship/plugin \
-    @dir/banner,origin:$DOTFILES/system/banner-plugin \
     zpm-zsh/colorize,async \
     zpm-zsh/clipboard,async \
     zpm-zsh/nvm,async \
