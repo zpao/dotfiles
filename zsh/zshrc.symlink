@@ -1,3 +1,7 @@
+if [ -n "${ZSH_DEBUGRC+1}" ]; then
+    zmodload zsh/zprof
+fi
+
 export LC_ALL=en_US.UTF-8
 export LANG=en_US.UTF-8
 
@@ -57,3 +61,7 @@ zpm if-not ssh load \
     zpm-zsh/nvm,async \
     zpm-zsh/rust,async \
     zpm-zsh/zsh-history-substring-search,async
+
+if [ -n "${ZSH_DEBUGRC+1}" ]; then
+    zprof
+fi
