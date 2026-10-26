@@ -1,4 +1,4 @@
 if (( $+commands[archey] ))
 then
-  archey
+  archey -c -o
 fi
