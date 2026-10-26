@@ -52,6 +52,7 @@ zpm if-not ssh load \
     @dir/gist,origin:$DOTFILES/gist/plugin \
     @dir/git,origin:$DOTFILES/git/plugin \
     @dir/go,origin:$DOTFILES/go/plugin \
+    @dir/mise,origin:$DOTFILES/mise/plugin \
     @dir/ocaml,origin:$DOTFILES/ocaml/plugin \
     @dir/pnpm,origin:$DOTFILES/pnpm/plugin \
     @dir/rbenv,origin:$DOTFILES/rbenv/plugin \
