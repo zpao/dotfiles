@@ -21,10 +21,11 @@ then
   source ~/.localrc
 fi
 
-if [[ ! -f ~/.zpm/zpm.zsh ]]; then
-  git clone --recursive https://github.com/zpm-zsh/zpm ~/.zpm
+ZPM_DIR="${XDG_DATA_HOME:-$HOME/.local/share}/zsh/plugins/@zpm"
+if [[ ! -f "${ZPM_DIR}/zpm.zsh" ]]; then
+  git clone --recursive https://github.com/zpm-zsh/zpm "${ZPM_DIR}"
 fi
-source ~/.zpm/zpm.zsh
+source "${ZPM_DIR}/zpm.zsh"
 
 ### VSCode
 zpm if vscode load zpm-zsh/vscode
