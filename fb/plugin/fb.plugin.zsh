@@ -1,1 +1,0 @@
-alias fb="ssh fbdev"

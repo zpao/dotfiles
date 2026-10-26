@@ -48,7 +48,6 @@ zpm load \
 ### Plugins for local host
 zpm if-not ssh load \
     @dir/conda,origin:$DOTFILES/conda/plugin \
-    @dir/fb,origin:$DOTFILES/fb/plugin \
     @dir/gist,origin:$DOTFILES/gist/plugin \
     @dir/git,origin:$DOTFILES/git/plugin \
     @dir/go,origin:$DOTFILES/go/plugin \
