@@ -35,6 +35,8 @@
         promote = !git push -u origin `git current-branch`
         # promote to upstream (my personal pattern for forking upstreams)
         promoteu = !git push -u upstream `git current-branch`
+        ls-untracked-branches = !git branch -r | awk '{print $1}' | egrep -v -f /dev/fd/0 <(git branch -vv | grep origin) | awk '{print $1}'
+        rm-untracked-branches = !git ls-untracked-branches | xargs git branch -D
 [color]
         diff = auto
         status = auto

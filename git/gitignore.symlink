@@ -15,3 +15,5 @@ configure
 tags
 
 .zed/
+
+**/.claude/settings.local.json
