@@ -1,7 +1,0 @@
-syntax: re
-
-^tut/build/
-^hg
-^mercurial
-^hgext
-

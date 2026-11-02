@@ -1,3 +1,0 @@
-<div class="nav crumbs">
-	<%= bc = breadcrumbs(' &gt; '); bc + ' &gt; ' unless bc == '' %>
-</div>
