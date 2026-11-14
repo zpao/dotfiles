@@ -6,9 +6,11 @@ export LC_ALL=en_US.UTF-8
 export LANG=en_US.UTF-8
 
 # shortcut to this dotfiles path is $ZSH
-export ZSH=$HOME/.dotfiles
+# Resolve via symlink target of $HOME/.zshrc, then go up to repo root
+export ZSH=${$(readlink $HOME/.zshrc):h:h}
 
-export DOTFILES=$HOME/.dotfiles
+# Keep $DOTFILES aligned with $ZSH for existing plugin/config references
+export DOTFILES=$ZSH
 
 # your project folder that we can `c [tab]` to
 export PROJECTS=~/Code
